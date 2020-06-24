@@ -1,209 +1,198 @@
-import Head from 'next/head'
 
-export default function Home() {
-  return (
-    <div className="container">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+import React, { Component } from 'react'
+import PlayerCard from "../components/PlayerCard"
+import AddPlayerCard from "../components/AddPlayerCard"
+import TourneyCard from "../components/TourneyCard"
+import TourneyInfo from "../components/TourneyInfo"
 
-      <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+export class Home extends Component {
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
 
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+  static async getInitialProps() {
+    const res1 = await fetch('http://localhost:3000/api/tournaments', {method: "GET"})
+    const tArray = await res1.json()
 
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+    const res2 = await fetch('http://localhost:3000/api/free-agents', {method: "GET"})
+    const pArray = await res2.json()
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+    return { tournamentsArray : tArray, playersArray : pArray }
+  }
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+  constructor(props) {
+    super(props);
+    this.state = {
+      tournaments : this.props.tournamentsArray,
+      players : this.props.playersArray,
+      displayInfo: false,
+      displayPlayers: false,
+      addPlayerForm: false,
+      divisionSelect: "all",
+      selectedTournament: null
+    };
+  }
+
+
+
+  selectTourney = (e, id) =>{
+    const target = e.currentTarget;
+    const tCards = document.getElementsByClassName('tourney-card')
+
+    for (let card of tCards) {
+      if(card != target){
+        card.classList.add("hidden");
+      }
+    }
+
+    const selected = this.state.tournaments.find((tournament) => tournament.id == id)
+
+    this.setState({selectedTournament: selected})
+    this.setState({displayInfo: true})
+  }
+
+  togglePlayerDisplay = (e) => {
+    if(this.state.addPlayerForm == true){
+      this.toggleAddPlayerForm()
+
+    }
+
+    this.setState({displayPlayers: !this.state.displayPlayers}, () =>{
+        document.getElementsByClassName('player-container')[0].classList.toggle("players-fullheight");
+        document.getElementsByClassName('arrow')[0].classList.toggle("visibile");
+        
+        let canScrollTo = document.getElementsByClassName("canScrollTo")[0];
+        canScrollTo.classList.toggle("visible")
+        if(this.state.displayPlayers){
+          canScrollTo.scrollIntoView(true)
+        }
+
+      }
+    )
+
+
+  }
+
+  updateDivision = (e) => {
+    this.setState({divisionSelect: e.target.value})
+  }
+
+  closeInfo = (e) => {
+    let cards = document.getElementsByClassName("tourney-card")
+
+    for(let card of cards){
+      card.classList.remove("hidden")
+
+    }
+
+    document.getElementsByClassName('player-container')[0].classList.remove("players-fullheight")
+    setTimeout(() => document.getElementsByClassName("canScrollTo")[0].classList.remove("visible"), 500);
+
+    this.setState({selectedTournament: null})
+    this.setState({displayInfo: false})
+    this.setState({displayPlayers: false})
+  }
+
+  toggleAddPlayerForm = () => {
+    document.getElementById("addPlayer").classList.toggle("add-player")
+    document.getElementById("addPlayer").classList.toggle("add-player-form")
+    this.setState({addPlayerForm: !this.state.addPlayerForm})
+  }
+
+  submitPlayer = async () => {
+    const inputFields = document.getElementsByClassName("add-player-input");
+    const newPlayer = {
+      name: inputFields[0].value,
+      division: inputFields[1].value,
+      selfDesc: inputFields[2].value,
+      tournamentId: this.state.selectedTournament.id
+    }
+
+    await fetch('http://localhost:3000/api/free-agents', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newPlayer),
+    })
+
+    this.setState((prevState) => ({players: [...prevState.players, newPlayer]}))
+
+    this.toggleAddPlayerForm()
+  }
+
+  render() {
+
+    let tourneyInfo = null;
+    let playerCards = null;
+
+    if(this.state.displayInfo){
+      tourneyInfo = (<TourneyInfo tournament = {this.state.selectedTournament} togglePlayerDisplay = {this.togglePlayerDisplay} closeInfo = {this.closeInfo}/>)
+    }
+
+    if(this.state.displayPlayers){
+      console.log('rerendered player display')
+      //const divisionSelect = document.getElementById("divisionSelector")
+
+      //filter out free agents not attending this tournament
+      let players = this.state.players.filter((player) => player.tournamentId == this.state.selectedTournament.id)
+      //filter out free agents in the wrong division
+      if(this.state.divisionSelect != "all"){
+        players = players.filter((player) => player.division == this.state.divisionSelect)
+      }
+
+      console.log(players)
+
+      //return a player card for each free agent attending this tournament 
+      playerCards = (
+        <div className = "card-container grid">
+          <AddPlayerCard onClick = {this.toggleAddPlayerForm} submit = {this.submitPlayer} formOpen = {this.state.addPlayerForm}/>
+          {players.map((player) =>{
+            return (<PlayerCard player = {player}/>)
+          })}
         </div>
-      </main>
+      )
+    }
 
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
+    return (
+      <>
+        <div className = "content">
+          <h1 className = "cont-title">Upcoming Tournaments </h1>
+          <button className = "new-tournament button-invert">Add New</button>
+          <div className = "main">
+            <div className="container container-shadow">
+              <div className = "grid">
+                <TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[0]}/>
+                <TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[1]}/>
+                <TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[1]}/>
+                {tourneyInfo}
+              </div>
+            </div>
+            <div className =  "arrow"></div>
+            <div className = "canScrollTo">
+              <div className = 'container player-container' id = "playerContainer">
+                <div style = {{width: 'fit-content', margin:'auto'}}>
+                  <span className = "division-label">Division: </span>
+                  <select id = "divisionSelector" onChange = {this.updateDivision}>
+                    <option value = "all">All Divisions</option>
+                    {this.state.selectedTournament ? 
+                        this.state.selectedTournament.divisions.map((division) => {
+                            return (<option value = {division}> {division}</option>)
+                        }) 
+                        : ""}
+                  </select>
+                </div>
+                {playerCards}
+              </div>
+            </div>
+          </div>
 
-      <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
 
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
+        </div>
 
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer img {
-          margin-left: 0.5rem;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
-
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
-        .title {
-          margin: 0;
-          line-height: 1.15;
-          font-size: 4rem;
-        }
-
-        .title,
-        .description {
-          text-align: center;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-        }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        .card {
-          margin: 1rem;
-          flex-basis: 45%;
-          padding: 1.5rem;
-          text-align: left;
-          color: inherit;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .card:hover,
-        .card:focus,
-        .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
-        }
-
-        .card h3 {
-          margin: 0 0 1rem 0;
-          font-size: 1.5rem;
-        }
-
-        .card p {
-          margin: 0;
-          font-size: 1.25rem;
-          line-height: 1.5;
-        }
-
-        .logo {
-          height: 1em;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </div>
-  )
+      </>
+    )
+  
+  }
 }
+
+export default Home
+

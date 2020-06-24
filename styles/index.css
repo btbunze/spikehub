@@ -1,0 +1,506 @@
+:root{
+    --yellow : rgba(249, 213, 44, 1)
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    min-height:100vh;
+    margin:0px;
+    background: #e5e5e5 url("../public/rep-dot.png");
+    background-size:90px 90px;
+
+}
+
+
+
+h1{
+    color:#333;
+    margin-top:0px;
+    margin-bottom:20px;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+h2{
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color:#333;
+}
+
+h3{
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color:#333;
+}
+
+p{
+    color: #333;
+}
+
+span{
+    color: #333;
+}
+
+button{
+    background-color: #EA5E3D;
+    border:none;
+    color:white;
+    transition: .2s;
+}
+
+.button-invert{
+    background-color:#3DEBAC;
+    color:black;
+}
+
+button:hover{
+    transform:scale(1.05)
+}
+
+/*header*/
+
+.header{
+    height:500px;
+
+    background: #e5e5e5 url("../public/rep-dot.png");
+    background-size:90px 90px;
+    background-color:#EA5E3D;
+
+    margin-bottom:20px;
+    width:100%;
+
+    filter:drop-shadow(0px 2px 2px rgba(0,0,0, .2));
+    clip-path: polygon(0 0, 100% 0%, 100% calc(100% - 100px), 0 100%);
+}
+/*
+.color-overlay{
+    background-color:rgba(255, 198, 0, .8);
+    width:100%;
+    height:100%;
+    padding: 5px 0px 10px 0px;
+}*/
+
+.title{
+    text-align:center;
+    color:#fff;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size:70px;
+    padding:30px;
+    padding-bottom:0px;
+    filter: drop-shadow(2px 2px 2px rgba(0,0,0,.3));
+    margin-bottom:0px;
+
+}
+
+.title::before{
+    content: " ";
+    width: 350px;
+    height: 3px;
+    display:block;
+    margin:auto;
+    background-color:#fff;
+    filter:none;
+}
+
+.title::after{
+    content: " ";
+    position:relative;
+    top:5.5px;
+    width: 350px;
+    height: 3px;
+    display:block;
+    margin:auto;
+    background-color:#fff;
+    filter:none;
+}
+
+.subtitle{
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size:20px;
+    color:white;
+    text-align:center;
+    filter: drop-shadow(1px 1px 2px rgba(0,0,0,.3));
+}
+
+
+/*footer*/
+
+.footer{
+    height:20px;
+    margin-top:20px;
+    width:100%;
+}
+
+
+/*index*/
+
+.cont-title{
+    padding-left:15px;
+    display:inline-block;
+    padding-right:15px;
+    padding-top:5px;
+    padding-bottom:5px;
+    font-size:18px;
+    color: #fff;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    filter: drop-shadow(1px 1px 2px rgba(0,0,0,.3));
+}
+
+.new-tournament{
+    display:inline-block;
+    background-color:black;
+    color:white;
+    border-radius:5px;
+    height:28px;
+    width:80px;
+}
+
+.content{
+    max-width:1000px;
+    position:relative;
+    top: -300px;
+    margin:auto;
+
+}
+
+.main{
+}
+
+.container{
+    position:relative;
+    height: 360px;
+    background-color:#fff;
+    padding:20px;
+    overflow-x:auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    box-shadow: 0px 0px 10px rgba(0,0, 0,.3);
+
+}
+
+.container-shadow{
+    /*filter:drop-shadow(0px 1px 4px rgba(0,0,0,.2));
+    z-index:1;*/
+}
+
+/*triangle*/
+ .arrow{
+    content: "";
+    position:relative;
+    color:white;
+    background-color:none;
+    border-top: 20px solid; 
+    border-left: 20px solid transparent;
+    border-right:20px solid transparent;
+    width:0px;
+    height:0px;
+    bottom: 0px;
+    z-index:2;
+    left:50%;
+    transform: translateX(-20px);
+    filter: drop-shadow(0px 5px 3px rgba(0,0,0,.2));
+
+} 
+
+.division-label{
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bolder;
+    color: #EA5E3D;
+}
+
+.grid{
+    position:relative;
+    width:100%;
+    height:100%;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.player-container{
+    height:800px;
+    height:0px;
+    padding:0px;
+    transition: height .5s;
+    background:transparent;
+    box-shadow:none;
+}
+
+.card-container{
+    height:100%;
+    grid-column:span
+}
+
+
+
+
+
+/*TourneyCard*/
+
+.tourney-card{
+    width:80%;
+    height:300px;
+    margin:auto;
+    background-color:white;
+    display:inline-flex;
+    flex-direction:column;
+    padding:10px;
+    transition: all .2s
+}
+
+.tourney-card:hover{
+    transform:scale(1.05);
+    background-color: #EA5E3D;
+}
+
+.tourney-card:hover h2{
+    color:white;
+}
+
+.tourney-card:hover span{
+    color:white;
+}
+
+.img-container{
+    width:100%;
+    flex:5;
+    background-color:#D5D5D5;
+    display:flex;
+}
+
+.tourney-infobar{
+    display:flex;
+    width:100%;
+    flex:1;
+}
+
+.tourney-img{
+    margin:auto;
+    width:100%;
+}
+
+.infobar-left{
+    flex:3;
+    height:100%;
+}
+.infobar-right{
+    flex:1;
+    height:100%;
+    display:inline-block;
+    
+}
+
+.tc-title{
+    margin-top:10px;
+    font-size:23px;
+}
+
+.countdown-text{
+    display:block;
+    margin:auto;
+    width:80%;
+    text-align:center;
+    margin-top:10px;
+    font-size:9px;
+}
+
+
+/*TourneyInfo*/
+
+.ti-container{
+    display:inline-block;
+    padding-top:25px;
+    position:relative;
+    height:100%;
+    vertical-align:top;
+    grid-column: span 2;
+    overflow:hidden;
+}
+
+.back-button{
+    position:absolute;
+    width:30px;
+    height:30px;
+    top:25px;
+    right:25px;
+}
+
+.ti-button{
+    margin:10px;
+    margin-left:0px;
+    width:200px;
+    height: 50px;
+}
+
+/*PlayerCard*/
+
+.player-card{
+    position:relative;
+    width:250px;
+    height:250px;
+    border-radius:10px;
+    background-color:white;
+    margin:auto;
+    display:inline-flex;
+    flex-direction:column;
+    padding:10px;
+    margin-top:70px;
+    margin-bottom:20px;
+    vertical-align:top;
+    transition: width 1s;
+    filter:drop-shadow(4px 4px 4px rgba(0,0,0,.2));
+    text-align:center;
+}
+
+.prof-pic{
+    border-radius:50%;
+    width:100px;
+    height:100px;
+    position:absolute;
+    left:50%;
+    top: -58px;
+    border: 8px solid #EA5E3D;
+    transform: translateX(-58px);
+    background-color:white;
+}
+
+.pc-name{
+    margin-top:60px;
+    margin-bottom:5px;
+    font-size:35px;
+
+}
+
+.pc-division{
+    margin-top: 5px;
+    margin-bottom:10px;
+}
+
+.pc-desc{
+    width:80%;
+    height:100px;
+}
+
+.button-section{
+    display:flex;
+    width: 100%;
+    position:absolute;
+    bottom:0px;
+    left:0px;
+    height:70px;
+}
+
+.pc-button{
+    margin:auto;
+    width:90px;
+    height:30px;
+}
+
+/*AddPlayerCard*/
+
+.add-player{
+    display:inline-block;
+    padding:10px;
+    transition: background-color .5s;
+}
+
+.add-player-form{
+    display:inline-block;
+    text-align:center;
+    width:500px;
+    grid-column: span 2;
+}
+
+.add-player::before{
+    content: " ";
+    position:absolute;
+    display:block;
+    background-color:#333;
+    height:5px;
+    width:100px;
+    top:50%;
+    left:50%;
+    transform: translate(-50px, -2.5px) rotate(90deg);
+}
+
+.add-player::after{
+    content: " ";
+    position:absolute;
+    display:block;
+    background-color:#333;
+    height:5px;
+    width:100px;
+    top:50%;
+    left:50%;
+    transform: translate(-50px, -2.5px);
+}
+
+.add-player:hover{
+    background-color:gray;
+}
+
+.add-player:hover::before{
+    background-color:white;
+}
+
+.add-player:hover::after{
+    background-color:white;
+}
+
+.add-player:hover h2{
+    color:white;
+}
+
+.add-player-title{
+    margin:auto;
+    width:fit-content;
+    margin-top:10px;
+    font-size:30px;
+}
+
+.add-player-input{
+    margin:10px;
+}
+
+.add-player-button{
+    margin:15px;
+}
+
+.clickable-wrapper{
+    height:100%;
+    width:100%;
+    cursor: pointer;
+}
+
+/*utility*/
+
+.in-focus{
+    position:absolute;
+    left:0px;
+}
+
+.hidden{
+    display:none;
+}
+
+.hidden *{
+    display:none;
+}
+
+
+
+.players-fullheight{
+    height: fit-content;
+    padding:20px;
+    padding-top:30px;
+    margin-bottom:50px;
+}
+
+.canScrollTo{
+    height:fit-content;
+    position:relative;
+    display:none;
+}
+
+.visible{
+    display:block;
+}
