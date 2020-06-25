@@ -12,7 +12,9 @@ export class TourneyInfo extends Component {
                     <p className = "textbox" style = {{overflow: 'hidden', width: '80%'}}>{this.props.tournament.desc}</p>
                 </div>
                 <div className = "ti-button-section">
-                    <button className = "ti-button">Register</button>
+                    <a href = {this.props.tournament.link}>
+                        <button className = "ti-button">Register</button>
+                    </a>
                     <button className = "ti-button" onClick = {this.props.togglePlayerDisplay}>View Free Agents</button>
                 </div>
             </div>

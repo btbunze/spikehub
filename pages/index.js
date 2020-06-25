@@ -4,6 +4,8 @@ import PlayerCard from "../components/PlayerCard"
 import AddPlayerCard from "../components/AddPlayerCard"
 import TourneyCard from "../components/TourneyCard"
 import TourneyInfo from "../components/TourneyInfo"
+import OverlayForm from "../components/OverlayForm"
+import SearchBar from "../components/SearchBar"
 
 export class Home extends Component {
 
@@ -26,7 +28,9 @@ export class Home extends Component {
       displayInfo: false,
       displayPlayers: false,
       addPlayerForm: false,
+      overlayOpen: false,
       divisionSelect: "all",
+      sort: "name.fwd",
       selectedTournament: null
     };
   }
@@ -43,7 +47,7 @@ export class Home extends Component {
       }
     }
 
-    const selected = this.state.tournaments.find((tournament) => tournament.id == id)
+    const selected = this.state.tournaments.find((tournament) => tournament._id == id)
 
     this.setState({selectedTournament: selected})
     this.setState({displayInfo: true})
@@ -57,7 +61,7 @@ export class Home extends Component {
 
     this.setState({displayPlayers: !this.state.displayPlayers}, () =>{
         document.getElementsByClassName('player-container')[0].classList.toggle("players-fullheight");
-        document.getElementsByClassName('arrow')[0].classList.toggle("visibile");
+        document.getElementsByClassName('arrow')[0].classList.toggle("visible");
         
         let canScrollTo = document.getElementsByClassName("canScrollTo")[0];
         canScrollTo.classList.toggle("visible")
@@ -84,11 +88,13 @@ export class Home extends Component {
     }
 
     document.getElementsByClassName('player-container')[0].classList.remove("players-fullheight")
+    document.getElementsByClassName('arrow')[0].classList.remove("visible");
     setTimeout(() => document.getElementsByClassName("canScrollTo")[0].classList.remove("visible"), 500);
 
     this.setState({selectedTournament: null})
     this.setState({displayInfo: false})
     this.setState({displayPlayers: false})
+    this.setState({divisionSelect: "all"})
   }
 
   toggleAddPlayerForm = () => {
@@ -103,7 +109,7 @@ export class Home extends Component {
       name: inputFields[0].value,
       division: inputFields[1].value,
       selfDesc: inputFields[2].value,
-      tournamentId: this.state.selectedTournament.id
+      tournamentId: this.state.selectedTournament._id
     }
 
     await fetch('http://localhost:3000/api/free-agents', {
@@ -117,6 +123,28 @@ export class Home extends Component {
     this.setState((prevState) => ({players: [...prevState.players, newPlayer]}))
 
     this.toggleAddPlayerForm()
+  }
+
+  submitTourney = async () => {
+    const inputFields = document.getElementsByClassName("form-input");
+    const newTourney = {
+      name: inputFields[0].value,
+      location: inputFields[1].value,
+      date: inputFields[2].value,
+      divisions: inputFields[3].value.split(","),
+      desc: inputFields[4].value,
+      link: inputFields[5].value
+    }
+
+    await fetch('http://localhost:3000/api/tournaments', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTourney),
+    })
+
+    this.setState((prevState) => ({tournaments: [...prevState.tournaments, newTourney]}))
   }
 
   render() {
@@ -133,7 +161,9 @@ export class Home extends Component {
       //const divisionSelect = document.getElementById("divisionSelector")
 
       //filter out free agents not attending this tournament
-      let players = this.state.players.filter((player) => player.tournamentId == this.state.selectedTournament.id)
+      console.log(this.state.players )
+      console.log(this.state.selectedTournament)
+      let players = this.state.players.filter((player) => player.tournamentId == this.state.selectedTournament._id)
       //filter out free agents in the wrong division
       if(this.state.divisionSelect != "all"){
         players = players.filter((player) => player.division == this.state.divisionSelect)
@@ -154,32 +184,26 @@ export class Home extends Component {
 
     return (
       <>
+
         <div className = "content">
           <h1 className = "cont-title">Upcoming Tournaments </h1>
-          <button className = "new-tournament button-invert">Add New</button>
+          <button className = "new-tournament button-invert" onClick = {()=> this.setState({overlayOpen: true})}>Add New</button>
           <div className = "main">
             <div className="container container-shadow">
               <div className = "grid">
-                <TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[0]}/>
+                {this.state.tournaments.map((tourney) =>{
+                  return (<TourneyCard handleClick = {this.selectTourney} tournament = {tourney}/>)
+                })}
+                {/*<TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[0]}/>
                 <TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[1]}/>
-                <TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[1]}/>
+                <TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[1]}/>*/}
                 {tourneyInfo}
               </div>
             </div>
             <div className =  "arrow"></div>
             <div className = "canScrollTo">
               <div className = 'container player-container' id = "playerContainer">
-                <div style = {{width: 'fit-content', margin:'auto'}}>
-                  <span className = "division-label">Division: </span>
-                  <select id = "divisionSelector" onChange = {this.updateDivision}>
-                    <option value = "all">All Divisions</option>
-                    {this.state.selectedTournament ? 
-                        this.state.selectedTournament.divisions.map((division) => {
-                            return (<option value = {division}> {division}</option>)
-                        }) 
-                        : ""}
-                  </select>
-                </div>
+                <SearchBar selectedTournament = {this.state.selectedTournament} updateDivision = {this.updateDivision}/>
                 {playerCards}
               </div>
             </div>
@@ -187,7 +211,7 @@ export class Home extends Component {
 
 
         </div>
-
+        {this.state.overlayOpen ? (<OverlayForm onClick = {() => this.setState({overlayOpen: false})} submit = {this.submitTourney}/>) : null}
       </>
     )
   

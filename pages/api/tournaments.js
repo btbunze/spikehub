@@ -13,4 +13,12 @@ handler.get(async (req, res) =>{
 })
 
 
+handler.put(async (req, res) =>{
+    let newTourney = req.body
+
+    let doc = await req.db.collection("tournaments").insertOne(newTourney)
+    res.send(JSON.stringify(doc))
+  
+})
+
 export default handler

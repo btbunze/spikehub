@@ -126,8 +126,7 @@ button:hover{
 /*footer*/
 
 .footer{
-    height:20px;
-    margin-top:20px;
+    height:90px;
     width:100%;
 }
 
@@ -186,6 +185,7 @@ button:hover{
 /*triangle*/
  .arrow{
     content: "";
+    display:none;
     position:relative;
     color:white;
     background-color:none;
@@ -202,11 +202,7 @@ button:hover{
 
 } 
 
-.division-label{
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: bolder;
-    color: #EA5E3D;
-}
+
 
 .grid{
     position:relative;
@@ -263,7 +259,7 @@ button:hover{
 .img-container{
     width:100%;
     flex:5;
-    background-color:#D5D5D5;
+    background-color:#e5e5e5;
     display:flex;
 }
 
@@ -275,7 +271,7 @@ button:hover{
 
 .tourney-img{
     margin:auto;
-    width:100%;
+    width:70%;
 }
 
 .infobar-left{
@@ -309,6 +305,7 @@ button:hover{
 .ti-container{
     display:inline-block;
     padding-top:25px;
+    padding-left:10px;
     position:relative;
     height:100%;
     vertical-align:top;
@@ -329,6 +326,53 @@ button:hover{
     margin-left:0px;
     width:200px;
     height: 50px;
+}
+
+/*SearchBar*/
+
+.search-bar{
+    width: 93%;
+    margin:auto;
+    margin-bottom:15px;
+    height:fit-content;
+    padding:15px;
+    background-color:white;
+    filter:drop-shadow(2px 2px 2px rgba(0,0,0,.2));
+}
+
+.search-input{
+    margin-right:10px;
+    height:25px;
+    width:200px;
+    font-size:17px;
+    border-radius: 5px;
+}
+
+.search-button{
+    height:30px;
+    width:70px;
+    margin-right:10px;
+}
+
+
+
+.select-label{
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bolder;
+    color: #EA5E3D;
+    font-size:20px;
+    margin:15px;
+    margin-right:5px;
+    margin-left:25px;
+
+}
+
+select{
+    height:30px;
+}
+
+.filter-and-sort{
+    float:right;
 }
 
 /*PlayerCard*/
@@ -470,6 +514,41 @@ button:hover{
     width:100%;
     cursor: pointer;
 }
+
+
+/*OverlayForm*/
+.overlay-shadow{
+    display:flex;
+    position:fixed;
+    z-index:999;
+    width:100%;
+    height:100vh;
+    top:0px;
+    left:0px;
+    background-color:rgba(0,0,0,.8)
+}
+
+.form{
+    background-color:white;
+    border-radius:10px;
+    padding:20px;
+    padding-top:10px;
+    width:fit-content;
+    margin:auto;
+}
+
+.form-title{
+    margin:auto;
+    width:fit-content;
+    margin-top:10px;
+    margin-bottom:15px;
+    font-size:30px;
+}
+
+.form-input{
+    margin:10px;
+}
+
 
 /*utility*/
 

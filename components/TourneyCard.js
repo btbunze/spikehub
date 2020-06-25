@@ -21,9 +21,9 @@ export class TourneyCard extends Component {
 
 
         return (
-            <div className = "tourney-card" onClick = {(e) => this.props.handleClick(e, this.props.tournament.id)}>
+            <div className = "tourney-card" onClick = {(e) => this.props.handleClick(e, this.props.tournament._id)}>
                 <div className = "img-container">
-                    <img src = "/raleighroundnet.jpg" className = "tourney-img"></img>
+                    <img src = { ("img" in this.props.tournament) ? this.props.tournament.img : "/trophy.png"} className = "tourney-img"></img>
                 </div>
                 <div className = "tourney-infobar">
                     <div className = "infobar-left">
