@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "isomorphic-unfetch": "^3.0.0",
     "mongodb": "^3.5.9",
     "next": "9.4.4",
