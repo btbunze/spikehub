@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react'
-import fetch from 'isomorphic-unfetch'
 
 import PlayerCard from "../components/PlayerCard"
 import AddPlayerCard from "../components/AddPlayerCard"
@@ -13,10 +12,10 @@ export class Home extends Component {
 
 
   static async getInitialProps() {
-    const res1 = await fetch('/api/tournaments', {method: "GET"})
+    const res1 = await fetch('https://spikehub.vercel.app/api/tournaments', {method: "GET"})
     const tArray = await res1.json()
 
-    const res2 = await fetch('/api/free-agents', {method: "GET"})
+    const res2 = await fetch('https://spikehub.vercel.app/api/free-agents', {method: "GET"})
     const pArray = await res2.json()
 
     return { tournamentsArray : tArray, playersArray : pArray }
@@ -114,7 +113,7 @@ export class Home extends Component {
       tournamentId: this.state.selectedTournament._id
     }
 
-    await fetch('/api/free-agents', {
+    await fetch('https://spikehub.vercel.app/api/free-agents', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -138,7 +137,7 @@ export class Home extends Component {
       link: inputFields[5].value
     }
 
-    await fetch('/api/tournaments', {
+    await fetch('https://spikehub.vercel.app/api/tournaments', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

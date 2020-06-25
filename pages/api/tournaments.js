@@ -8,6 +8,7 @@ handler.use(middleware)
 
 handler.get(async (req, res) =>{
   let doc = await req.db.collection("tournaments").find().toArray()
+  console.log("doc")
   res.send(JSON.stringify(doc))
 
 })
