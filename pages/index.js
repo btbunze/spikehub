@@ -12,11 +12,11 @@ export class Home extends Component {
 
 
   static async getInitialProps() {
-    const res1 = await fetch('https://spikehub.vercel.app/api/tournaments', {method: "GET"})
-    const tArray = await res1.json()
+    //const res1 = await fetch('https://spikehub.vercel.app/api/tournaments', {method: "GET"})
+    const tArray = []//await res1.json()
 
-    const res2 = await fetch('https://spikehub.vercel.app/api/free-agents', {method: "GET"})
-    const pArray = await res2.json()
+    //const res2 = await fetch('https://spikehub.vercel.app/api/free-agents', {method: "GET"})
+    const pArray = []//await res2.json()
 
     return { tournamentsArray : tArray, playersArray : pArray }
   }
