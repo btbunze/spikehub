@@ -113,13 +113,13 @@ export class Home extends Component {
       tournamentId: this.state.selectedTournament._id
     }
 
-    await fetch('https://spikehub.vercel.app/api/free-agents', {
+    /*await fetch('https://spikehub.vercel.app/api/free-agents', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(newPlayer),
-    })
+    })*/
 
     this.setState((prevState) => ({players: [...prevState.players, newPlayer]}))
 
@@ -137,13 +137,13 @@ export class Home extends Component {
       link: inputFields[5].value
     }
 
-    await fetch('https://spikehub.vercel.app/api/tournaments', {
+    /*await fetch('https://spikehub.vercel.app/api/tournaments', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(newTourney),
-    })
+    })*/
 
     this.setState((prevState) => ({tournaments: [...prevState.tournaments, newTourney]}))
   }
