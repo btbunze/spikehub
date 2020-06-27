@@ -4,6 +4,8 @@
 import nextConnect from "next-connect"
 import middleware from "../../middleware/database"
 
+import {ObjectId} from 'mongodb'
+
 const handler = nextConnect();
 
 handler.use(middleware)
@@ -19,6 +21,16 @@ handler.put(async (req, res) =>{
   let newPlayer = req.body
 
   let doc = await req.db.collection("players").insertOne(newPlayer)
+  res.send(JSON.stringify(doc))
+
+})
+
+handler.delete(async (req, res) =>{
+  let playerID = req.body._id
+
+  //console.log(ObjectId(playerID))
+
+  let doc = await req.db.collection("players").deleteOne({"_id": ObjectId(playerID)})
   res.send(JSON.stringify(doc))
 
 })

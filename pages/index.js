@@ -1,5 +1,7 @@
 
 import React, { Component } from 'react'
+import {fetchUser} from "../utils/user"
+import auth0 from "../utils/auth0"
 
 import PlayerCard from "../components/PlayerCard"
 import AddPlayerCard from "../components/AddPlayerCard"
@@ -12,13 +14,14 @@ export class Home extends Component {
 
 
   static async getInitialProps() {
-    //const res1 = await fetch('https://spikehub.vercel.app/api/tournaments', {method: "GET"})
-    const tArray = []//await res1.json()
+    const res1 = await fetch('http://localhost:3000/api/tournaments', {method: "GET"})
+    const tArray = await res1.json()
 
-    //const res2 = await fetch('https://spikehub.vercel.app/api/free-agents', {method: "GET"})
-    const pArray = []//await res2.json()
+    const res2 = await fetch('http://localhost:3000/api/free-agents', {method: "GET"})
+    const pArray = await res2.json()
 
-    return { tournamentsArray : tArray, playersArray : pArray }
+
+    return { tournamentsArray : tArray, playersArray : pArray}
   }
 
   constructor(props) {
@@ -26,14 +29,29 @@ export class Home extends Component {
     this.state = {
       tournaments : this.props.tournamentsArray,
       players : this.props.playersArray,
+      tourneyPage : 1,
       displayInfo: false,
       displayPlayers: false,
       addPlayerForm: false,
       overlayOpen: false,
       divisionSelect: "all",
       sort: "name.fwd",
-      selectedTournament: null
+      selectedTournament: null,
     };
+  }
+
+  shiftTourneys = (direction) => {
+
+    let grid = document.getElementsByClassName("grid")[0];
+    let startPos = parseInt(grid.style.left.slice(0,-2));
+
+    if(direction == "right" && this.state.tourneyPage*3 < this.state.tournaments.length && this.state.selectedTournament == null){
+      this.setState((prevState) => ({tourneyPage: prevState.tourneyPage + 1}))
+      grid.style.left = String(startPos - grid.offsetWidth) + "px";
+    }else if (direction == "left" && this.state.tourneyPage >=2 && this.state.selectedTournament == null){
+      this.setState((prevState) => ({tourneyPage: prevState.tourneyPage - 1}))
+      grid.style.left = String(startPos + grid.offsetWidth) + "px";
+    }
   }
 
 
@@ -50,6 +68,13 @@ export class Home extends Component {
 
     const selected = this.state.tournaments.find((tournament) => tournament._id == id)
 
+
+
+    let grid = document.getElementsByClassName("grid")[0];
+    grid.classList.add("grid-no-transition");
+    grid.style.left = "0px"
+    setTimeout(() =>grid.classList.remove("grid-no-transition"), 50)
+    
     this.setState({selectedTournament: selected})
     this.setState({displayInfo: true})
   }
@@ -92,6 +117,11 @@ export class Home extends Component {
     document.getElementsByClassName('arrow')[0].classList.remove("visible");
     setTimeout(() => document.getElementsByClassName("canScrollTo")[0].classList.remove("visible"), 500);
 
+    let grid = document.getElementsByClassName("grid")[0];
+    grid.classList.add("grid-no-transition");
+    grid.style.left = String(-((this.state.tourneyPage-1) * grid.offsetWidth)) + "px"
+    setTimeout(() =>grid.classList.remove("grid-no-transition"), 50)
+
     this.setState({selectedTournament: null})
     this.setState({displayInfo: false})
     this.setState({displayPlayers: false})
@@ -113,13 +143,13 @@ export class Home extends Component {
       tournamentId: this.state.selectedTournament._id
     }
 
-    /*await fetch('https://spikehub.vercel.app/api/free-agents', {
+    await fetch('http://localhost:3000/api/free-agents', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(newPlayer),
-    })*/
+    })
 
     this.setState((prevState) => ({players: [...prevState.players, newPlayer]}))
 
@@ -137,21 +167,64 @@ export class Home extends Component {
       link: inputFields[5].value
     }
 
-    /*await fetch('https://spikehub.vercel.app/api/tournaments', {
+    await fetch('http://localhost:3000/api/tournaments', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(newTourney),
-    })*/
+    })
 
-    this.setState((prevState) => ({tournaments: [...prevState.tournaments, newTourney]}))
+    this.setState((prevState) => ({tournaments: [...prevState.tournaments, newTourney], overlayOpen: false}))
   }
 
-  render() {
+  deletePlayer = async (delPlayer) => {
+    await fetch('http://localhost:3000/api/free-agents', {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(delPlayer)
+    })
 
+    this.setState((prevState) => ({players: prevState.players.filter((player) =>
+       player != delPlayer 
+    )}))
+  }
+
+  deleteTourney = async (e, delTourney) => {
+    e.stopPropagation()
+    this.closeInfo(e)
+    await fetch('http://localhost:3000/api/tournaments', {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(delTourney)
+    })
+
+    this.setState((prevState) => ({tournaments: prevState.tournaments.filter((tourney) =>
+      tourney != delTourney
+    )}))
+    
+
+  }
+
+  getUser = async () => {
+    const userState = await fetchUser();
+    const session = await fetch("http://localhost:3000/api/me")
+    console.log(session)
+    console.log(userState)
+  }
+
+
+
+  render() {
     let tourneyInfo = null;
     let playerCards = null;
+    let {user, loading} = this.props.userObj
+
+    //this.getUser()
 
     if(this.state.displayInfo){
       tourneyInfo = (<TourneyInfo tournament = {this.state.selectedTournament} togglePlayerDisplay = {this.togglePlayerDisplay} closeInfo = {this.closeInfo}/>)
@@ -174,10 +247,10 @@ export class Home extends Component {
 
       //return a player card for each free agent attending this tournament 
       playerCards = (
-        <div className = "card-container grid">
+        <div className = "card-container player-grid">
           <AddPlayerCard onClick = {this.toggleAddPlayerForm} submit = {this.submitPlayer} formOpen = {this.state.addPlayerForm}/>
           {players.map((player) =>{
-            return (<PlayerCard player = {player}/>)
+            return (<PlayerCard player = {player} deletePlayer = {this.deletePlayer}/>)
           })}
         </div>
       )
@@ -189,11 +262,18 @@ export class Home extends Component {
         <div className = "content">
           <h1 className = "cont-title">Upcoming Tournaments </h1>
           <button className = "new-tournament button-invert" onClick = {()=> this.setState({overlayOpen: true})}>Add New</button>
+          <div className = "page-changes">
+            <button className = "page-change-button" onClick = {() => {this.shiftTourneys("left")}}>←</button>
+            <span className = "page-change-text">
+              {this.state.tourneyPage * 3 - 2}-{Math.min(this.state.tourneyPage*3, this.state.tournaments.length)} of {this.state.tournaments.length}
+            </span>
+            <button className = "page-change-button" onClick = {() => {this.shiftTourneys("right")}}>→</button>
+          </div>
           <div className = "main">
             <div className="container container-shadow">
-              <div className = "grid">
+              <div className = "grid" style = {{left:'0px'}}>
                 {this.state.tournaments.map((tourney) =>{
-                  return (<TourneyCard handleClick = {this.selectTourney} tournament = {tourney}/>)
+                  return (<TourneyCard handleClick = {this.selectTourney} tournament = {tourney} deleteTourney = {this.deleteTourney}/>)
                 })}
                 {/*<TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[0]}/>
                 <TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[1]}/>
@@ -209,8 +289,6 @@ export class Home extends Component {
               </div>
             </div>
           </div>
-
-
         </div>
         {this.state.overlayOpen ? (<OverlayForm onClick = {() => this.setState({overlayOpen: false})} submit = {this.submitTourney}/>) : null}
       </>

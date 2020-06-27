@@ -6,6 +6,9 @@ export class TourneyCard extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            deleteHover: false
+        }
     } 
 
     //get date every second from when it mounts to when it unmounts
@@ -22,8 +25,16 @@ export class TourneyCard extends Component {
 
         return (
             <div className = "tourney-card" onClick = {(e) => this.props.handleClick(e, this.props.tournament._id)}>
+                <button 
+                    className = "delete-button" 
+                    onClick = {(e) => this.props.deleteTourney(e, this.props.tournament)} 
+                    onMouseEnter = {() => this.setState({deleteHover: true})}
+                    onMouseLeave = {() => this.setState({deleteHover: false})}
+                    >
+                        {this.state.deleteHover ? "DELETE" : "X"}
+                </button>
                 <div className = "img-container">
-                    <img src = { ("img" in this.props.tournament) ? this.props.tournament.img : "/trophy.png"} className = "tourney-img"></img>
+                    <img src = { ("img" in this.props.tournament) ? this.props.tournament.img : "/trophy.png"} className = {("img" in this.props.tournament) ? "tourney-img" : "tourney-img default-img"}></img>
                 </div>
                 <div className = "tourney-infobar">
                     <div className = "infobar-left">
