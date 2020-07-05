@@ -14,12 +14,13 @@ export class Home extends Component {
 
 
   static async getInitialProps() {
+    console.log("getting initial props")
     const res1 = await fetch(`${process.env.baseUrl}/api/tournaments`, {method: "GET"})
     const tArray = await res1.json()
 
     const res2 = await fetch(`${process.env.baseUrl}/api/free-agents`, {method: "GET"})
     const pArray = await res2.json()
-
+    console.log("recieved initial props")
 
     return { tournamentsArray : tArray, playersArray : pArray}
   }
