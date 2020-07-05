@@ -61,6 +61,11 @@ button:hover{
     transform:scale(1.05)
 }
 
+.section-subheader{
+    text-align:center;
+    font-size:25px;
+}
+
 /*header*/
 
 .header{
@@ -94,13 +99,6 @@ button:hover{
     margin:auto;
     color:white;
 }
-/*
-.color-overlay{
-    background-color:rgba(255, 198, 0, .8);
-    width:100%;
-    height:100%;
-    padding: 5px 0px 10px 0px;
-}*/
 
 .title{
     text-align:center;
@@ -148,9 +146,11 @@ button:hover{
 /*footer*/
 
 .footer{
-    height:130px;
+    position:relative;
+    height:180px;
     background-color:white;
-    margin-top:100px;
+    margin-top:50px;
+    padding-top:20px;
 }
 
 .to-top{
@@ -159,7 +159,7 @@ button:hover{
     height:50px;
     background-color: #EA5E3D;
     position:absolute;
-    bottom:0px;
+    bottom:-25px;
     left:50%;
     transform: translateX(-50px);
     border-radius:10px 10px 0px 0px;
@@ -178,6 +178,81 @@ button:hover{
     line-height:25px;
 }
 
+/*InfoSession*/
+
+.two-column{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    height:fit-content;
+    max-width:1000px;
+    width:95%;
+    margin:auto;
+    margin-top:50px;
+    gap:50px;
+    margin-bottom:30px;
+}
+
+.fi-column{
+    grid-column: span 1;
+    background-color:white;
+    box-shadow: 0px 0px 10px rgba(0,0, 0,.3);
+}
+
+.section-top-bar{
+    background:#EA5E3D;
+    padding:15px;
+    box-shadow: 0px 2px 4px rgba(0,0,0, .2);
+}
+
+.section-header{
+    margin:auto;
+    color:white;
+    margin-bottom:0px;
+}
+
+.section-content{
+    padding:20px;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+.about-text{
+    text-align:center;
+}
+
+.sponsor-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 400px;;
+    width:100%;
+}
+
+.main-sponsor{
+
+    grid-column: span 3;
+    grid-row:span 1;
+    width:75%;
+    margin:auto;
+    height:100%;
+    display:flex;
+}
+
+.sub-sponsor{
+
+    grid-column: span 1;
+    grid-row:span 1;
+    width:75%;
+    margin:auto;
+    height:100%;
+    display:flex;
+}
+
+.sponsor-img{
+    object-fit:contain;
+    margin:auto;
+    width:100%;
+}
+
 /*SponsorBar*/
 
 
@@ -186,13 +261,13 @@ button:hover{
         left:0px
     }
     to{
-        left:100%
+        left:1700px;
     }
 }
 
 @keyframes sidescroll2 {
     from{
-        left:-100%
+        left:-1700px;
     }
     to{
         left:0px
@@ -201,12 +276,11 @@ button:hover{
 
 .rotating-container{
     display:inline-block;
-    padding-top:20px;
-    position:relative;
+    position:absolute;
     vertical-align:top;
-    top:-60px;
-    left:-100%;
-    width:100%;
+    top:70px;
+    left:-1700px;
+    width:1700px;
     animation-name: sidescroll2;
     animation-duration: 30s;
     animation-timing-function: linear;
@@ -216,11 +290,10 @@ button:hover{
 }
 
 .rotating-container-2{
-    padding-top:15px;
-    position:relative;
+    position:absolute;
     display:inline-block;
-    top:0px;
-    width:100%;
+    top:70px;
+    width:1700px;
     animation-name: sidescroll;
     animation-duration: 30s;
     animation-timing-function: linear;
@@ -295,6 +368,7 @@ button:hover{
 
 .content{
     max-width:1000px;
+    width:95%;
     position:relative;
     top: -300px;
     margin:auto;
@@ -317,10 +391,6 @@ button:hover{
 
 }
 
-.container-shadow{
-    /*filter:drop-shadow(0px 1px 4px rgba(0,0,0,.2));
-    z-index:1;*/
-}
 
 /*triangle*/
  .arrow{
@@ -363,7 +433,7 @@ button:hover{
     width:100%;
     height:100%;
     display:grid;
-    grid-template-columns: repeat(3, 33%);
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 .animating{
@@ -455,6 +525,7 @@ button:hover{
 .tc-title{
     margin-top:10px;
     font-size:23px;
+    white-space:normal;
 }
 
 .countdown-text{
@@ -491,12 +562,29 @@ button:hover{
 .ti-container{
     display:inline-block;
     padding-top:25px;
+    padding-right:50px;
     padding-left:10px;
     position:relative;
+    white-space: normal;
     height:100%;
     vertical-align:top;
     grid-column: span 2;
 
+}
+
+.ti-header{
+    margin-bottom:8px;
+    font-size:32px;
+}
+
+.ti-subheader{
+    margin-top:0px;
+    margin-bottom:5px;
+}
+
+.ti-content{
+    padding: 10px 0px;
+    font-size:17px;
 }
 
 .back-button{
@@ -568,11 +656,23 @@ select{
     float:right;
 }
 
+.mobile-filter-and-sort{
+    float:right;
+    display:none;
+}
+
+.filter-sort-button{
+    width:70px;
+    height:30px;
+    margin-left:10px;
+    margin-top:1px;
+}
+
 /*PlayerCard*/
 
 .player-card{
     position:relative;
-    width:250px;
+    width:80%;
     height:250px;
     border-radius:10px;
     background-color:white;
@@ -600,36 +700,49 @@ select{
     background-color:white;
 }
 
+.pc-content{
+    white-space:normal;
+}
+
 .pc-name{
-    margin-top:60px;
+    margin-top:50px;
     margin-bottom:5px;
-    font-size:35px;
+    font-size:26px;
 
 }
+
 
 .pc-division{
     margin-top: 5px;
     margin-bottom:10px;
+    font-size:19px;
 }
 
 .pc-desc{
-    width:80%;
+    width:90%;
     margin:auto;
 }
 
 .button-section{
     display:flex;
-    width: 100%;
+    width:calc(100% - 40px);
     position:absolute;
     bottom:0px;
     left:0px;
-    height:70px;
+    padding:20px;
+    margin:auto;
 }
 
 .pc-button{
     margin:auto;
-    width:90px;
-    height:30px;
+    width:100%;
+    height:35px;
+    font-size:15px;
+}
+
+.contact-button{
+    background-color: #333;
+    color:white;
 }
 
 /*AddPlayerCard*/
@@ -638,6 +751,7 @@ select{
     display:inline-block;
     padding:10px;
     transition: background-color .5s;
+
 }
 
 .add-player-form{
@@ -694,12 +808,13 @@ select{
     font-size:30px;
 }
 
-.add-player-input{
-    margin:10px;
-}
 
 .add-player-button{
+    
     margin:15px;
+    margin-left:0px;
+    width:80px;
+    height:30px;
 }
 
 .clickable-wrapper{
@@ -724,22 +839,52 @@ select{
 .form{
     background-color:white;
     border-radius:10px;
-    padding:20px;
+    padding:30px;
     padding-top:10px;
-    width:fit-content;
+    width:250px;
     margin:auto;
 }
 
 .form-title{
-    margin:auto;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight:800;
     width:fit-content;
     margin-top:10px;
     margin-bottom:15px;
-    font-size:30px;
+    font-size:23px;
 }
 
+
 .form-input{
-    margin:10px;
+    margin-bottom:18px;
+    margin-left:0px;
+    width:90%;
+}
+
+.form-input:not(select){
+    padding:5px;
+}
+
+
+.form-img-button{
+    padding:6px 10px;
+    margin-bottom:10px;
+    background-color:#333;
+}
+
+.selected-img-text{
+    padding-left:10px;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size:12px;
+}
+
+label{
+    display:block;
+    color: #b7b7b7;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight:bold;
+    font-size:13px;
+    margin-bottom:5px;
 }
 
 
@@ -764,7 +909,7 @@ select{
     height: fit-content;
     padding:20px;
     padding-top:30px;
-    margin-bottom:50px;
+    margin-bottom:25px;
 }
 
 .canScrollTo{
@@ -775,4 +920,190 @@ select{
 
 .visible{
     display:block;
+}
+
+/*Breakpoints*/
+
+@media (max-width: 1075px){
+    .tourney-card{
+        height: 28vw;
+    }
+    .ti-container{
+        height:28vw;
+        padding-top: 2vw;
+    }
+
+    .back-button{
+        top:2vw;
+        right:2vw;
+    }
+
+    .ti-header{
+        font-size:3vw;
+    }
+    .ti-subheader{
+        font-size:2vw;
+    }
+    .ti-button{
+        width:18.6vw;
+        height: 4.7vw;
+    }
+
+    .tourney-container{
+        height:33.5vw;
+    }
+    .tc-title{
+        font-size: 2.14vw;
+    }
+
+    .ti-content{
+        font-size:1.7vw;
+        margin-top: 1vw;
+        margin-bottom:1vw;
+    }
+}
+
+@media (max-width: 890px){
+    .filter-and-sort{
+        display:none;
+    }
+    
+    .mobile-filter-and-sort{
+        display:inline-block;
+    }
+
+    .selected-tourney-card{
+        display:none;
+    }
+    .ti-container{
+        grid-column: span 3;
+    }
+
+    .ti-button{
+        font-size:15px;
+    }
+}
+
+@media (max-width: 725px){
+
+    .two-column{
+        grid-template-columns: 100%;
+        margin:auto;
+        margin-top:25px;
+        gap:25px;
+    }
+
+    .fi-column{
+        width:100%;
+        margin:auto;
+
+    }
+
+    .sponsor-grid{
+        width:80%;
+        margin:auto;
+    }
+}
+
+@media (max-width: 690px) {
+    .add-player{
+        margin-top:25px;
+    }
+}
+
+
+@media (max-width: 600px){
+    .search-input{
+        display:none;
+    }
+}
+
+@media (max-width: 560px){
+    .header{
+        padding-top:20px;
+    }
+
+
+    
+    .tourney-container{
+        height:540px;
+    }
+
+    .grid{
+        grid-template-columns: 100%;
+        overflow-y:scroll;
+        overflow-x:hidden;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        left:0px !important;
+    }
+
+    .grid::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .tourney-card{
+        height:300px;
+    }
+
+    .tc-title{
+        font-size:20px;
+    }
+
+    .page-changes{
+        display:none;
+    }
+    
+    .tourney-card{
+        width:256px;
+        margin-top:10px;
+        margin-bottom:10px;
+    }
+
+    .ti-header{
+        font-size:25px;
+    }
+    .ti-subheader{
+        font-size:15px;
+    }
+    .ti-content{
+        font-size:12px;
+    }
+    .ti-button{
+        width:125px;
+        height:40px;
+    }
+
+    .tourney-info-mode{
+        height:fit-content;
+    }
+
+    .sponsor-grid{
+        width:100%;
+    }
+}
+
+@media (max-width: 435px){
+    .title{
+        font-size:55px;
+    }
+    .title:after, .title:before{
+        width:270px;
+    }
+    .content{
+        top:-325px;
+    }
+    .footer{
+        margin-top:25px;
+    }
+
+    .players-fullheight{
+        margin-bottom:0px;
+    }
+
+    .ti-button{
+        width:90px;
+        height:29px;
+        font-size:13px;
+    }
 }

@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import {fetchUser} from "../utils/user"
+import { isForOfStatement } from 'typescript';
 
 
 export class TourneyCard extends Component {
@@ -7,7 +9,9 @@ export class TourneyCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            canDelete: false,
             deleteHover: false
+
         }
     } 
 
@@ -16,15 +20,34 @@ export class TourneyCard extends Component {
         this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
     }
     
+    componentWillUpdate(){
+        this.checkUser()
+    }
+
     componentWillUnmount() {
         clearInterval(this.interval);
     }
+
+    checkUser = async () =>{
+        const currUser = await fetchUser()
+
+        if(currUser){
+            if(currUser.sub == this.props.tournament.creatorId && this.state.canDelete == false){
+                this.setState({canDelete: true})
+            }else if(currUser.sub != this.props.tournament.creatorId && this.state.canDelete == true){
+                this.setState({canDelete:false})
+            }
+        }
+
+    }
+
 
     render() {
 
 
         return (
             <div className = "tourney-card" onClick = {(e) => this.props.handleClick(e, this.props.tournament._id)}>
+                {this.state.canDelete ? (
                 <button 
                     className = "delete-button" 
                     onClick = {(e) => this.props.deleteTourney(e, this.props.tournament)} 
@@ -33,8 +56,11 @@ export class TourneyCard extends Component {
                     >
                         {this.state.deleteHover ? "DELETE" : "X"}
                 </button>
+                ): null
+                }
+
                 <div className = "img-container">
-                    <img src = { ("img" in this.props.tournament) ? this.props.tournament.img : "/trophy.png"} className = {("img" in this.props.tournament) ? "tourney-img" : "tourney-img default-img"}></img>
+                    <img src = { ("img" in this.props.tournament) ? this.props.tournament.img : "/trophy.png"} className = "tourney-img"></img>
                 </div>
                 <div className = "tourney-infobar">
                     <div className = "infobar-left">

@@ -33,11 +33,18 @@ export class Home extends Component {
       displayInfo: false,
       displayPlayers: false,
       addPlayerForm: false,
-      overlayOpen: false,
+      tourneyFormOpen: false,
+      playerFormOpen:false,
       divisionSelect: "all",
       sort: "name.fwd",
+      playerQuery: "",
       selectedTournament: null,
     };
+
+  }
+
+  componentDidMount(){
+    window.addEventListener("resize", this.maintainPageOnResize)
   }
 
   shiftTourneys = (direction) => {
@@ -54,15 +61,30 @@ export class Home extends Component {
     }
   }
 
+  maintainPageOnResize = () => {
+    let grid = document.getElementsByClassName("grid")[0];
+    console.log((this.state.tourneyPage-1)*grid.offsetWidth)
+    if((this.state.tourneyPage-1) * grid.offsetWidth != -(parseInt(grid.style.left.slice(0,-2)))
+        &&
+      this.state.displayInfo == false    
+    ){
+       grid.style.left = String(-(this.state.tourneyPage-1)*grid.offsetWidth) + "px"
+    }
+
+  }
+
 
 
   selectTourney = (e, id) =>{
     const target = e.currentTarget;
     const tCards = document.getElementsByClassName('tourney-card')
 
+
     for (let card of tCards) {
       if(card != target){
         card.classList.add("hidden");
+      }else{
+        card.classList.add("selected-tourney-card")
       }
     }
 
@@ -76,7 +98,17 @@ export class Home extends Component {
     setTimeout(() =>grid.classList.remove("grid-no-transition"), 50)
     
     this.setState({selectedTournament: selected})
-    this.setState({displayInfo: true})
+    this.setState({displayInfo: true}, () => {
+        const tourneyContainer = document.getElementsByClassName("tourney-container")[0]
+        const tiContainer = document.getElementsByClassName("ti-container")[0]
+    
+        tourneyContainer.classList.add("tourney-info-mode");
+        tiContainer.classList.add("tourney-info-mode")
+      }
+    )
+
+    
+
   }
 
   togglePlayerDisplay = (e) => {
@@ -105,12 +137,30 @@ export class Home extends Component {
     this.setState({divisionSelect: e.target.value})
   }
 
+  changePlayerSort = (e) => {
+    let selectedSort = e.target.options[e.target.selectedIndex].value;
+    this.setState({sort: selectedSort})
+  }
+
+  searchPlayers = (query) => {
+    this.setState({playerQuery: query})
+  }
+
   closeInfo = (e) => {
     let cards = document.getElementsByClassName("tourney-card")
 
+    const tourneyContainer = document.getElementsByClassName("tourney-container")[0]
+    const tiContainer = document.getElementsByClassName("ti-container")[0]
+
+    if(tiContainer){
+      tourneyContainer.classList.remove("tourney-info-mode");
+      tiContainer.classList.remove("tourney-info-mode")
+    }
+
+    console.log("test")
     for(let card of cards){
       card.classList.remove("hidden")
-
+      card.classList.remove("selected-tourney-card")
     }
 
     document.getElementsByClassName('player-container')[0].classList.remove("players-fullheight")
@@ -129,18 +179,22 @@ export class Home extends Component {
   }
 
   toggleAddPlayerForm = () => {
-    document.getElementById("addPlayer").classList.toggle("add-player")
-    document.getElementById("addPlayer").classList.toggle("add-player-form")
-    this.setState({addPlayerForm: !this.state.addPlayerForm})
+    //document.getElementById("addPlayer").classList.toggle("add-player")
+    //document.getElementById("addPlayer").classList.toggle("add-player-form")
+    this.setState({playerFormOpen: !this.state.playerFormOpen})
   }
 
-  submitPlayer = async () => {
+  submitPlayer = async (imgLocation) => {
     const inputFields = document.getElementsByClassName("add-player-input");
+    const currUser = await fetchUser(); 
+
     const newPlayer = {
       name: inputFields[0].value,
       division: inputFields[1].value,
       selfDesc: inputFields[2].value,
-      tournamentId: this.state.selectedTournament._id
+      tournamentId: this.state.selectedTournament._id,
+      creatorId: currUser.sub,
+      img: imgLocation
     }
 
     await fetch('http://localhost:3000/api/free-agents', {
@@ -156,15 +210,18 @@ export class Home extends Component {
     this.toggleAddPlayerForm()
   }
 
-  submitTourney = async () => {
+  submitTourney = async (imgLocation) => {
     const inputFields = document.getElementsByClassName("form-input");
+    const currUser = await fetchUser(); 
     const newTourney = {
       name: inputFields[0].value,
       location: inputFields[1].value,
       date: inputFields[2].value,
       divisions: inputFields[3].value.split(","),
       desc: inputFields[4].value,
-      link: inputFields[5].value
+      link: inputFields[5].value,
+      creatorId: currUser.sub,
+      img: imgLocation
     }
 
     await fetch('http://localhost:3000/api/tournaments', {
@@ -175,7 +232,7 @@ export class Home extends Component {
       body: JSON.stringify(newTourney),
     })
 
-    this.setState((prevState) => ({tournaments: [...prevState.tournaments, newTourney], overlayOpen: false}))
+    this.setState((prevState) => ({tournaments: [...prevState.tournaments, newTourney], tourneyFormOpen: false}))
   }
 
   deletePlayer = async (delPlayer) => {
@@ -214,7 +271,8 @@ export class Home extends Component {
     const userState = await fetchUser();
     const session = await fetch("http://localhost:3000/api/me")
     console.log(session)
-    console.log(userState)
+    console.log("user id")
+    console.log(userState.user_id)
   }
 
 
@@ -225,6 +283,7 @@ export class Home extends Component {
     let {user, loading} = this.props.userObj
 
     //this.getUser()
+
 
     if(this.state.displayInfo){
       tourneyInfo = (<TourneyInfo tournament = {this.state.selectedTournament} togglePlayerDisplay = {this.togglePlayerDisplay} closeInfo = {this.closeInfo}/>)
@@ -243,7 +302,23 @@ export class Home extends Component {
         players = players.filter((player) => player.division == this.state.divisionSelect)
       }
 
-      console.log(players)
+      //sort according to sort choice
+      players = players.sort((a,b) => {
+        switch(this.state.sort){
+          case "name.fwd":
+            return a.name > b.name ? 1 : -1
+          case "name.rev":
+            return a.name < b.name ? 1 : -1
+          case "div.fwd":
+            return a.division > b.division ? 1 : -1
+          case "div.rev":
+            return a.division < b.division ? 1 : -1
+        }
+      })
+
+      //filter according to search query
+      if(this.state.playerQuery != "") players = players.filter((player) => player.name.includes(this.state.playerQuery))
+
 
       //return a player card for each free agent attending this tournament 
       playerCards = (
@@ -261,7 +336,7 @@ export class Home extends Component {
 
         <div className = "content">
           <h1 className = "cont-title">Upcoming Tournaments </h1>
-          <button className = "new-tournament button-invert" onClick = {()=> this.setState({overlayOpen: true})}>Add New</button>
+          <button className = "new-tournament button-invert" onClick = {()=> {this.setState({tourneyFormOpen: true}); this.closeInfo();}}>Add New</button>
           <div className = "page-changes">
             <button className = "page-change-button" onClick = {() => {this.shiftTourneys("left")}}>←</button>
             <span className = "page-change-text">
@@ -270,9 +345,13 @@ export class Home extends Component {
             <button className = "page-change-button" onClick = {() => {this.shiftTourneys("right")}}>→</button>
           </div>
           <div className = "main">
-            <div className="container container-shadow">
-              <div className = "grid" style = {{left:'0px'}}>
-                {this.state.tournaments.map((tourney) =>{
+            <div className="container tourney-container">
+              <div className = "grid" style = {{left:'0px'}} onresize = {() => console.log("resized")}>
+                {this.state.tournaments
+                  .sort((a,b) => {
+                    return a.date > b.date ? 1:-1
+                  })
+                  .map((tourney) =>{
                   return (<TourneyCard handleClick = {this.selectTourney} tournament = {tourney} deleteTourney = {this.deleteTourney}/>)
                 })}
                 {/*<TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[0]}/>
@@ -284,13 +363,23 @@ export class Home extends Component {
             <div className =  "arrow"></div>
             <div className = "canScrollTo">
               <div className = 'container player-container' id = "playerContainer">
-                <SearchBar selectedTournament = {this.state.selectedTournament} updateDivision = {this.updateDivision}/>
+                <SearchBar selectedTournament = {this.state.selectedTournament} updateDivision = {this.updateDivision} changePlayerSort = {this.changePlayerSort} searchPlayers = {this.searchPlayers}/>
                 {playerCards}
               </div>
             </div>
           </div>
         </div>
-        {this.state.overlayOpen ? (<OverlayForm onClick = {() => this.setState({overlayOpen: false})} submit = {this.submitTourney}/>) : null}
+        {this.state.tourneyFormOpen ? (<OverlayForm 
+                                        formType = "addTournament" 
+                                        onClick = {() => this.setState({tourneyFormOpen: false})} 
+                                        submit = {this.submitTourney}
+                                      />) : null}
+        {this.state.playerFormOpen ? (<OverlayForm 
+                                        formType = "addPlayer" 
+                                        onClick = {() => this.setState({playerFormOpen: false})} 
+                                        submit = {this.submitPlayer}
+                                        divisions = {this.state.selectedTournament.divisions}
+                                      />) : null}
       </>
     )
   

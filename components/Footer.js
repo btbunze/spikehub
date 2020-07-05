@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import SponsorBar from "./SponsorBar"
+import FooterInfo from "./InfoSection"
 
 export class Footer extends Component {
     render() {

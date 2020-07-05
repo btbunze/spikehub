@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {fetchUser} from "../utils/user"
 
 
 export class PlayerCard extends Component {
@@ -11,6 +12,26 @@ export class PlayerCard extends Component {
         };
     }
 
+    componentDidMount(){
+        this.checkUser()
+    }
+
+    componentWillUpdate() {
+        this.checkUser()
+    }
+
+    checkUser = async () =>{
+        const currUser = await fetchUser()
+
+        if(currUser){
+            if(currUser.sub == this.props.player.creatorId && this.state.canDelete == false){
+                this.setState({canDelete: true})
+            }else if(currUser.sub != this.props.player.creatorId && this.state.canDelete == true){
+                this.setState({canDelete:false})
+            }
+        }
+
+    }
 
     render() {
         return (
@@ -22,14 +43,21 @@ export class PlayerCard extends Component {
                     <p className = "pc-desc">{this.props.player.selfDesc}</p>
                 </div>
                 <div className = "button-section">
-                    <a href = {this.props.player.contact} style = {{margin:'auto'}}>
-                        <button className = "pc-button">
-                            CONTACT
+                    {this.state.canDelete ? (
+                        <button className = "pc-button" onClick = {() => this.props.deletePlayer(this.props.player)}>
+                            DELETE
                         </button>
-                    </a>
-                    <button className = "pc-button" onClick = {() => this.props.deletePlayer(this.props.player)}>
-                        DELETE
-                    </button>
+
+                    ):(
+                        <a href = {this.props.player.contact} style = {{margin:'auto', width: '100%'}}>
+                            <button className = "pc-button contact-button">
+                                CONTACT
+                            </button>
+                        </a>
+                    )                    
+                    }
+
+
                 </div>
             </div>
         )
