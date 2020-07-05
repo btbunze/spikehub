@@ -6,6 +6,7 @@ const client = new MongoClient('mongodb+srv://btbunze:spongeystar3@cluster0-h5gd
   useUnifiedTopology: true,
 });
 async function database(req, res, next) {
+  console.log("opening database connection")
   if (!client.isConnected()) await client.connect();
   req.dbClient = client;
   req.db = client.db('spikehubdb');
