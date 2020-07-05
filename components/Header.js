@@ -15,15 +15,16 @@ export class header extends Component {
 
         return (
             <div className = "header">
-                {this.props.userObj.user ? (                
+                {//this.props.userObj.user ? 
+                    (                
                     <a href = "/api/logout" className = "login-button">
                         <p className = "login-button-text">Logout → </p>
                     </a>
-                    ):(
-                    <a href = "/api/login" className = "login-button">
-                        <p className = "login-button-text">Login → </p>
-                    </a>  
-                    )
+                    )//:(
+                    //<a href = "/api/login" className = "login-button">
+                   //     <p className = "login-button-text">Login → </p>
+                    //</a>  
+                    //)
                 }
 
                 <div className = "color-overlay">

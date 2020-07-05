@@ -281,9 +281,6 @@ export class Home extends Component {
   render() {
     let tourneyInfo = null;
     let playerCards = null;
-    let {user, loading} = this.props.userObj
-
-    //this.getUser()
 
 
     if(this.state.displayInfo){
