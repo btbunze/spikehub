@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 import {fetchUser} from "../utils/user"
 import auth0 from "../utils/auth0"
+import fetch from 'isomorphic-unfetch'
+
 
 import PlayerCard from "../components/PlayerCard"
 import AddPlayerCard from "../components/AddPlayerCard"
