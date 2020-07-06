@@ -20,6 +20,9 @@ export class Home extends Component {
     //const res1 = await fetch(`${process.env.baseUrl}/api/tournaments`, {method: "GET"})
     //const tArray = await res1.json()
 
+    const res = await fetch(`${process.env.baseUrl}/api/test`)
+    console.log(res)
+
     //const res2 = await fetch(`${process.env.baseUrl}/api/free-agents`, {method: "GET"})
     //const pArray = await res2.json()
 
