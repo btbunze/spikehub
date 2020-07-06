@@ -14,7 +14,7 @@ body{
     min-height:100vh;
     overflow-x:hidden;
     margin:0px;
-    background: #e5e5e5 url("../public/rep-dot.png");
+    background: #e5e5e5 /*url("../public/rep-dot.png")*/;
     background-size:90px 90px;
 
 }
