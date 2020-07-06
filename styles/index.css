@@ -5,6 +5,7 @@
 
 html{
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
 body{
@@ -1028,6 +1029,7 @@ label{
 
     .grid{
         grid-template-columns: 100%;
+        -webkit-overflow-scrolling: touch;
         overflow-y:scroll;
         overflow-x:hidden;
         -ms-overflow-style: none;
