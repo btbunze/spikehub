@@ -14,15 +14,14 @@ export class Home extends Component {
 
 
   static async getInitialProps() {
-    // console.log("getting initial props")
-    // const res1 = await fetch(`${process.env.baseUrl}/api/tournaments`, {method: "GET"})
-    // const tArray = await res1.json()
 
-    // const res2 = await fetch(`${process.env.baseUrl}/api/free-agents`, {method: "GET"})
-    // const pArray = await res2.json()
-    // console.log("recieved initial props")
+    const res1 = await fetch(`${process.env.baseUrl}/api/tournaments`, {method: "GET"})
+    const tArray = await res1.json()
 
-    return { tournamentsArray : []/*tArray*/, playersArray : []/*pArray*/}
+    const res2 = await fetch(`${process.env.baseUrl}/api/free-agents`, {method: "GET"})
+    const pArray = await res2.json()
+
+    return { tournamentsArray : tArray, playersArray : pArray}
   }
 
   constructor(props) {
@@ -198,7 +197,7 @@ export class Home extends Component {
       img: imgLocation
     }
 
-    await fetch(`${process.env.baseUrl}/api/free-agents`, {
+    await fetch('/api/free-agents', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -225,7 +224,7 @@ export class Home extends Component {
       img: imgLocation
     }
 
-    await fetch(`${process.env.baseUrl}/api/tournaments`, {
+    await fetch('/api/tournaments', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -237,7 +236,7 @@ export class Home extends Component {
   }
 
   deletePlayer = async (delPlayer) => {
-    await fetch(`${process.env.baseUrl}/api/free-agents`, {
+    await fetch('/api/free-agents', {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json'
@@ -253,7 +252,7 @@ export class Home extends Component {
   deleteTourney = async (e, delTourney) => {
     e.stopPropagation()
     this.closeInfo(e)
-    await fetch(`${process.env.baseUrl}/api/tournaments`, {
+    await fetch('/api/tournaments', {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json'
@@ -270,7 +269,7 @@ export class Home extends Component {
 
   getUser = async () => {
     const userState = await fetchUser();
-    const session = await fetch(`${process.env.baseUrl}/api/me`)
+    const session = await fetch('/api/me')
     console.log(session)
     console.log("user id")
     console.log(userState.user_id)

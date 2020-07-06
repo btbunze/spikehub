@@ -5,7 +5,7 @@ export class OverlayForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedImg: null,
+            selectedImg: {loc: null},
             loading: false
         }
     }
