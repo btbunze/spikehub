@@ -346,7 +346,7 @@ export class Home extends Component {
           </div>
           <div className = "main">
             <div className="container tourney-container">
-              <div className = "grid" style = {{left:'0px'}} onresize = {() => console.log("resized")}>
+              <div className = "grid" style = {{left:'0px'}}>
                 {this.state.tournaments
                   .sort((a,b) => {
                     return a.date > b.date ? 1:-1
