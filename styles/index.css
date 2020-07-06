@@ -1,4 +1,7 @@
-
+:root{
+    width:100%;
+    overflow-x:hidden;
+}
 
 html{
     scroll-behavior: smooth;
@@ -8,7 +11,7 @@ body{
     position:relative;
     padding-bottom:23px;
     min-height:100vh;
-    overflow-x:hidden;
+    width:100%;
     margin:0px;
     background: #e5e5e5 /*url("../public/rep-dot.png")*/;
 
