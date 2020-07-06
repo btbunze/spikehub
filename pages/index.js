@@ -127,7 +127,7 @@ export class Home extends Component {
         let canScrollTo = document.getElementsByClassName("canScrollTo")[0];
         canScrollTo.classList.toggle("visible")
         if(this.state.displayPlayers){
-          canScrollTo.scrollIntoView(true)
+         // canScrollTo.scrollIntoView(true)
         }
 
       }
