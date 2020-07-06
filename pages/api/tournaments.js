@@ -7,8 +7,11 @@ const handler = nextConnect();
 
 handler.use(middleware)
 
+console.log("does this ever trigger?")
+
 
 handler.get(async (req, res) =>{
+    console.log("attempting to get tournaments")
     let doc = await req.db.collection("tournaments").find().toArray()
     res.send(JSON.stringify(doc))
 
@@ -16,6 +19,7 @@ handler.get(async (req, res) =>{
 
 
 handler.put(async (req, res) =>{
+    console.log("attempting to add tournament")
     let newTourney = req.body
 
     let doc = await req.db.collection("tournaments").insertOne(newTourney)
