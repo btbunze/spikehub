@@ -14,7 +14,7 @@ body{
     width:100%;
     overflow:hidden;
     margin:0px;
-    background: #e5e5e5 /*url("../public/rep-dot.png")*/;
+    background: #e5e5e5 url("../public/rep-dot.png");
 
 }
 
