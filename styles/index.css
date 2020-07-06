@@ -1,6 +1,8 @@
 :root{
-    --yellow : rgba(249, 213, 44, 1)
+    width:100%;
+    overflow: hidden;
 }
+
 
 html{
     scroll-behavior: smooth;
@@ -373,9 +375,6 @@ button:hover{
     margin:auto;
     margin-bottom:-300px;
 
-}
-
-.main{
 }
 
 .container{
