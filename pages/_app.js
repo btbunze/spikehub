@@ -15,6 +15,7 @@ function MyApp({ Component, pageProps }) {
         <>
             <UserProvider value = {{user, loading}}>
                 <Head>
+                    <meta name = "viewport" content = "width=device-width,initial-scale=1"></meta>
                     <link rel="stylesheet" href="https://use.typekit.net/cpt5qbw.css"></link>
                     <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
                 </Head>
