@@ -207,7 +207,8 @@ button:hover{
 }
 
 .fi-column{
-    grid-column: span 1;
+    grid-column: span 2;
+    height:fit-content;
     background-color:white;
     box-shadow: 0px 0px 10px rgba(0,0, 0,.3);
 }
@@ -227,7 +228,35 @@ button:hover{
 
 .section-content{
     padding:20px;
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    display:grid;
+    gap:20px;
+    grid-template-columns: repeat(2, 1fr);
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size:18px;
+    height:fit-content;
+}
+
+.grid-item-lg{
+    grid-column: span 2;
+    width:80%;
+    margin:auto;
+}
+
+.grid-item-sm{  
+    grid: span 1;
+    text-align:center;
+}
+
+ul{
+    list-style-type:none;
+    padding-left:0px;
+}
+
+li{
+    background-color:#e5e5e5;
+    width:80%;
+    margin:auto;
+    margin-bottom: 1px;
 }
 
 .about-text{
@@ -238,16 +267,16 @@ button:hover{
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    height: 400px;;
-    width:100%;
+    gap:10px;
+    width:90%;
+    margin:auto;
 }
 
 .main-sponsor{
 
     grid-column: span 3;
-    grid-row:span 1;
-    width:75%;
-    margin:auto;
+    grid-row:span 2;
+    width:100%;
     height:100%;
     display:flex;
 }
@@ -256,7 +285,7 @@ button:hover{
 
     grid-column: span 1;
     grid-row:span 1;
-    width:75%;
+    width:100%;
     margin:auto;
     height:100%;
     display:flex;
@@ -983,7 +1012,7 @@ label{
 
 @media (max-width:950px){
     .header{
-        padding-top:25px;
+        padding-top:50px;
     }
 }
 
@@ -1047,6 +1076,10 @@ label{
 @media (max-width: 690px) {
     .add-player{
         margin-top:25px;
+    }
+
+    .grid-item-sm{
+        grid-column:span 2;
     }
 }
 
@@ -1128,6 +1161,14 @@ label{
     .title:after, .title:before{
         width:270px;
     }
+
+
+    .login-status{
+        width: calc(100% - 20px);
+        text-align:center;
+
+    }
+
     .content{
         top:-325px;
     }
