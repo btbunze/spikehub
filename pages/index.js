@@ -9,7 +9,7 @@ import PlayerCard from "../components/PlayerCard"
 import AddPlayerCard from "../components/AddPlayerCard"
 import TourneyCard from "../components/TourneyCard"
 import TourneyInfo from "../components/TourneyInfo"
-import OverlayForm from "../components/OverlayForm"
+import Overlay from "../components/Overlay"
 import SearchBar from "../components/SearchBar"
 
 export class Home extends Component {
@@ -38,6 +38,7 @@ export class Home extends Component {
       addPlayerForm: false,
       tourneyFormOpen: false,
       playerFormOpen:false,
+      loginOverlayOpen:false,
       divisionSelect: "all",
       sort: "name.fwd",
       playerQuery: "",
@@ -66,7 +67,6 @@ export class Home extends Component {
 
   maintainPageOnResize = () => {
     let grid = document.getElementsByClassName("grid")[0];
-    console.log((this.state.tourneyPage-1)*grid.offsetWidth)
     if((this.state.tourneyPage-1) * grid.offsetWidth != -(parseInt(grid.style.left.slice(0,-2)))
         &&
       this.state.displayInfo == false    
@@ -82,6 +82,7 @@ export class Home extends Component {
     const target = e.currentTarget;
     const tCards = document.getElementsByClassName('tourney-card')
 
+    document.getElementsByClassName("page-changes")[0].classList.add("hidden")
 
     for (let card of tCards) {
       if(card != target){
@@ -155,6 +156,8 @@ export class Home extends Component {
     const tourneyContainer = document.getElementsByClassName("tourney-container")[0]
     const tiContainer = document.getElementsByClassName("ti-container")[0]
 
+    document.getElementsByClassName("page-changes")[0].classList.remove("hidden")
+
     if(tiContainer){
       tourneyContainer.classList.remove("tourney-info-mode");
       tiContainer.classList.remove("tourney-info-mode")
@@ -184,12 +187,23 @@ export class Home extends Component {
   toggleAddPlayerForm = () => {
     //document.getElementById("addPlayer").classList.toggle("add-player")
     //document.getElementById("addPlayer").classList.toggle("add-player-form")
-    this.setState({playerFormOpen: !this.state.playerFormOpen})
+    console.log(this.props.userObj)
+    if(this.props.userObj.user){
+      this.setState({playerFormOpen: !this.state.playerFormOpen})
+    }
+    else{
+      this.setState({loginOverlayOpen: !this.state.loginOverlayOpen})
+    }
+
   }
 
   submitPlayer = async (imgLocation) => {
     const inputFields = document.getElementsByClassName("add-player-input");
     const currUser = await fetchUser(); 
+    if(currUser == null){
+      console.log("Please log in")
+      return;
+    }
 
     const newPlayer = {
       name: inputFields[0].value,
@@ -199,6 +213,28 @@ export class Home extends Component {
       creatorId: currUser.sub,
       img: imgLocation
     }
+
+    let invalidInputs = false;
+
+    if(newPlayer.name == ""){
+      invalidInputs = true
+      inputFields[0].classList.add("invalid-input");
+    }else{
+      inputFields[0].classList.remove("invalid-input");
+    }
+
+
+    if(newPlayer.division == ""){
+      invalidInputs = true
+      inputFields[1].classList.add("invalid-input")
+    }else{
+      inputFields[1].classList.remove("invalid-input")
+    }
+
+    if(invalidInputs){
+      return
+    }
+
 
     await fetch('/api/free-agents', {
       method: 'PUT',
@@ -335,8 +371,10 @@ export class Home extends Component {
       <>
 
         <div className = "content">
-          <h1 className = "cont-title">Upcoming Tournaments </h1>
-          <button className = "new-tournament button-invert" onClick = {()=> {this.setState({tourneyFormOpen: true}); this.closeInfo();}}>Add New</button>
+          <h1 className = "cont-title" onClick = {this.closeInfo}>Upcoming Tournaments </h1>
+          <a href = "https://docs.google.com/forms/d/e/1FAIpQLSc26lCFtWMyCPwblbcRpk-3_flsy_louCor5tQUsD55IKH1WA/viewform?usp=sf_link" target = "_blank">
+          <button className = "new-tournament button-invert" onClick = {()=> {/*this.setState({tourneyFormOpen: true});*/ this.closeInfo();}}>Add New</button>
+          </a>
           <div className = "page-changes">
             <button className = "page-change-button" onClick = {() => {this.shiftTourneys("left")}}>←</button>
             <span className = "page-change-text">
@@ -354,9 +392,6 @@ export class Home extends Component {
                   .map((tourney) =>{
                   return (<TourneyCard handleClick = {this.selectTourney} tournament = {tourney} deleteTourney = {this.deleteTourney}/>)
                 })}
-                {/*<TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[0]}/>
-                <TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[1]}/>
-                <TourneyCard handleClick = {this.selectTourney} tournament = {this.state.tournaments[1]}/>*/}
                 {tourneyInfo}
               </div>
             </div>
@@ -369,13 +404,17 @@ export class Home extends Component {
             </div>
           </div>
         </div>
-        {this.state.tourneyFormOpen ? (<OverlayForm 
-                                        formType = "addTournament" 
+        {this.state.loginOverlayOpen ? (<Overlay 
+                                        type = "loginPrompt"
+                                        onClick = {() => this.setState({loginOverlayOpen: false})}
+                                      />) : null }
+        {this.state.tourneyFormOpen ? (<Overlay 
+                                        type = "addTournament" 
                                         onClick = {() => this.setState({tourneyFormOpen: false})} 
                                         submit = {this.submitTourney}
                                       />) : null}
-        {this.state.playerFormOpen ? (<OverlayForm 
-                                        formType = "addPlayer" 
+        {this.state.playerFormOpen ? (<Overlay
+                                        type = "addPlayer" 
                                         onClick = {() => this.setState({playerFormOpen: false})} 
                                         submit = {this.submitPlayer}
                                         divisions = {this.state.selectedTournament.divisions}

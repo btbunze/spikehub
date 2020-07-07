@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-export class OverlayForm extends Component {
+export class Overlay extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            selectedImg: {loc: null},
+            selectedImg: null,
             loading: false
         }
     }
@@ -27,10 +27,23 @@ export class OverlayForm extends Component {
 
     render() {
 
-        let formRender = null;
+        let overlayRender = null;
 
-        if(this.props.formType == "addTournament"){
-            formRender = (
+
+        if(this.props.type == "loginPrompt"){
+            overlayRender = (
+                <>
+                    <h2 className = "form-title">Login or sign up to add players</h2>
+                    <button className = "add-player-button" onClick = {this.props.onClick}>Cancel</button>
+                    <a href = "/api/login">
+                        <button className = "add-player-button">Login</button>  
+                    </a>
+                </>
+            )
+        }
+
+        if(this.props.type == "addTournament"){
+            overlayRender = (
                 <>
                     <h2 className = "form-title">Add a Tournament</h2>
                     <label>Tournament Name:</label>
@@ -56,18 +69,19 @@ export class OverlayForm extends Component {
                     <span className = "selected-img-text">{this.state.selectedImg ? this.state.selectedImg.name : "No image selected"}</span>
                     <br/>
                     <button className = "add-player-button " onClick = {this.props.onClick}>Cancel</button>
-                    <button className = "add-player-button " onClick = {() => this.props.submit(this.state.selectedImg.loc)}>Submit</button>
+                    <button className = "add-player-button " onClick = {() => {this.state.selectedImg ? this.props.submit(this.state.selectedImg.loc): this.props.submit(null)}}>Submit</button>
                 </>
             )
-        }else if (this.props.formType == "addPlayer") {
-            formRender = (
+        }else if (this.props.type == "addPlayer") {
+            overlayRender = (
                 <>
                     <h2 className = "form-title">Add a Free Agent</h2>
-                    <label>Name:</label>
+                    <label>Name:*</label>
                     <input className = "form-input add-player-input"/>
                     <br/>
-                    <label>Division:</label>
+                    <label>Division:*</label>
                     <select className = "form-input add-player-input">
+                        <option value = "" selected disabled >Choose a division</option>
                         {this.props.divisions.map((division) =>{
                             return (<option value = {division} >{division}</option>)
                         })}
@@ -81,7 +95,7 @@ export class OverlayForm extends Component {
                     <span className = "selected-img-text">{this.state.selectedImg ? this.state.selectedImg.name : "No image selected"}</span>
                     <br/>
                     <button className = "add-player-button " onClick = {this.props.onClick}>Cancel</button>
-                    <button className = "add-player-button " onClick = {() => this.props.submit(this.state.selectedImg.loc)}>Submit</button>
+                    <button className = "add-player-button " onClick = {() => {this.state.selectedImg ? this.props.submit(this.state.selectedImg.loc): this.props.submit(null)}}>Submit</button>
                 </>
             )
         }
@@ -90,11 +104,11 @@ export class OverlayForm extends Component {
             
             <div className = "overlay-shadow" id = "overlay">
                 <div className = "form" id = "overlayForm">
-                    {formRender}
+                    {overlayRender}
                 </div>
             </div>
         )
     }
 }
 
-export default OverlayForm
+export default Overlay

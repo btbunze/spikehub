@@ -84,16 +84,29 @@ button:hover{
 }
 
 .login-button{
-    position: absolute;
-    z-index:999;
-    display:flex;
-    top:10px;
-    right:10px;
+
+    display:inline-flex;
     width:95px;
     height:30px;
-    background-color:rgba(255,255,255,.2);
+    background-color:rgba(0,0,0,.2);
     border-radius:15px;
     text-decoration:none;
+    margin-left:10px;
+}
+
+.login-text{
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color:white;
+}
+
+.login-status{
+    position: absolute;
+    z-index:999;
+    top:0px;
+    right:0px;
+    padding:10px;
+    background-color: rgba(255,255,255,.1);
+    border-radius:0px 0px 0px 10px;
 }
 
 .login-button-text{
@@ -201,13 +214,14 @@ button:hover{
 
 .section-top-bar{
     background:#EA5E3D;
-    padding:15px;
+    padding:17px;
     box-shadow: 0px 2px 4px rgba(0,0,0, .2);
 }
 
 .section-header{
     margin:auto;
     color:white;
+    font-size:30px;
     margin-bottom:0px;
 }
 
@@ -330,6 +344,7 @@ button:hover{
     padding-bottom:5px;
     font-size:18px;
     color: #fff;
+    cursor:pointer;
     font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     filter: drop-shadow(1px 1px 2px rgba(0,0,0,.3));
 }
@@ -901,6 +916,10 @@ label{
     display:none;
 }
 
+.invalid-input{
+    background-color: rgba(255,0,51,.2)
+}
+
 
 
 .players-fullheight{
@@ -945,6 +964,7 @@ label{
     .ti-button{
         width:18.6vw;
         height: 4.7vw;
+        vertical-align: top;
     }
 
     .tourney-container{
@@ -958,6 +978,12 @@ label{
         font-size:1.7vw;
         margin-top: 1vw;
         margin-bottom:1vw;
+    }
+}
+
+@media (max-width:950px){
+    .header{
+        padding-top:25px;
     }
 }
 
@@ -977,8 +1003,23 @@ label{
         grid-column: span 3;
     }
 
+
+    .ti-header{
+        font-size:6vw;
+        margin-top:-1.5vw;
+    }
+    .ti-subheader{
+        font-size:3.5vw;
+    }
+
+    .ti-content{
+        font-size:2.1vw;
+    }
+
     .ti-button{
-        font-size:15px;
+        width:19.6vw;
+        height: 5.7vw;
+        font-size:2.5vw;
     }
 }
 
@@ -1017,9 +1058,6 @@ label{
 }
 
 @media (max-width: 560px){
-    .header{
-        padding-top:20px;
-    }
 
 
     
@@ -1060,17 +1098,18 @@ label{
     }
 
     .ti-header{
-        font-size:25px;
+        font-size:37.5px;
     }
     .ti-subheader{
-        font-size:15px;
+        font-size:17px;
     }
     .ti-content{
-        font-size:12px;
+        font-size:13px;
     }
     .ti-button{
         width:125px;
         height:40px;
+        font-size: 18px;
     }
 
     .tourney-info-mode{
@@ -1101,8 +1140,8 @@ label{
     }
 
     .ti-button{
-        width:90px;
-        height:29px;
+        width:100px;
+        height:32px;
         font-size:13px;
     }
 }
