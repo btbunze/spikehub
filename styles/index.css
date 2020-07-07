@@ -534,19 +534,27 @@ li{
 }
 
 .img-container{
+    position:relative;
     width:100%;
+    padding-top:100%;
     flex:5;
     background-color:#e5e5e5;
     display:flex;
 }
 
 .tourney-infobar{
+    
     display:flex;
     width:100%;
     flex:1;
 }
 
 .tourney-img{
+    position:absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
     margin:auto;
     width:100%;
 }
