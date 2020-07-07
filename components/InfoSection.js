@@ -17,7 +17,7 @@ export class InfoSection extends Component {
                             <h1 className = "section-subheader">Quick Notes</h1>
                             <ul>
                                 <li>Created by: Benjamin Bunze</li>
-                                <li>Built with: Reactjs (reactjs.org)</li>
+                                <li>Built with: Reactjs and Nextjs</li>
                                 <li>Source code: <a href = "https://github.com/btbunze/spikehub">Github</a></li>
                             </ul>
                         </div>

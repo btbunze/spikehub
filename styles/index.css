@@ -192,7 +192,7 @@ button:hover{
     line-height:25px;
 }
 
-/*InfoSession*/
+/*InfoSection*/
 
 .two-column{
     display:grid;
@@ -209,6 +209,7 @@ button:hover{
 .fi-column{
     grid-column: span 2;
     height:fit-content;
+    width:100%;
     background-color:white;
     box-shadow: 0px 0px 10px rgba(0,0, 0,.3);
 }
@@ -655,6 +656,7 @@ li{
 /*SearchBar*/
 
 .search-bar{
+    position:relative;
     width: 93%;
     margin:auto;
     margin-bottom:15px;
@@ -662,6 +664,18 @@ li{
     padding:15px;
     background-color:white;
     filter:drop-shadow(2px 2px 2px rgba(0,0,0,.2));
+}
+
+.mobile-toggle-search{
+    height:30px;
+    width:70px;
+    margin-right:10px;
+    display:inline-block;
+    display:none;
+}
+
+.search-div{
+    display:inline-block;
 }
 
 .search-input{
@@ -676,6 +690,7 @@ li{
     height:30px;
     width:70px;
     margin-right:10px;
+    display:inline-block
 }
 
 
@@ -704,11 +719,19 @@ select{
     display:none;
 }
 
+.filter-div{
+    float:right;
+}
+.sort-div{
+    float:right;
+}
+
 .filter-sort-button{
     width:70px;
     height:30px;
     margin-left:10px;
     margin-top:1px;
+    display:none;
 }
 
 /*PlayerCard*/
@@ -965,9 +988,7 @@ label{
     display:none;
 }
 
-.visible{
-    display:block;
-}
+
 
 /*Breakpoints*/
 
@@ -1018,12 +1039,25 @@ label{
 }
 
 @media (max-width: 890px){
-    .filter-and-sort{
+    .filter-div,.sort-div{
         display:none;
     }
     
-    .mobile-filter-and-sort{
+    .filter-sort-button{
         display:inline-block;
+        float:right;
+    }
+
+    .filter-div,.sort-div{
+        position:absolute;
+        padding:5px 15px;
+        text-align:right;
+        bottom:-37px;
+        left:0px;
+        width: calc(100% - 30px);
+        background-color:#EEEEEE;
+        display:none;
+
     }
 
     .selected-tourney-card{
@@ -1056,7 +1090,7 @@ label{
 @media (max-width: 725px){
 
     .two-column{
-        grid-template-columns: 100%;
+        /*grid-template-columns: 100%; reduces # columns to 1 */
         margin:auto;
         margin-top:25px;
         gap:25px;
@@ -1086,8 +1120,18 @@ label{
 
 
 @media (max-width: 600px){
-    .search-input{
+    .search-div{
+        position:absolute;
+        padding:5px 15px;
+        bottom:-37px;
+        left:0px;
+        width: calc(100% - 30px);
+        background-color:#EEEEEE;
         display:none;
+    }
+
+    .mobile-toggle-search{
+        display:inline-block;
     }
 }
 
@@ -1184,6 +1228,16 @@ label{
     .ti-button{
         width:100px;
         height:32px;
-        font-size:13px;
+        font-size:12px;
     }
+}
+
+
+
+.visible{
+    display:block;
+}
+
+.visible-inline{
+    display:inline-block;
 }
