@@ -87,6 +87,9 @@ export class Overlay extends Component {
                         })}
                     </select>
                     <br/>
+                    <label>Contact Link: (i.e. facebook link, etc.)</label>
+                    <input className = "form-input add-player-input"></input>
+                    <br/>
                     <label>Description:</label>
                     <input className = "form-input add-player-input"></input>
                     <br/>

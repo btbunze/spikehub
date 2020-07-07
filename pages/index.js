@@ -208,7 +208,8 @@ export class Home extends Component {
     const newPlayer = {
       name: inputFields[0].value,
       division: inputFields[1].value,
-      selfDesc: inputFields[2].value,
+      contact: inputFields[2].value, 
+      selfDesc: inputFields[3].value,
       tournamentId: this.state.selectedTournament._id,
       creatorId: currUser.sub,
       img: imgLocation
@@ -231,8 +232,15 @@ export class Home extends Component {
       inputFields[1].classList.remove("invalid-input")
     }
 
+    if(newPlayer.contact == ""){
+      invalidInputs = true
+      inputFields[2].classList.add("invalid-input")
+    }else{
+      inputFields[2].classList.remove("invalid-input")
+    }
+
     if(invalidInputs){
-      return
+      return;
     }
 
 

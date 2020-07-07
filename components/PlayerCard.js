@@ -49,7 +49,7 @@ export class PlayerCard extends Component {
                         </button>
 
                     ):(
-                        <a href = {this.props.player.contact} style = {{margin:'auto', width: '100%'}}>
+                        <a href = {this.props.player.contact} target = "_blank" style = {{margin:'auto', width: '100%'}}>
                             <button className = "pc-button contact-button">
                                 CONTACT
                             </button>
