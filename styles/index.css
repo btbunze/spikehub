@@ -878,11 +878,9 @@ select{
 
 
 .add-player-button{
-    
-    margin:15px;
-    margin-left:0px;
-    width:80px;
+    width:45%;
     height:30px;
+    font-size:17px;
 }
 
 .clickable-wrapper{
@@ -907,7 +905,7 @@ select{
 .form{
     background-color:white;
     border-radius:10px;
-    padding:30px;
+    padding:25px;
     padding-top:10px;
     width:290px;
     margin:auto;

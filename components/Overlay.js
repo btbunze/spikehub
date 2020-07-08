@@ -103,7 +103,7 @@ export class Overlay extends Component {
                     <input className = "form-input add-player-input"></input>
                     <br/>
                     <label>Image:</label>
-                    <div style = {{textAlign:"center", backgroundColor: "#F5F5F5", padding:"10px", borderRadius:"5px"}}>
+                    <div style = {{textAlign:"center", backgroundColor: "#F5F5F5", padding:"10px", borderRadius:"5px", boxShadow:"0px 2px 2px #e5e5e5"}}>
                         <div style = {{padding:"10px"}}>
                             <button className = "form-img-button" onClick = {this.openWidget}>Choose Image</button>
                             <span style = {{padding:"5px"}}> or </span>
@@ -111,8 +111,11 @@ export class Overlay extends Component {
                         </div>
                         {this.state.selectedImg? (<img src = {this.state.selectedImg.loc} width = "100px" height = "100px"></img>) : (<p>No image selected</p>)}
                     </div>
-                    <button className = "add-player-button " onClick = {this.props.onClick}>Cancel</button>
-                    <button className = "add-player-button " onClick = {() => {this.state.selectedImg ? this.props.submit(this.state.selectedImg.loc): this.props.submit(null)}}>Submit</button>
+                    <div style = {{display:"flex", justifyContent: "space-between", marginTop: "20px"}}>
+                        <button className = "add-player-button " onClick = {this.props.onClick}>Cancel</button>
+                        <button className = "add-player-button " onClick = {() => {this.state.selectedImg ? this.props.submit(this.state.selectedImg.loc): this.props.submit(null)}}>Submit</button>
+                    </div>
+
                 </>
             )
         }
