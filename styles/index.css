@@ -258,7 +258,9 @@ li{
     width:80%;
     margin:auto;
     margin-bottom: 1px;
-    padding:5px
+    padding:5px;
+    border-radius:8px;
+    margin-bottom: 5px;
 }
 
 .about-text{
@@ -907,7 +909,7 @@ select{
     border-radius:10px;
     padding:30px;
     padding-top:10px;
-    width:250px;
+    width:290px;
     margin:auto;
 }
 
@@ -922,7 +924,7 @@ select{
 
 
 .form-input{
-    margin-bottom:18px;
+    margin-bottom:20px;
     margin-left:0px;
     width:90%;
 }
