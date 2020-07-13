@@ -544,10 +544,12 @@ li{
     
     display:flex;
     width:100%;
+    flex:1;
 }
 
 .tourney-img{
     width:100%;
+    object-fit:contain;
 }
 
 .default-img{
