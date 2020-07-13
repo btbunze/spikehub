@@ -59,9 +59,7 @@ export class TourneyCard extends Component {
                 ): null
                 }
 
-                <div className = "img-container">
-                    <img src = { ("img" in this.props.tournament) ? this.props.tournament.img : "/trophy.png"} className = "tourney-img"></img>
-                </div>
+                <img src = { ("img" in this.props.tournament) ? this.props.tournament.img : "/trophy.png"} className = "tourney-img"></img>
                 <div className = "tourney-infobar">
                     <div className = "infobar-left">
                         <h2 className = "tc-title">{this.props.tournament.name}</h2>
