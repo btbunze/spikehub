@@ -549,7 +549,8 @@ li{
 
 .tourney-img{
     width:100%;
-    height:fit-content;
+    height:256px;
+    max-height: calc((95vw - 40px) / 3 * .8 - 20px);
     object-fit:scale-down;
     background-color:#e5e5e5;
 }
@@ -1154,7 +1155,10 @@ label{
         left:0px !important;
     }
 
-    
+    .tourney-img{
+        max-height: none;
+        height: calc((95vw - 40px) * .8 - 20px);
+    }
 
 
     .tc-title{
