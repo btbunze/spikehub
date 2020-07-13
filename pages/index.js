@@ -11,6 +11,7 @@ import TourneyCard from "../components/TourneyCard"
 import TourneyInfo from "../components/TourneyInfo"
 import Overlay from "../components/Overlay"
 import SearchBar from "../components/SearchBar"
+import InfoSection from "../components/InfoSection"
 
 export class Home extends Component {
 
@@ -394,9 +395,6 @@ export class Home extends Component {
             <div className="container tourney-container">
               <div className = "grid" style = {{left:'0px'}}>
                 {this.state.tournaments
-                  .sort((a,b) => {
-                    return a.date > b.date ? 1:-1
-                  })
                   .map((tourney) =>{
                   return (<TourneyCard handleClick = {this.selectTourney} tournament = {tourney} deleteTourney = {this.deleteTourney}/>)
                 })}
@@ -412,6 +410,7 @@ export class Home extends Component {
             </div>
           </div>
         </div>
+        <InfoSection></InfoSection>
         {this.state.loginOverlayOpen ? (<Overlay 
                                         type = "loginPrompt"
                                         onClick = {() => this.setState({loginOverlayOpen: false})}

@@ -7,6 +7,7 @@ import {UserProvider, useFetchUser } from "../utils/user"
 
 
 import '../styles/index.css'
+import "../styles/profile.css"
 
 function MyApp({ Component, pageProps }) {
     
@@ -21,7 +22,6 @@ function MyApp({ Component, pageProps }) {
                 </Head>
                 <Header userObj = {{user,loading}}/>
                 <Layout children = {<Component {...pageProps} userObj = {{user,loading}} />}/>
-                <InfoSection></InfoSection>
                 <Footer/>
             </UserProvider>
 

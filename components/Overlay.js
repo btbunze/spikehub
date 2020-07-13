@@ -33,6 +33,19 @@ export class Overlay extends Component {
         await this.setState({selectedImg: {name: "Your gmail profile picture", loc: currUser.picture}})
     }
 
+    processImg = () =>{
+        let processedImg = this.state.selectedImg.loc
+
+
+        if (processedImg.includes("cloudinary")){
+            const splitImgLink = this.state.selectedImg.loc.split("upload/");
+            processedImg = splitImgLink[0] + "upload/w_1000,ar_1:1,c_fill,g_auto/" + splitImgLink[1]
+        }
+
+        console.log(processedImg)
+        return processedImg;
+    }
+
 
     render() {
 
@@ -109,7 +122,7 @@ export class Overlay extends Component {
                             <span style = {{padding:"5px"}}> or </span>
                             <button className = "form-img-button" onClick = {this.useProfilePic}>Use Profile Pic</button>
                         </div>
-                        {this.state.selectedImg? (<img src = {this.state.selectedImg.loc} width = "100px" height = "100px"></img>) : (<p>No image selected</p>)}
+                        {this.state.selectedImg ? (<img src = {this.processImg()} width = "100px" height = "100px"></img>) : (<p>No image selected</p>)}
                     </div>
                     <div style = {{display:"flex", justifyContent: "space-between", marginTop: "20px"}}>
                         <button className = "add-player-button " onClick = {this.props.onClick}>Cancel</button>

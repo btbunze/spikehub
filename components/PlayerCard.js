@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {fetchUser} from "../utils/user"
+import { HighlightSpanKind } from 'typescript';
 
 
 export class PlayerCard extends Component {
@@ -33,11 +34,22 @@ export class PlayerCard extends Component {
 
     }
 
+    processImg = () =>{
+
+        let processedImg = this.props.player.img
+
+        const splitImgLink = processedImg.split("upload/");
+        if (splitImgLink[0].includes("cloudinary")){
+           processedImg = splitImgLink[0] + "upload/w_1000,ar_1:1,c_fill,g_auto/" + splitImgLink[1]
+        }
+        return processedImg;
+    }
+
     render() {
         return (
             <div className = "player-card" onClick = {this.props.onClick}>
                 <div className = "pc-content ">
-                    <img src = {this.props.player.img ? this.props.player.img : "/default-prof-pic.png"} className = "prof-pic"></img>
+                    <img src = {this.props.player.img ? this.processImg() : "/default-prof-pic.png"} className = "prof-pic"></img>
                     <h2 className = "pc-name">{this.props.player.name}</h2>
                     <h3 className = "pc-division">{this.props.player.division}</h3>
                     <p className = "pc-desc">{this.props.player.selfDesc}</p>

@@ -74,11 +74,10 @@ button:hover{
 
     background: #e5e5e5 url("../public/rep-dot.png");
     background-size:90px 90px;
-    background-color:#EA5E3D;
+    background-color:#ea5e3d;
 
     margin-bottom:20px;
     width:100%;
-
     filter:drop-shadow(0px 2px 2px rgba(0,0,0, .2));
     clip-path: polygon(0 0, 100% 0%, 100% calc(100% - 100px), 0 100%);
 }
@@ -309,13 +308,13 @@ li{
         left:0px
     }
     to{
-        left:1700px;
+        left:1800px;
     }
 }
 
 @keyframes sidescroll2 {
     from{
-        left:-1700px;
+        left:-1800px;
     }
     to{
         left:0px
@@ -327,8 +326,8 @@ li{
     position:absolute;
     vertical-align:top;
     top:70px;
-    left:-1700px;
-    width:1700px;
+    left:-1800px;
+    width:1800px;
     animation-name: sidescroll2;
     animation-duration: 30s;
     animation-timing-function: linear;
@@ -341,7 +340,7 @@ li{
     position:absolute;
     display:inline-block;
     top:70px;
-    width:1700px;
+    width:1800px;
     animation-name: sidescroll;
     animation-duration: 30s;
     animation-timing-function: linear;
@@ -375,7 +374,7 @@ li{
     padding-right:15px;
     padding-top:5px;
     padding-bottom:5px;
-    font-size:18px;
+    font-size:19.5px;
     color: #fff;
     cursor:pointer;
     font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -427,7 +426,7 @@ li{
 
 .container{
     position:relative;
-    height: 360px;
+    height: fit-content;
     background-color:#fff;
     padding:20px;
     overflow-x:hidden;
@@ -463,7 +462,6 @@ li{
 .grid{
     position:relative;
     width:100%;
-    height:100%;
     display:grid;
     grid-template-columns: repeat(100, 33.3333333333%);
     transition: all 1s;
@@ -513,8 +511,8 @@ li{
 
 .tourney-card{
     width:80%;
-    height:300px;
-    margin:auto;
+    height:fit-content;
+    margin: 0 auto;
     background-color:white;
     display:inline-flex;
     flex-direction:column;
@@ -546,7 +544,6 @@ li{
     
     display:flex;
     width:100%;
-    flex:1;
 }
 
 .tourney-img{
@@ -570,6 +567,7 @@ li{
 
 .tc-title{
     margin-top:10px;
+    margin-bottom:10px;
     font-size:23px;
     white-space:normal;
 }
@@ -876,7 +874,6 @@ select{
     font-size:30px;
 }
 
-
 .add-player-button{
     width:45%;
     height:30px;
@@ -994,7 +991,6 @@ label{
 
 @media (max-width: 1075px){
     .tourney-card{
-        height: 28vw;
     }
     .ti-container{
         height:28vw;
@@ -1019,7 +1015,6 @@ label{
     }
 
     .tourney-container{
-        height:33.5vw;
     }
     .tc-title{
         font-size: 2.14vw;
@@ -1065,15 +1060,16 @@ label{
     }
     .ti-container{
         grid-column: span 3;
+        height:fit-content;
     }
 
 
     .ti-header{
-        font-size:6vw;
+        font-size:4vw;
         margin-top:-1.5vw;
     }
     .ti-subheader{
-        font-size:3.5vw;
+        font-size:2.8vw;
     }
 
     .ti-content{
@@ -1135,7 +1131,7 @@ label{
     }
 }
 
-@media (max-width: 560px){
+@media (max-width: 580px){
 
 
     
@@ -1145,6 +1141,7 @@ label{
 
     .grid{
         grid-template-columns: 100%;
+        height:100%;
         -webkit-overflow-scrolling: touch;
         overflow-y:scroll;
         overflow-x:hidden;
@@ -1153,13 +1150,8 @@ label{
         left:0px !important;
     }
 
-    .grid::-webkit-scrollbar {
-        display: none;
-    }
     
-    .tourney-card{
-        height:300px;
-    }
+
 
     .tc-title{
         font-size:20px;
@@ -1170,13 +1162,12 @@ label{
     }
     
     .tourney-card{
-        width:256px;
         margin-top:10px;
         margin-bottom:10px;
     }
 
     .ti-header{
-        font-size:37.5px;
+        font-size:27.5px;
     }
     .ti-subheader{
         font-size:17px;
@@ -1192,6 +1183,11 @@ label{
 
     .tourney-info-mode{
         height:fit-content;
+        overflow-y:hidden;
+    }
+    
+    .tourney-info-mode::-webkit-scrollbar{
+        display:none
     }
 
     .sponsor-grid{
@@ -1211,7 +1207,7 @@ label{
     .login-status{
         width: calc(100% - 20px);
         text-align:center;
-
+        border-radius:0px;
     }
 
     .content{

@@ -13,7 +13,13 @@ console.log("does this ever trigger?")
 handler.get(async (req, res) =>{
     console.log("attempting to get tournaments")
     let doc = await req.db.collection("tournaments").find().toArray()
-    res.send(JSON.stringify(doc))
+    let sortedDoc = doc.sort((a,b) => {
+                        return a.name > b.name ? 1:-1
+                    }).sort((a,b) => {
+                        return a.date > b.date ? 1:-1
+                    })
+    console.log(doc)
+    res.send(JSON.stringify(sortedDoc))
 
 })
 
