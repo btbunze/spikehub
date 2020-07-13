@@ -1,6 +1,8 @@
 :root{
     width:100%;
     overflow-x:hidden;
+    --red: #ea5e3d;
+    --sponsor-width: 2100px;
 }
 
 html{
@@ -10,7 +12,6 @@ html{
 
 body{
     position:relative;
-    padding-bottom:23px;
     min-height:100vh;
     width:100%;
     overflow:hidden;
@@ -47,7 +48,7 @@ span{
 }
 
 button{
-    background-color: #EA5E3D;
+    background-color: var(--red);
     border:none;
     color:white;
     transition: .2s;
@@ -74,7 +75,7 @@ button:hover{
 
     background: #e5e5e5 url("../public/rep-dot.png");
     background-size:90px 90px;
-    background-color:#ea5e3d;
+    background-color: var(--red);
 
     margin-bottom:20px;
     width:100%;
@@ -160,19 +161,33 @@ button:hover{
 
 .footer{
     position:relative;
-    height:180px;
-    background-color:white;
-    margin-top:50px;
+    z-index:1;
+    height:500px;
+    width:100%;
+    background: #e5e5e5 url("../public/rep-dot.png");
+    background-size:90px 90px;
+    background-color:var(--red);
+    clip-path: polygon(0 100px, 100% 0, 100% 100%, 0% 100%);
+    margin-top: -205px;
+}
+
+.footer-section{
+    position:absolute;
+    height:200px;
+    width:100%;
     padding-top:20px;
+    background-color:white;
+    bottom:0;
+    
 }
 
 .to-top{
     width:100px;
     margin:auto;
     height:50px;
-    background-color: #EA5E3D;
+    background-color: var(--red);
     position:absolute;
-    bottom:-25px;
+    bottom:-0px;
     left:50%;
     transform: translateX(-50px);
     border-radius:10px 10px 0px 0px;
@@ -194,6 +209,8 @@ button:hover{
 /*InfoSection*/
 
 .two-column{
+    position:relative;
+    z-index:2;
     display:grid;
     grid-template-columns: 1fr 1fr;
     height:fit-content;
@@ -214,7 +231,7 @@ button:hover{
 }
 
 .section-top-bar{
-    background:#EA5E3D;
+    background:var(--red);
     padding:17px;
     box-shadow: 0px 2px 4px rgba(0,0,0, .2);
 }
@@ -308,13 +325,13 @@ li{
         left:0px
     }
     to{
-        left:1800px;
+        left:var(--sponsor-width);
     }
 }
 
 @keyframes sidescroll2 {
     from{
-        left:-1800px;
+        left: calc(-1 * var(--sponsor-width));
     }
     to{
         left:0px
@@ -326,8 +343,8 @@ li{
     position:absolute;
     vertical-align:top;
     top:70px;
-    left:-1800px;
-    width:1800px;
+    left:calc(-1 * var(--sponsor-width));
+    width:var(--sponsor-width);
     animation-name: sidescroll2;
     animation-duration: 30s;
     animation-timing-function: linear;
@@ -340,7 +357,7 @@ li{
     position:absolute;
     display:inline-block;
     top:70px;
-    width:1800px;
+    width:var(--sponsor-width);
     animation-name: sidescroll;
     animation-duration: 30s;
     animation-timing-function: linear;
@@ -522,7 +539,7 @@ li{
 
 .tourney-card:hover{
     transform:scale(1.05);
-    background-color: #EA5E3D;
+    background-color: var(--red);
 }
 
 .tourney-card:hover h2{
@@ -550,7 +567,7 @@ li{
 .tourney-img{
     width:100%;
     height:256px;
-    max-height: calc((95vw - 40px) / 3 * .8 - 20px);
+    max-height: calc((95vw - 40px) / 3 * .8 - 20px);/*brittle, temporary fix*/
     object-fit:scale-down;
     background-color:#e5e5e5;
 }
@@ -703,7 +720,7 @@ li{
 .select-label{
     font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: bolder;
-    color: #EA5E3D;
+    color: var(--red);
     font-size:20px;
     margin:15px;
     margin-right:5px;
@@ -766,7 +783,7 @@ select{
     position:absolute;
     left:50%;
     top: -58px;
-    border: 8px solid #EA5E3D;
+    border: 8px solid var(--red);
     transform: translateX(-58px);
     background-color:white;
 }
@@ -1155,7 +1172,7 @@ label{
         left:0px !important;
     }
 
-    .tourney-img{
+    .tourney-img{/*brittle, temporary fix*/
         max-height: none;
         height: calc((95vw - 40px) * .8 - 20px);
     }
