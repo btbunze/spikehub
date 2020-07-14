@@ -13,9 +13,8 @@ export class SponsorBar extends Component {
                     <a href = "http://www.rockymountainroundnet.org">
                         <div className = "sponsor-container">Rocky Mountain Roundnet</div>
                     </a>
-                    <div className = "sponsor-container">RRO Name Here</div>
-                    <div className = "sponsor-container">RRO Name Here</div>
-                    <div className = "sponsor-container">RRO Name Here</div>
+                    <div className = "sponsor-container">Buckeye Roundnet Club</div>
+                    <div className = "sponsor-container">Long Island Roundnet</div>
                 </div>
                 <div className = "rotating-container">
                     <a href = "https://www.facebook.com/Raleigh-Roundnet-Club-100212494680090">
@@ -25,9 +24,8 @@ export class SponsorBar extends Component {
                     <a href = "http://www.rockymountainroundnet.org">
                         <div className = "sponsor-container">Rocky Mountain Roundnet</div>
                     </a>
-                    <div className = "sponsor-container">RRO Name Here</div>
-                    <div className = "sponsor-container">RRO Name Here</div>
-                    <div className = "sponsor-container">RRO Name Here</div>
+                    <div className = "sponsor-container">Buckeye Roundent Club</div>
+                    <div className = "sponsor-container">Long Island Roundnet</div>
                 </div>
             </div>
         )
