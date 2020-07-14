@@ -4,7 +4,7 @@ export class SponsorBar extends Component {
     render() {
         return (
             <div style = {{position: "relative"}}>
-                <h1 className = "section-subheader">Roundnet Orgs Using Spikehub</h1>
+                <h1 className = "section-subheader" style = {{width:"87.7%", margin:"auto"}}>Roundnet Orgs Using Spikehub</h1>
                 <div className = "rotating-container-2">
                     <a href = "https://www.facebook.com/Raleigh-Roundnet-Club-100212494680090">
                         <div className = "sponsor-container">Raleigh Roundnet Club</div>

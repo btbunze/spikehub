@@ -1,6 +1,48 @@
 import React, { Component } from 'react'
 
 export class InfoSection extends Component {
+
+    constructor(props){
+        super(props);
+        
+        this.state = {
+            listItems: []
+        }
+    }
+
+    componentDidMount(){
+        window.addEventListener('scroll', this.handleScroll);
+
+        const listItemsArray = [... document.querySelectorAll("li")].map((elmnt) => ({domElmnt: elmnt, inView: false, top: elmnt.getBoundingClientRect().top}))
+        this.setState({listItems: listItemsArray})
+    }
+
+    handleScroll = (e) => {
+        const currScroll = window.scrollY + window.innerHeight
+
+        this.state.listItems.forEach((elmnt, index) =>{
+            if(currScroll >= elmnt.top && elmnt.inView == false){
+
+                let tempLIs = [...this.state.listItems]
+                let inViewElement = {...elmnt, inView: true}
+                tempLIs[index] = inViewElement;
+                
+                this.setState({listItems: tempLIs})
+                
+                elmnt.domElmnt.classList.add("animate-width-80")
+                setTimeout(() => {
+                    elmnt.domElmnt.firstElementChild.classList.add("visible-inline")
+
+                }, 900)
+                setTimeout(() => {
+                    elmnt.domElmnt.firstElementChild.classList.add("full-opacity")
+                }, 950)
+
+                
+            }
+        })
+    }
+
     render() {
         return (
             <div className = "two-column">
@@ -16,24 +58,25 @@ export class InfoSection extends Component {
                         <div className = "grid-item-sm">
                             <h1 className = "section-subheader">Quick Notes</h1>
                             <ul>
-                                <li>Created by: Benjamin Bunze</li>
-                                <li>Built with: Reactjs and Nextjs</li>
-                                <li>Source code: <a href = "https://github.com/btbunze/spikehub">Github</a></li>
+                                <li><span>Created by: Benjamin Bunze</span></li>
+                                <li><span>Built with: Reactjs and Nextjs</span></li>
+                                <li><span>Hosted with: Vercel Now</span></li>
+                                <li><span>Source code: <a href = "https://github.com/btbunze/spikehub">Github</a></span></li>
                             </ul>
                         </div>
                         <div className = "grid-item-sm">
                             <h1 className = "section-subheader">Coming Soon</h1>
                             <ul>
-                                <li>Profile page</li>
-                                <li>Set a default player</li>
-                                <li>Edit players/tournaments</li>
-                                <li>and more...</li>
+                                <li><span>Profile page</span></li>
+                                <li><span>Set a default player</span></li>
+                                <li><span>Edit players/tournaments</span></li>
+                                <li><span>and more...</span></li>
                             </ul>
                         </div>
 
                     </div>
                 </div>
-
+                {/*
                 <div className = "fi-column" style = {{display: "none"}}>
                     <div className = "section-top-bar">
                         <h1 className = "section-header"> About Spikehub</h1>
@@ -62,7 +105,7 @@ export class InfoSection extends Component {
                         </div>
 
                     </div>
-                </div>
+                </div>*/}
 
                 <div className = "fi-column" style = {{display:"none"}}>
                     <div className = "section-top-bar">
