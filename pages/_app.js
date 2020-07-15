@@ -17,6 +17,7 @@ function MyApp({ Component, pageProps }) {
             <UserProvider value = {{user, loading}}>
                 <Head>
                     <meta name = "viewport" content = "width=device-width,initial-scale=1"></meta>
+                    <link rel="image_src" href="https://res.cloudinary.com/dicfhqxoo/image/upload/v1594781483/thumbnails/Screenshot_67_l9wiq3.png" />
                     <meta property = "og:title" content = "SpikeHub"></meta>
                     <meta property = "og:description" content = "The one-stop partner finder for Spikeball roundnet tournaments"></meta>
                     <meta property = "og:image" content = "https://res.cloudinary.com/dicfhqxoo/image/upload/v1594781483/thumbnails/Screenshot_67_l9wiq3.png"></meta>
