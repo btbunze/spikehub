@@ -378,7 +378,7 @@ export class Home extends Component {
 
     return (
       <>
-        <img src="https://res.cloudinary.com/dicfhqxoo/image/upload/v1594781483/thumbnails/Screenshot_67_l9wiq3.png" width = "0px" height = "0px"/>
+        <img src="https://res.cloudinary.com/dicfhqxoo/image/upload/v1594781483/thumbnails/Screenshot_67_l9wiq3.png" visibility = "hidden"/>
         <div className = "content">
           <h1 className = "cont-title" onClick = {this.closeInfo}>Upcoming Tournaments </h1>
           <a href = "https://docs.google.com/forms/d/e/1FAIpQLSc26lCFtWMyCPwblbcRpk-3_flsy_louCor5tQUsD55IKH1WA/viewform?usp=sf_link" target = "_blank">
