@@ -15,6 +15,15 @@ export class SponsorBar extends Component {
                     </a>
                     <div className = "sponsor-container">Buckeye Roundnet Club</div>
                     <div className = "sponsor-container">Long Island Roundnet</div>
+                    <a href = "https://utahroundnet.com">
+                        <div className = "sponsor-container">Utah Roundnet</div>
+                    </a>
+                    <a href = "https://linktr.ee/chicagoroundnet">
+                        <div className = "sponsor-container">Chicago Roundnet</div>
+                    </a>
+                    <a href = "https://tournaments.spikeball.com">
+                        <div className = "sponsor-container">Spikeball Roundnet Association</div>
+                    </a>
                 </div>
                 <div className = "rotating-container">
                     <a href = "https://www.facebook.com/Raleigh-Roundnet-Club-100212494680090">
@@ -26,6 +35,15 @@ export class SponsorBar extends Component {
                     </a>
                     <div className = "sponsor-container">Buckeye Roundent Club</div>
                     <div className = "sponsor-container">Long Island Roundnet</div>
+                    <a href = "https://utahroundnet.com">
+                        <div className = "sponsor-container">Utah Roundnet</div>
+                    </a>
+                    <a href = "https://linktr.ee/chicagoroundnet">
+                        <div className = "sponsor-container">Chicago Roundnet</div>
+                    </a>
+                    <a href = "https://tournaments.spikeball.com">
+                        <div className = "sponsor-container">Spikeball Roundnet Association</div>
+                    </a>
                 </div>
             </div>
         )

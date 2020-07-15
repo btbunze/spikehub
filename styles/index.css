@@ -2,7 +2,7 @@
     width:100%;
     overflow-x:hidden;
     --red: #ea5e3d;
-    --sponsor-width: 2000px;
+    --sponsor-width:3000px;
 }
 
 html{
@@ -361,7 +361,7 @@ li span{
     left:calc(-1 * var(--sponsor-width));
     width:var(--sponsor-width);
     animation-name: sidescroll2;
-    animation-duration: 30s;
+    animation-duration: 40s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     display:flex;
@@ -374,7 +374,7 @@ li span{
     top:70px;
     width:var(--sponsor-width);
     animation-name: sidescroll;
-    animation-duration: 30s;
+    animation-duration: 40s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     display:flex;

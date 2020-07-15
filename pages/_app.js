@@ -16,6 +16,15 @@ function MyApp({ Component, pageProps }) {
         <>
             <UserProvider value = {{user, loading}}>
                 <Head>
+                    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-172730684-2"></script>
+                    <script dangerouslySetInnerHTML = {{__html: 
+                       `window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+
+                        gtag('config', 'UA-172730684-2');`
+                    }}/>
+
                     <meta name = "viewport" content = "width=device-width,initial-scale=1"></meta>
                     <link rel="image_src" href="https://res.cloudinary.com/dicfhqxoo/image/upload/v1594781483/thumbnails/Screenshot_67_l9wiq3.png" />
                     <meta property = "og:title" content = "SpikeHub"></meta>
