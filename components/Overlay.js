@@ -57,8 +57,8 @@ export class Overlay extends Component {
                 <>
                     <h2 className = "form-title">Login or sign up to <br/> add players</h2>
                     <button className = "add-player-button" onClick = {this.props.onClick}>Cancel</button>
-                    <a href = "/api/login">
-                        <button className = "add-player-button">Login</button>  
+                    <a href = "/api/login" style = {{marginLeft:"25px"}}>
+                        <button  className = "add-player-button">Login</button>  
                     </a>
                 </>
             )
