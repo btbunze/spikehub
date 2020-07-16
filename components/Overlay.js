@@ -108,7 +108,7 @@ export class Overlay extends Component {
                     <label>Contact info:<span className = "required">*</span><p className = "sublabel">(facebook, email, phone, etc.)</p></label>
                     <input className = "form-input add-player-input"></input>
                     <br/>
-                    <label>About:<p className = "sublabel">(bio, past results, RPR, etc.)</p></label>
+                    <label>About:<p className = "sublabel">(bio, past results, <a href = "https://spikeball.com/pages/roundnet-player-ratings" target = "__blank">RPR</a>, etc.)</p></label>
                     <input className = "form-input add-player-input"></input>
                     <br/>
                     <label>Image:</label>

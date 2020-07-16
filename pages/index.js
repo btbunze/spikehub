@@ -123,7 +123,15 @@ export class Home extends Component {
 
     }
 
+
+
     this.setState({displayPlayers: !this.state.displayPlayers}, () =>{
+
+        //flip svg arrow
+        const arrow = document.querySelector(".ti-button path");
+        this.state.displayPlayers ? arrow.setAttribute('d', "M0,2 L5,8 L10,2") : arrow.setAttribute('d', "M0,8 L5,2 L 10,8")
+
+        //open player panel
         document.getElementsByClassName('player-container')[0].classList.toggle("players-fullheight");
         document.getElementsByClassName('arrow')[0].classList.toggle("visible");
         

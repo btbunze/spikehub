@@ -63,6 +63,13 @@ button:hover{
     transform: translateY(-1px);
 }
 
+svg path,
+svg line{
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    stroke: #fff
+}
 
 
 .section-subheader{
@@ -75,7 +82,7 @@ button:hover{
 .header{
     height:500px;
 
-    background-image: url("../public/rep-dot.png"), linear-gradient(335deg, rgba(234,94,61,1) 45%, rgba(255,116,83,1) 100%);;
+    background-image: url("../public/rep-dot.png"), linear-gradient(335deg, rgba(234,94,61,1) 40%, rgb(255, 126, 94) 100%);;
     background-size:90px, cover;
 
 
@@ -88,13 +95,15 @@ button:hover{
 .login-button{
 
     display:inline-flex;
-    width:95px;
+    width:fit-content;
+    padding: 0px 15px;
     height:30px;
-    background-color:rgba(0,0,0,.2);
+    background-color:rgba(24,24,24,.8);
     border-radius:15px;
     text-decoration:none;
     margin-left:10px;
     transition: all .15s ease-in-out;
+    outline:none;
 }
 
 .login-button:hover{
@@ -113,14 +122,43 @@ button:hover{
     top:0px;
     right:0px;
     padding:10px;
-    background-color: rgba(255,255,255,.15);
-    box-shadow: -1px 2px 4px rgba(50,50,50, .2);
+    background-color: rgba(0,0,0,.45);
+    box-shadow: -1px 2px 4px rgba(0,0,0, .3);
     border-radius:0px 0px 0px 10px;
 }
 
 .login-button-text{
     margin:auto;
     color:white;
+}
+
+.arrow-svg{
+    padding-left:5px;
+    
+}
+
+#arrow{
+    transform: translateX(-5px);
+    transition: all .15s; 
+    fill: #fff;
+    stroke:none;
+}
+#arrowLine{
+    stroke-dasharray: 10;
+    stroke-dashoffset: 10;
+    transition: all .15s;
+    stroke:#fff;
+}
+
+
+
+
+a:hover #arrow{
+    transform: translateX(0px)
+}
+
+a:hover #arrowLine{
+    stroke-dashoffset: 0;
 }
 
 .title{
@@ -724,6 +762,11 @@ li span{
     box-shadow: 0px 3px 5px rgba(0,0,0, .5);
     background-color: #ee6341
 }
+
+.ti-button path{
+    stroke-width: 2.5px;
+}
+
 
 .textbox{
     width:100px;
@@ -1343,7 +1386,7 @@ label{
         overflow-y:scroll;
         width:100%;
         max-height:calc(100vh - 35px);
-        padding-bottom:50px;
+        padding-bottom:5 px;
     }
 }
 

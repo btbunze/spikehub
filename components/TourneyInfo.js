@@ -20,7 +20,11 @@ export class TourneyInfo extends Component {
                     <a href = {this.props.tournament.link}>
                         <button className = "ti-button">Register</button>
                     </a>
-                    <button className = "ti-button" onClick = {this.props.togglePlayerDisplay}>Free Agents</button>
+                    <button className = "ti-button" onClick = {this.props.togglePlayerDisplay}>Free Agents
+                    <svg viewBox="0 0 10 10" class="svg-2" width = "30px" height = "15px">
+                        <path d="M0,8 L5,2 L10,8" />
+                    </svg>
+                    </button>
                 </div>
             </div>
         )
