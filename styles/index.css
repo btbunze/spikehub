@@ -763,6 +763,11 @@ li span{
     background-color: #ee6341
 }
 
+.ti-button svg{
+    width:30px;
+    height:15px;
+}
+
 .ti-button path{
     stroke-width: 2.5px;
 }
@@ -1149,6 +1154,7 @@ label{
     .ti-button{
         width:18.6vw;
         height: 4.7vw;
+        font-size:2vw;
         vertical-align: top;
     }
 
@@ -1218,7 +1224,12 @@ label{
     .ti-button{
         width:19.6vw;
         height: 5.7vw;
-        font-size:2.5vw;
+        font-size:2.2vw;
+    }
+
+    .ti-button svg{
+        width: 20px;
+        height: 10px
     }
 }
 
@@ -1326,7 +1337,7 @@ label{
     .ti-button{
         width:125px;
         height:40px;
-        font-size: 18px;
+        font-size:15px;
     }
 
     .tourney-info-mode{
@@ -1369,7 +1380,16 @@ label{
     .ti-button{
         width:100px;
         height:32px;
-        font-size:12px;
+        font-size:11px;
+    }
+
+    .ti-button svg{
+        width:18px;
+        height:9px;
+    }
+
+    .ti-button path{
+        stroke-width:2px;;
     }
 
     .footer-section{
