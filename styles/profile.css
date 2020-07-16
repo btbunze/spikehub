@@ -6,11 +6,10 @@
     max-width:1000px;
     width:95%;
     height:550px;
-    background-color:white;
 
     display:grid;
     grid-template-columns: 1fr 2fr;
-
+    gap: 25px;
 }
 
 .profile-header{
@@ -44,7 +43,18 @@
     padding:10px;
     padding-top:115px;
     background-color:white;
-    border-right: 1px solid #e5e5e5
+    border-right: 1px solid #e5e5e5;
+    height:250px;
+    border-radius:10px;
+}
+
+.profile-content content{
+    position:relative;
+    grid-column:span 1;
+    padding:10px;
+    padding-top:115px;
+    background-color:white;
+    border-right: 1px solid #e5e5e5;
 }
 /*
 .profile-grid content{
@@ -71,7 +81,7 @@
     position:absolute;
     top: -100px;
     left:50%;
-    border: 10px solid #EA5E3D;
+    border: 10px solid #ea5e3d;
     transform: translateX(-100px);
     background-color:white;
 }

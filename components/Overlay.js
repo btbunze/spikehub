@@ -17,7 +17,6 @@ export class Overlay extends Component {
         cloudinary.openUploadWidget({
             cloudName: "dicfhqxoo", uploadPreset: "spike_hub" }, (error, result) => { 
                 if(result.event == "queues-end"){
-                    console.log(result.data.info.files[0])
                     this.setState({selectedImg: {
                         name: result.data.info.files[0].name,
                         loc: result.data.info.files[0].uploadInfo.secure_url
@@ -29,20 +28,17 @@ export class Overlay extends Component {
 
     useProfilePic = async () => {
         const currUser = await fetchUser(); 
-        console.log(currUser.picture)
         await this.setState({selectedImg: {name: "Your gmail profile picture", loc: currUser.picture}})
     }
 
     processImg = () =>{
         let processedImg = this.state.selectedImg.loc
 
-
         if (processedImg.includes("cloudinary")){
             const splitImgLink = this.state.selectedImg.loc.split("upload/");
             processedImg = splitImgLink[0] + "upload/w_1000,ar_1:1,c_fill,g_auto/" + splitImgLink[1]
         }
 
-        console.log(processedImg)
         return processedImg;
     }
 
@@ -98,10 +94,10 @@ export class Overlay extends Component {
             overlayRender = (
                 <>
                     <h2 className = "form-title">Add a Free Agent</h2>
-                    <label>Name:*</label>
+                    <label>Name:<span className = "required">*</span></label>
                     <input className = "form-input add-player-input"/>
                     <br/>
-                    <label>Division:*</label>
+                    <label>Division:<span className = "required">*</span></label>
                     <select className = "form-input add-player-input">
                         <option value = "" selected disabled >Choose a division</option>
                         {this.props.divisions.map((division) =>{
@@ -109,10 +105,10 @@ export class Overlay extends Component {
                         })}
                     </select>
                     <br/>
-                    <label>Contact info:* (facebook, email, phone, etc.)</label>
+                    <label>Contact info:<span className = "required">*</span><p className = "sublabel">(facebook, email, phone, etc.)</p></label>
                     <input className = "form-input add-player-input"></input>
                     <br/>
-                    <label>Description:</label>
+                    <label>About:<p className = "sublabel">(bio, past results, RPR, etc.)</p></label>
                     <input className = "form-input add-player-input"></input>
                     <br/>
                     <label>Image:</label>

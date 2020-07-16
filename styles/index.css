@@ -17,9 +17,12 @@ body{
     overflow:hidden;
     margin:0px;
     background: #e5e5e5 url("../public/rep-dot.png");
-    background-size: 90px 90px;
+    background-size: 90px auto;
 }
 
+.unscrollable-html{
+    overflow:hidden;
+}
 
 
 h1{
@@ -49,19 +52,18 @@ span{
 
 button{
     background-color: var(--red);
+    cursor:pointer;
     border:none;
     color:white;
     transition: .2s;
-}
-
-.button-invert{
-    background-color:#3DEBAC;
-    color:black;
+    outline:none;
 }
 
 button:hover{
-    transform:scale(1.05)
+    transform: translateY(-1px);
 }
+
+
 
 .section-subheader{
     text-align:center;
@@ -73,9 +75,9 @@ button:hover{
 .header{
     height:500px;
 
-    background: #e5e5e5 url("../public/rep-dot.png");
-    background-size:90px 90px;
-    background-color: var(--red);
+    background-image: url("../public/rep-dot.png"), linear-gradient(335deg, rgba(234,94,61,1) 45%, rgba(255,116,83,1) 100%);;
+    background-size:90px, cover;
+
 
     margin-bottom:20px;
     width:100%;
@@ -92,6 +94,12 @@ button:hover{
     border-radius:15px;
     text-decoration:none;
     margin-left:10px;
+    transition: all .15s ease-in-out;
+}
+
+.login-button:hover{
+    box-shadow: 0px 2px 3px rgba(0,0,0,.1);
+    transform: translateY(-1px);
 }
 
 .login-text{
@@ -105,7 +113,8 @@ button:hover{
     top:0px;
     right:0px;
     padding:10px;
-    background-color: rgba(255,255,255,.1);
+    background-color: rgba(255,255,255,.15);
+    box-shadow: -1px 2px 4px rgba(50,50,50, .2);
     border-radius:0px 0px 0px 10px;
 }
 
@@ -215,7 +224,7 @@ button:hover{
     grid-template-columns: 1fr 1fr;
     height:fit-content;
     max-width:1000px;
-    width:95%;
+    width:90%;
     margin:auto;
     margin-top:50px;
     gap:50px;
@@ -390,7 +399,7 @@ li span{
     padding-left:20px;
     padding-right:20px;
     color:#e5e5e5;
-    transition: color .3s;
+    transition: color .2s;
 }
 
 .sponsor-container:hover{
@@ -403,6 +412,7 @@ li span{
 .cont-title{
     padding-left:15px;
     display:inline-block;
+
     padding-right:15px;
     padding-top:5px;
     padding-bottom:5px;
@@ -410,16 +420,32 @@ li span{
     color: #fff;
     cursor:pointer;
     font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    filter: drop-shadow(1px 1px 2px rgba(0,0,0,.3));
+    filter: drop-shadow(0px 3px 4px rgba(0,0,0,.3));
+    transform:translateY(1.5px);
+    transition: all .2s
+}
+
+.cont-title:hover{
+    transform: translateY(-1px);
+    filter: drop-shadow(0px 4px 5px rgba(0,0,0,.5));
+    color: #fcfcfc;;
 }
 
 .new-tournament{
     display:inline-block;
-    background-color:black;
+    background-color:#222;
     color:white;
+    font-size:11.8px;
+    font-weight:bold;
     border-radius:5px;
     height:28px;
     width:80px;
+    box-shadow: 0px 3px 4px rgba(0,0,0,.3)
+}
+
+.new-tournament:hover{
+    box-shadow:0px 4px 5px rgba(24,24,16,.6);
+    background-color:#282828;
 }
 
 .page-changes{
@@ -448,7 +474,7 @@ li span{
 
 .content{
     max-width:1000px;
-    width:95%;
+    width:90%;
     position:relative;
     top: -300px;
     margin:auto;
@@ -497,7 +523,6 @@ li span{
     display:grid;
     grid-template-columns: repeat(100, 33.3333333333%);
     transition: all 1s;
-
 }
 
 .grid-no-transition{
@@ -546,6 +571,7 @@ li span{
     height:fit-content;
     margin: 0 auto;
     background-color:white;
+
     display:inline-flex;
     flex-direction:column;
     padding:10px;
@@ -553,7 +579,8 @@ li span{
 }
 
 .tourney-card:hover{
-    transform:scale(1.05);
+    transform:scale(1.025);
+    box-shadow:0px 2px 3px rgba(0,0,0,.3);
     background-color: var(--red);
 }
 
@@ -582,7 +609,7 @@ li span{
 .tourney-img{
     width:100%;
     height:256px;
-    max-height: calc((95vw - 40px) / 3 * .8 - 20px);/*brittle, temporary fix*/
+    max-height: calc((90vw - 40px) / 3 * .8 - 20px);/*brittle, temporary fix*/
     object-fit:scale-down;
     background-color:#e5e5e5;
 }
@@ -674,6 +701,13 @@ li span{
     height:30px;
     top:25px;
     right:25px;
+    box-shadow: 0px 1px 2px rgba(0,0,0, .2)
+}
+
+.back-button:hover{
+    box-shadow: 0px 2px 4px rgba(0,0,0, .4);
+    background-color: #ee6341;
+
 }
 
 .ti-button{
@@ -683,6 +717,12 @@ li span{
     height: 50px;
     font-size:22px;
     font-weight:bold;
+    box-shadow: 0px 2px 3px rgba(0,0,0, .3);
+}
+
+.ti-button:hover{
+    box-shadow: 0px 3px 5px rgba(0,0,0, .5);
+    background-color: #ee6341
 }
 
 .textbox{
@@ -727,7 +767,8 @@ li span{
     height:30px;
     width:70px;
     margin-right:10px;
-    display:inline-block
+    display:inline-block;
+    box-shadow: 0px 2px 4px rgba(0,0,0, .2)
 }
 
 
@@ -769,6 +810,12 @@ select{
     margin-left:10px;
     margin-top:1px;
     display:none;
+    box-shadow: 0px 2px 4px rgba(0,0,0, .2)
+}
+
+.search-button:hover, .filter-sort-button:hover, .mobile-toggle-search:hover{
+    box-shadow: 0px 3px 5px rgba(0,0,0, .4);
+    background-color: #ee6341;
 }
 
 /*PlayerCard*/
@@ -789,6 +836,7 @@ select{
     transition: width 1s;
     filter:drop-shadow(4px 4px 4px rgba(0,0,0,.2));
     text-align:center;
+    white-space: normal;
 }
 
 .prof-pic{
@@ -956,7 +1004,7 @@ select{
 
 
 .form-input{
-    margin-bottom:20px;
+    margin-bottom:12px;
     margin-left:0px;
     width:90%;
 }
@@ -965,11 +1013,14 @@ select{
     padding:5px;
 }
 
+.required{
+    color:var(--red)
+}
 
 .form-img-button{
     padding:6px 10px;
     margin-bottom:10px;
-    background-color:#333;
+    background-color:#505050;
 }
 
 .selected-img-text{
@@ -980,13 +1031,21 @@ select{
 
 label{
     display:block;
-    color: #b7b7b7;
+    color: #505050;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight:bold;
-    font-size:13px;
+    font-size:14px;
     margin-bottom:5px;
 }
 
+.sublabel{
+    margin-top:5px;
+    color: #b7b7b7;
+    font-weight:normal;
+    font-style: italic;
+    font-size:12.5px;
+    line-height:.5;
+}
 
 /*utility*/
 
@@ -1027,8 +1086,7 @@ label{
 /*Breakpoints*/
 
 @media (max-width: 1075px){
-    .tourney-card{
-    }
+
     .ti-container{
         height:28vw;
         padding-top: 2vw;
@@ -1052,6 +1110,7 @@ label{
     }
 
     .tourney-container{
+
     }
     .tc-title{
         font-size: 2.14vw;
@@ -1152,7 +1211,7 @@ label{
 }
 
 
-@media (max-width: 600px){
+@media (max-width: 610px){
     .search-div{
         position:absolute;
         padding:5px 15px;
@@ -1165,10 +1224,11 @@ label{
 
     .mobile-toggle-search{
         display:inline-block;
+        box-shadow: 0px 2px 4px rgba(0,0,0, .2)
     }
 }
 
-@media (max-width: 580px){
+@media (max-width: 605px){
 
 
     
@@ -1189,7 +1249,7 @@ label{
 
     .tourney-img{/*brittle, temporary fix*/
         max-height: none;
-        height: calc((95vw - 40px) * .8 - 20px);
+        height: calc((90vw - 40px) * .8 - 20px);
     }
 
 
@@ -1204,6 +1264,7 @@ label{
     .tourney-card{
         margin-top:10px;
         margin-bottom:10px;
+        border: 1px solid rgba(0,0,0,.1);
     }
 
     .ti-header{

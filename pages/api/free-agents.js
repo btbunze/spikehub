@@ -29,8 +29,6 @@ handler.put(async (req, res) =>{
 handler.delete(async (req, res) =>{
   let playerID = req.body._id
 
-  //console.log(ObjectId(playerID))
-
   let doc = await req.db.collection("players").deleteOne({"_id": ObjectId(playerID)})
   res.send(JSON.stringify(doc))
 

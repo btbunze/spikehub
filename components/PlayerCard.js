@@ -9,7 +9,8 @@ export class PlayerCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            canDelete: false
+            canDelete: false,
+            seeMore:false
         };
     }
 
@@ -45,6 +46,10 @@ export class PlayerCard extends Component {
         return processedImg;
     }
 
+    toggleMore = () => {
+        this.setState({seeMore: !this.state.seeMore})
+    }
+
     render() {
         return (
             <div className = "player-card" onClick = {this.props.onClick}>
@@ -52,7 +57,7 @@ export class PlayerCard extends Component {
                     <img src = {this.props.player.img ? this.processImg() : "/default-prof-pic.png"} className = "prof-pic"></img>
                     <h2 className = "pc-name">{this.props.player.name}</h2>
                     <h3 className = "pc-division">{this.props.player.division}</h3>
-                    <p className = "pc-desc">{this.props.player.selfDesc}</p>
+                    <p className = "pc-desc">{this.props.player.selfDesc.substring(0,75)}{this.props.player.selfDesc.length >=75 ? (<>... <button style = {{position:"relative", zIndex: "2"}}onClick = {this.toggleMore}>See More</button></>): (<></>)}</p>
                 </div>
                 <div className = "button-section">
                     {this.state.canDelete ? (
@@ -72,6 +77,14 @@ export class PlayerCard extends Component {
 
 
                 </div>
+                {this.state.seeMore ? 
+                    <div style = {{position:"absolute", top: "0px", left: "0px", width: "calc(100% - 20px)", height: "calc(100% - 20px)", padding:"10px", backgroundColor:"white", borderRadius: "10px", zIndex:"3"}}>
+                        <h2 style = {{marginTop:"0px", marginBottom:"2px"}}>About</h2>
+                        <p style = {{marginTop:"5px", marginBottom:"8px"}}>{this.props.player.selfDesc}</p>
+                        <button style = {{margin:"auto"}} onClick = {this.toggleMore}>Close</button>
+                    </div> 
+                    : null
+                }
             </div>
         )
     }

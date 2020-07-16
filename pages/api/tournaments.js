@@ -25,7 +25,6 @@ handler.get(async (req, res) =>{
 
 
 handler.put(async (req, res) =>{
-    console.log("attempting to add tournament")
     let newTourney = req.body
 
     let doc = await req.db.collection("tournaments").insertOne(newTourney)
@@ -39,7 +38,6 @@ handler.delete(async (req, res) =>{
   
     let doc = await req.db.collection("tournaments").deleteOne({"_id": ObjectId(tourneyID)},(err, result) => {
         if(err) throw err
-        console.log(result.deletedCount)
     })
 
     res.send(JSON.stringify(doc))

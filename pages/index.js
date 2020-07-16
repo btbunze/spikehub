@@ -22,6 +22,7 @@ export class Home extends Component {
     const tArray = await res1.json()
 
 
+
     const res2 = await fetch(`${process.env.baseUrl}/api/free-agents`, {method: "GET"})
     const pArray = await res2.json()
 
@@ -164,7 +165,6 @@ export class Home extends Component {
       tiContainer.classList.remove("tourney-info-mode")
     }
 
-    console.log("test")
     for(let card of cards){
       card.classList.remove("hidden")
       card.classList.remove("selected-tourney-card")
@@ -186,9 +186,7 @@ export class Home extends Component {
   }
 
   toggleAddPlayerForm = () => {
-    //document.getElementById("addPlayer").classList.toggle("add-player")
-    //document.getElementById("addPlayer").classList.toggle("add-player-form")
-    console.log(this.props.userObj)
+
     if(this.props.userObj.user){
       this.setState({playerFormOpen: !this.state.playerFormOpen})
     }
@@ -202,7 +200,6 @@ export class Home extends Component {
     const inputFields = document.getElementsByClassName("add-player-input");
     const currUser = await fetchUser(); 
     if(currUser == null){
-      console.log("Please log in")
       return;
     }
 
@@ -318,9 +315,6 @@ export class Home extends Component {
   getUser = async () => {
     const userState = await fetchUser();
     const session = await fetch('/api/me')
-    console.log(session)
-    console.log("user id")
-    console.log(userState.user_id)
   }
 
 
@@ -329,18 +323,27 @@ export class Home extends Component {
     let tourneyInfo = null;
     let playerCards = null;
 
+    let html = null
+    try{
+      html = document.querySelector("html");
+      if(([this.state.loginOverlayOpen,this.state.tourneyFormOpen,this.state.playerFormOpen].some((elt) => elt))){
+        html.style.overflow = "hidden";
+      }else{
+        html.style.overflow = "scroll"
+      }
+    }catch{
+
+    }
+
 
     if(this.state.displayInfo){
       tourneyInfo = (<TourneyInfo tournament = {this.state.selectedTournament} togglePlayerDisplay = {this.togglePlayerDisplay} closeInfo = {this.closeInfo}/>)
     }
 
     if(this.state.displayPlayers){
-      console.log('rerendered player display')
       //const divisionSelect = document.getElementById("divisionSelector")
 
       //filter out free agents not attending this tournament
-      console.log(this.state.players )
-      console.log(this.state.selectedTournament)
       let players = this.state.players.filter((player) => player.tournamentId == this.state.selectedTournament._id)
       //filter out free agents in the wrong division
       if(this.state.divisionSelect != "all"){
@@ -382,7 +385,7 @@ export class Home extends Component {
         <div className = "content">
           <h1 className = "cont-title" onClick = {this.closeInfo}>Upcoming Tournaments </h1>
           <a href = "https://docs.google.com/forms/d/e/1FAIpQLSc26lCFtWMyCPwblbcRpk-3_flsy_louCor5tQUsD55IKH1WA/viewform?usp=sf_link" target = "_blank">
-          <button className = "new-tournament button-invert" onClick = {()=> {/*this.setState({tourneyFormOpen: true});*/ this.closeInfo();}}>Add New</button>
+          <button className = "new-tournament button-invert" onClick = {()=> this.closeInfo()}>ADD NEW</button>
           </a>
           <div className = "page-changes">
             <button className = "page-change-button" onClick = {() => {this.shiftTourneys("left")}}>←</button>
