@@ -57,7 +57,7 @@ export class PlayerCard extends Component {
                     <img src = {this.props.player.img ? this.processImg() : "/default-prof-pic.png"} className = "prof-pic"></img>
                     <h2 className = "pc-name">{this.props.player.name}</h2>
                     <h3 className = "pc-division">{this.props.player.division}</h3>
-                    <p className = "pc-desc">{this.props.player.selfDesc.substring(0,75)}{this.props.player.selfDesc.length >=75 ? (<>... <button style = {{position:"relative", zIndex: "2"}}onClick = {this.toggleMore}>See More</button></>): (<></>)}</p>
+                    <p className = "pc-desc">{}{this.props.player.selfDesc.length >=75 ? (<> {this.props.player.selfDesc.substring(0,64)}... <button style = {{position:"relative", zIndex: "2"}}onClick = {this.toggleMore}>See More</button></>): (this.props.player.selfDesc.substring(0,75))}</p>
                 </div>
                 <div className = "button-section">
                     {this.state.canDelete ? (

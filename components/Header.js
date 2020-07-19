@@ -7,7 +7,40 @@ export class header extends Component {
         super(props);
     }
 
+    componentDidMount() {
 
+        //animate (separate function?)
+        const [topLine, botLine] = Array.from(document.querySelectorAll(".border-line"));
+
+        let topY1 = parseFloat(topLine.getAttribute("y1"));
+        let topY2 = parseFloat(topLine.getAttribute("y1"));
+
+        let botY1 = parseFloat(botLine.getAttribute("y1"));
+        let botY2 = parseFloat(botLine.getAttribute("y1"));
+
+        var animate = setInterval(()=>{
+            topY1 = topY1 + 1
+            topLine.setAttribute("y1", String(topY1));
+            topY2 = topY2 + 1
+            topLine.setAttribute("y2", String(topY2));
+
+            botY1 = botY1 - 1
+            botLine.setAttribute("y1", String(botY1));
+            botY2 = botY2 - 1
+            botLine.setAttribute("y2", String(botY2));
+
+            if(topY1 == 85.5 && botY1 == 1.5){
+                clearInterval(animate)
+                
+            }
+        }
+        ,10)
+    
+        document.querySelector("#svgTitle").classList.add("title-animate-in")
+
+        setTimeout(() => document.querySelector("#svgSubtitle").classList.add("full-opacity"), 725)
+
+    }
 
 
     render() {
@@ -54,6 +87,15 @@ export class header extends Component {
 
                 <div className = "color-overlay">
                 </div>
+                
+                <svg width="404" height="140" viewBox="0 0 350 121" fill="none" className = "header-svg">
+                    <rect width="349" height="121" fill="none"/>
+                    <line className = "border-line" x1="3" y1="43.5" x2="346" y2="43.5" stroke="white" stroke-width="3"/>
+                    <line className = "border-line" x1="3" y1="43.5" x2="346" y2="43.5" stroke="white" stroke-width="3"/>
+                    <text id = "svgSubtitle" fill="white" style={{whiteSpace: "pre"}} font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" font-size="20" font-weight="bold" letter-spacing="0em"><tspan x="39" y="115.336">Be Your New Favorite Mashup</tspan></text>
+                    <text id = "svgTitle" fill="white"  style= {{whiteSpace: "pre"}} font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" font-size="72" font-weight="bold" letter-spacing="0em"><tspan x="3" y="69.6094">SPIKEHUB</tspan></text>
+                </svg>
+
                 <h1 className = "title">SPIKE HUB</h1>
                 <h2 className = "subtitle">Be Your New Favorite Mashup</h2>
             </div>
