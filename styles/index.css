@@ -164,22 +164,24 @@ a:hover #arrowLine{
 .header-svg{
     display:block;
     margin:auto;
+    width: 404px;
+    height:140px;
     filter: drop-shadow(2px 2px 2px rgba(0,0,0,.3));
     padding:40px;
 }
 
-#svgTitle{
+.svg-title{
     transform: translateY(43px) scale(1,.01);
     transition:.65s;
 }
 
-#svgSubtitle{
+.svg-subtitle{
     opacity:0;
     transition: 2s;
 }
 
 .title-animate-in{
-    transform:scale(1,1) !important;
+    transform:scale(1,1);
 }
 
 
@@ -1379,12 +1381,24 @@ label{
     }
 }
 
+@media (max-width: 500px){
+    .header-svg{
+        width:333px;
+        height: 116px;
+    }
+}
+
 @media (max-width: 435px){
-    .title{
+    /* .title{
         font-size:55px;
     }
     .title:after, .title:before{
         width:270px;
+    } */
+
+    .header-svg{
+        width:289px;
+        height: 100px;
     }
 
 
@@ -1395,7 +1409,7 @@ label{
     }
 
     .content{
-        top:-325px;
+        top:-345px;
     }
 
     .players-fullheight{
@@ -1447,5 +1461,5 @@ label{
 }
 
 .full-opacity{
-    opacity:1 !important
+    opacity:1;
 }
