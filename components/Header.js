@@ -9,8 +9,9 @@ export class header extends Component {
 
     componentDidMount() {
 
-        //animate (separate function?)
-        const [topLine, botLine] = Array.from(document.querySelectorAll(".border-line"));
+        //animation (doesn't work on iphone ???)
+
+        /*const [topLine, botLine] = Array.from(document.querySelectorAll(".border-line"));
 
         let topY1 = parseFloat(topLine.getAttribute("y1"));
         let topY2 = parseFloat(topLine.getAttribute("y1"));
@@ -37,7 +38,7 @@ export class header extends Component {
         }
         ,10)
     
-        document.querySelector(".svg-title").classList.add("title-animate-in")
+        document.querySelector(".svg-title").classList.add("title-animate-in")*/
 
     }
 
@@ -87,12 +88,12 @@ export class header extends Component {
                 <div className = "color-overlay">
                 </div>
                 
-                <svg  viewBox="0 0 350 121" fill="none" className = "header-svg">
+                <svg  viewBox="0 0 350 121" fill="none" className = "header-svg" xmlns="http://www.w3.org/2000/svg">
                     <rect width="349" height="121" fill="none"/>
                     <line className = "border-line" x1="3" y1="43.5" x2="346" y2="43.5" stroke="white" stroke-width="3"/>
                     <line className = "border-line" x1="3" y1="43.5" x2="346" y2="43.5" stroke="white" stroke-width="3"/>
-                    <text className = "svg-subtitle" fill="white" style={{whiteSpace: "pre"}} font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" font-size="20" font-weight="bold" letter-spacing="0em"><tspan x="39" y="115.336">Be Your New Favorite Mashup</tspan></text>
-                    <text className = "svg-title" fill="white"  style= {{whiteSpace: "pre"}} font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" font-size="72" font-weight="bold" letter-spacing="0em"><tspan x="3" y="69.6094">SPIKEHUB</tspan></text>
+                    <text className = "svg-subtitle" fill="white" style={{whiteSpace: "pre"}} font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" fontSize="20" fontWeight="bold" letterSpacing="0em"><tspan x="39" y="115.336">Be Your New Favorite Mashup</tspan></text>
+                    <text className = "svg-title" fill="white"  style= {{whiteSpace: "pre"}} font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" fontSize="72" fontWeight="bold" letterSpacing="0em"><tspan x="3" y="69.6094">SPIKEHUB</tspan></text>
                 </svg>
 
                 <h1 className = "title">SPIKE HUB</h1>
