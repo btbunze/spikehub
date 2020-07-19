@@ -1447,6 +1447,11 @@ label{
         max-height:calc(100vh - 35px);
         padding-bottom:5 px;
     }
+
+    /*change to be more versatile*/
+    .animate-width-80{
+        width:90%;
+    }
 }
 
 

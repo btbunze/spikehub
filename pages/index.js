@@ -337,7 +337,8 @@ export class Home extends Component {
       if(([this.state.loginOverlayOpen,this.state.tourneyFormOpen,this.state.playerFormOpen].some((elt) => elt))){
         html.style.overflow = "hidden";
       }else{
-        html.style.overflow = "scroll"
+        html.style["overflow-y"] = "scroll"
+
       }
     }catch{
 
