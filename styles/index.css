@@ -235,7 +235,6 @@ a:hover #arrowLine{
 
 .footer{
     position:relative;
-    z-index:1;
     height:500px;
     width:100%;
     background: #e5e5e5 url("../public/rep-dot.png");
