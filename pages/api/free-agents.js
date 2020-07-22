@@ -30,6 +30,9 @@ handler.delete(async (req, res) =>{
   let playerID = req.body._id
 
   let doc = await req.db.collection("players").deleteOne({"_id": ObjectId(playerID)})
+
+  console.log(doc)
+  
   res.send(JSON.stringify(doc))
 
 })

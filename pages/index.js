@@ -1,9 +1,7 @@
 
 import React, { Component } from 'react'
 import {fetchUser} from "../utils/user"
-import auth0 from "../utils/auth0"
 import fetch from 'isomorphic-unfetch'
-
 
 import PlayerCard from "../components/PlayerCard"
 import AddPlayerCard from "../components/AddPlayerCard"
@@ -78,8 +76,6 @@ export class Home extends Component {
 
   }
 
-
-
   selectTourney = (e, id) =>{
     const target = e.currentTarget;
     const tCards = document.getElementsByClassName('tourney-card')
@@ -96,8 +92,6 @@ export class Home extends Component {
 
     const selected = this.state.tournaments.find((tournament) => tournament._id == id)
 
-
-
     let grid = document.getElementsByClassName("grid")[0];
     grid.classList.add("grid-no-transition");
     grid.style.left = "0px"
@@ -112,9 +106,6 @@ export class Home extends Component {
         tiContainer.classList.add("tourney-info-mode")
       }
     )
-
-    
-
   }
 
   togglePlayerDisplay = (e) => {
@@ -122,8 +113,6 @@ export class Home extends Component {
       this.toggleAddPlayerForm()
 
     }
-
-
 
     this.setState({displayPlayers: !this.state.displayPlayers}, () =>{
 
@@ -137,10 +126,6 @@ export class Home extends Component {
         
         let canScrollTo = document.getElementsByClassName("canScrollTo")[0];
         canScrollTo.classList.toggle("visible")
-        if(this.state.displayPlayers){
-         // canScrollTo.scrollIntoView(true)
-        }
-
       }
     )
 
@@ -249,7 +234,6 @@ export class Home extends Component {
       return;
     }
 
-
     await fetch('/api/free-agents', {
       method: 'PUT',
       headers: {
@@ -259,7 +243,6 @@ export class Home extends Component {
     })
 
     this.setState((prevState) => ({players: [...prevState.players, newPlayer]}))
-
     this.toggleAddPlayerForm()
   }
 
@@ -289,13 +272,15 @@ export class Home extends Component {
   }
 
   deletePlayer = async (delPlayer) => {
-    await fetch('/api/free-agents', {
+    const del = await fetch('/api/free-agents', {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(delPlayer)
-    })
+    }).then((res) => console.log(res.body))
+
+
 
     this.setState((prevState) => ({players: prevState.players.filter((player) =>
        player != delPlayer 
@@ -305,6 +290,7 @@ export class Home extends Component {
   deleteTourney = async (e, delTourney) => {
     e.stopPropagation()
     this.closeInfo(e)
+
     await fetch('/api/tournaments', {
       method: "DELETE",
       headers: {
@@ -316,21 +302,14 @@ export class Home extends Component {
     this.setState((prevState) => ({tournaments: prevState.tournaments.filter((tourney) =>
       tourney != delTourney
     )}))
-    
-
   }
-
-  getUser = async () => {
-    const userState = await fetchUser();
-    const session = await fetch('/api/me')
-  }
-
-
 
   render() {
     let tourneyInfo = null;
     let playerCards = null;
 
+
+    //Disable scrolling if overlay is open
     let html = null
     try{
       html = document.querySelector("html");
@@ -338,12 +317,10 @@ export class Home extends Component {
         html.style.overflow = "hidden";
       }else{
         html.style["overflow-y"] = "scroll"
-
       }
     }catch{
-
+      //
     }
-
 
     if(this.state.displayInfo){
       tourneyInfo = (<TourneyInfo tournament = {this.state.selectedTournament} togglePlayerDisplay = {this.togglePlayerDisplay} closeInfo = {this.closeInfo}/>)
@@ -376,8 +353,7 @@ export class Home extends Component {
       //filter according to search query
       if(this.state.playerQuery != "") players = players.filter((player) => player.name.includes(this.state.playerQuery))
 
-
-      //return a player card for each free agent attending this tournament 
+      //render a player card for each free agent for this tournament 
       playerCards = (
         <div className = "card-container player-grid">
           <AddPlayerCard onClick = {this.toggleAddPlayerForm} submit = {this.submitPlayer} formOpen = {this.state.addPlayerForm}/>

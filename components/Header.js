@@ -70,7 +70,7 @@ export class header extends Component {
                                 <span className = "login-text">Please login or sign up</span>
                                 <a href = "/api/login" className = "login-button">
                                     <p className = "login-button-text">Login 
-                                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" class = "arrow-svg">
+                                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" className = "arrow-svg">
                                         <g id="arrowMain">
                                             <line id="arrowLine" y1="5.5" x2="10" y2="5.5" stroke="white"/>
                                             <path id="arrow" d="M9.57799 5.5L5 0.746881L5.71936 0L10.806 5.28124L11 5.5L10.806 5.71876L5.71936 11L5 10.2531L9.57799 5.5Z" fill="white"/>
@@ -90,8 +90,8 @@ export class header extends Component {
                 
                 <svg  viewBox="0 0 350 121" fill="none" className = "header-svg" xmlns="http://www.w3.org/2000/svg">
                     <rect width="349" height="121" fill="none"/>
-                    <line className = "border-line" x1="3" y1="43.5" x2="346" y2="43.5" stroke="white" stroke-width="3"/>
-                    <line className = "border-line" x1="3" y1="43.5" x2="346" y2="43.5" stroke="white" stroke-width="3"/>
+                    <line className = "border-line" x1="3" y1="43.5" x2="346" y2="43.5" stroke="white" strokeWidth="3"/>
+                    <line className = "border-line" x1="3" y1="43.5" x2="346" y2="43.5" stroke="white" strokeWidth="3"/>
                     <text className = "svg-subtitle" fill="white" style={{whiteSpace: "pre"}} font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" fontSize="20" fontWeight="bold" letterSpacing="0em"><tspan x="39" y="115.336">Be Your New Favorite Mashup</tspan></text>
                     <text className = "svg-title" fill="white"  style= {{whiteSpace: "pre"}} font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" fontSize="72" fontWeight="bold" letterSpacing="0em"><tspan x="3" y="69.6094">SPIKEHUB</tspan></text>
                 </svg>

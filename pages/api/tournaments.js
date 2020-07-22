@@ -42,6 +42,7 @@ handler.delete(async (req, res) =>{
         if(err) throw err
     })
 
+
     res.send(JSON.stringify(doc))
   
 })

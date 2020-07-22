@@ -1,42 +1,42 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PlayerCard from "../components/PlayerCard"
 
 
 
 export default function profile() {
 
-
+    const [player, setPlayer] = useState({name: "Ben Bunze", rpr: "5.0", location: "Fuquay-Varina", selfDesc: "Hey, I'm Ben, and I'm from Fuquay. I've been playing Spikeball for about 6 years now, and I've been premier since it started. Looking to play a bunch of mashups this season, so hit me up if you want to run one!", contact: "919-586-4076", img: "https://res.cloudinary.com/dicfhqxoo/image/upload/v1594401736/profile-pics/benpic_ity2uo.jpg"})
 
     return (
         <>
             <div className = "profile-content">
                 <div className = "card-container">
-                    <PlayerCard player = {{img: "https://res.cloudinary.com/dicfhqxoo/image/upload/v1594401736/profile-pics/benpic_ity2uo.jpg", selfDesc: 'yee'}}deletePlayer = {null}/>   
+                    <PlayerCard player = {player} deletePlayer = {null}/>   
                     <div className = "ydp-container">
                         <h3 className ="ydp-text">Your Default Player</h3>
                     </div>
 
                 </div>
-                <h1 className = "profile-header">Benjamin Bunze</h1>
+                <h1 className = "profile-header">{player.name} - Profile</h1>
                 <button className = "profile-edit-button">Edit</button>
                 <div className = "profile-info">
                     <h2 className = "profile-section-header">General Info</h2>
                     <div className = "gen-info-grid">
                         <div className = "gen-info-tile">
                             <h3 className = "tile-title">Name</h3>
-                            <p className = "tile-content">Ben Bunze</p>
+                            <p className = "tile-content">{player.name}</p>
                         </div>
                         <div className = "gen-info-tile">
                             <h3 className = "tile-title">RPR</h3>
-                            <p className = "tile-content">5.0</p>
+                            <p className = "tile-content">{player.rpr}</p>
                         </div>
                         <div className = "gen-info-tile">
                             <h3 className = "tile-title">Hometown</h3>
-                            <p className = "tile-content">Fuquay-Varina</p>
+                            <p className = "tile-content">{player.location}</p>
                         </div>
                         <div className = "gen-info-tile" style = {{gridColumn: "span 3"}}>
                             <h3 className = "tile-title">Bio</h3>
-                            <p className = "tile-content">Hey, I'm Ben, and I'm from Fuquay. I've been playing Spikeball for about 6 years now, and I've been premier since its inception. My partner (Connor Harte) and I are splitting up for the season, so I'm looking to mash up a lot!</p>
+                            <p className = "tile-content">{player.selfDesc}</p>
                         </div>
                     </div>
                 </div>
@@ -54,16 +54,19 @@ export default function profile() {
                             <td>3rd</td>
                         </tr>
                         <tr>
-                            <td>RVA Goes Coastal</td>
-                            <td>Tommy Drake</td>
-                            <td>3rd</td>
+                            <td>Placeholder</td>
+                            <td>Placeholder</td>
+                            <td>nth</td>
                         </tr>
                         <tr>
-                            <td>RVA Goes Coastal</td>
-                            <td>Tommy Drake</td>
-                            <td>3rd</td>
+                            <td>Placeholder</td>
+                            <td>Placeholder</td>
+                            <td>nth</td>
                         </tr>
                     </table>
+                    <button className = "add-entry">
+                       ADD ENTRY
+                    </button>
                 </div>
                 <div className = "profile-info">
                     <h2 className = "profile-section-header">Previous Teams</h2>
@@ -87,6 +90,9 @@ export default function profile() {
                         </tr>
 
                     </table>
+                    <button className = "add-entry">
+                        ADD ENTRY
+                    </button>
                 </div>
             </div>
 

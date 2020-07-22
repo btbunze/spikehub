@@ -41,9 +41,17 @@ export class TourneyCard extends Component {
 
     }
 
+    getMonthText(dateString){
+        const monthNum = dateString.split('-').map((curr) => parseInt(curr))[1]
+
+        const monthText =["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."][monthNum-1]
+
+        return monthText
+    }
+
+
 
     render() {
-
 
         return (
             <div className = "tourney-card" onClick = {(e) => this.props.handleClick(e, this.props.tournament._id)}>
@@ -58,7 +66,9 @@ export class TourneyCard extends Component {
                 </button>
                 ): null
                 }
-
+                <div className = "date-bubble">
+                    <span>{this.getMonthText(this.props.tournament.date)}<br/> <span className = "date-num">{this.props.tournament.date.split("-")[2]}</span></span>
+                </div>
                 <img src = { ("img" in this.props.tournament) ? this.props.tournament.img : "/trophy.png"} className = "tourney-img"></img>
                 <div className = "tourney-infobar">
                     <div className = "infobar-left">
