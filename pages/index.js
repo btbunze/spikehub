@@ -39,6 +39,7 @@ export class Home extends Component {
       tourneyFormOpen: false,
       playerFormOpen:false,
       loginOverlayOpen:false,
+      loginOverlayText:"",
       divisionSelect: "all",
       sort: "name.fwd",
       playerQuery: "",
@@ -184,9 +185,13 @@ export class Home extends Component {
       this.setState({playerFormOpen: !this.state.playerFormOpen})
     }
     else{
-      this.setState({loginOverlayOpen: !this.state.loginOverlayOpen})
+      this.toggleLoginOverlay("add players.")
     }
 
+  }
+
+  toggleLoginOverlay = (text = "") => {
+    this.setState({loginOverlayOpen: !this.state.loginOverlayOpen, loginOverlayText: text})
   }
 
   submitPlayer = async (imgLocation) => {
@@ -304,6 +309,8 @@ export class Home extends Component {
     )}))
   }
 
+
+
   render() {
     let tourneyInfo = null;
     let playerCards = null;
@@ -358,7 +365,7 @@ export class Home extends Component {
         <div className = "card-container player-grid">
           <AddPlayerCard onClick = {this.toggleAddPlayerForm} submit = {this.submitPlayer} formOpen = {this.state.addPlayerForm}/>
           {players.map((player) =>{
-            return (<PlayerCard player = {player} deletePlayer = {this.deletePlayer}/>)
+            return (<PlayerCard player = {player} deletePlayer = {this.deletePlayer} toggleLoginOverlay = {this.toggleLoginOverlay}/>)
           })}
         </div>
       )
@@ -401,7 +408,8 @@ export class Home extends Component {
         <InfoSection></InfoSection>
         {this.state.loginOverlayOpen ? (<Overlay 
                                         type = "loginPrompt"
-                                        onClick = {() => this.setState({loginOverlayOpen: false})}
+                                        text = {this.state.loginOverlayText}
+                                        onClick = {this.toggleLoginOverlay}
                                       />) : null }
         {this.state.tourneyFormOpen ? (<Overlay 
                                         type = "addTournament" 

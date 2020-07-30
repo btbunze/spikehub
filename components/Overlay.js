@@ -51,7 +51,7 @@ export class Overlay extends Component {
         if(this.props.type == "loginPrompt"){
             overlayRender = (
                 <>
-                    <h2 className = "form-title">Login or sign up to <br/> add players</h2>
+                    <h2 className = "form-title">Login or sign up to <br/> {this.props.text}</h2>
                     <button className = "add-player-button" onClick = {this.props.onClick}>Cancel</button>
                     <a href = "/api/login" style = {{marginLeft:"25px"}}>
                         <button  className = "add-player-button">Login</button>  

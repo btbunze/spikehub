@@ -14,8 +14,9 @@ handler.get(async (req, res) =>{
     let doc = await req.db.collection("tournaments").find().toArray()
     let sortedDoc = doc.filter((tourney) => {
                         const today = new Date()
+                        //breaks on dates < 10?
                         const todayDate = `${today.getFullYear()}-${today.getMonth()+1 >= 10 ? today.getMonth()+1 : "0" + (today.getMonth() + 1)}-${today.getDate()}`
-                        return tourney.regEndDate > todayDate
+                        return tourney.date > todayDate
                     }).sort((a,b) => {
                         return a.name > b.name ? 1:-1
                     }).sort((a,b) => {

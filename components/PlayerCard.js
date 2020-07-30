@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {fetchUser} from "../utils/user"
-import { HighlightSpanKind } from 'typescript';
+
 
 
 export class PlayerCard extends Component {
@@ -9,6 +9,7 @@ export class PlayerCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: true,
             canDelete: false,
             seeMore:false
         };
@@ -50,14 +51,37 @@ export class PlayerCard extends Component {
         this.setState({seeMore: !this.state.seeMore})
     }
 
+    toProfile = async () => {
+        const user = await fetchUser();
+        if (user == null){
+            this.props.toggleLoginOverlay("see players' profiles.")
+        }
+        else{
+            window.location.href = `/profile?user=${this.props.player.creatorId}` 
+        }
+    }
+
     render() {
+
+        // if(this.props.player == null || Object.keys(this.props.player).length == 0){
+        //     return <></>
+        // }else{
+        //     console.log(this.props.player)
+        // }
+
         return (
             <div className = "player-card" onClick = {this.props.onClick}>
                 <div className = "pc-content ">
                     <img src = {this.props.player.img ? this.processImg() : "/default-prof-pic.png"} className = "prof-pic"></img>
-                    <h2 className = "pc-name">{this.props.player.name}</h2>
+                    <h2 className = "pc-name">{this.props.player.name ? this.props.player.name : "NAME"}</h2>
                     <h3 className = "pc-division">{this.props.player.division ? this.props.player.division : "Division"}</h3>
-                    <p className = "pc-desc">{}{this.props.player.selfDesc.length >=75 ? (<> {this.props.player.selfDesc.substring(0,64)}... <button style = {{position:"relative", zIndex: "2"}}onClick = {this.toggleMore}>See More</button></>): (this.props.player.selfDesc.substring(0,75))}</p>
+                    {this.props.player.selfDesc ? 
+                        <p className = "pc-desc">
+                            {this.props.player.selfDesc.length >=75 ? (<> {this.props.player.selfDesc.substring(0,64)}...</>): (this.props.player.selfDesc.substring(0,75))} 
+                            {this.props.player.creatorId ? <button style = {{position:"relative", zIndex: "2"}}onClick = {this.toProfile}>See More</button> : null}
+                        </p>:
+                        "bio"
+                    }
                 </div>
                 <div className = "button-section">
                     {this.state.canDelete ? (
@@ -69,7 +93,7 @@ export class PlayerCard extends Component {
                         <h3 style = {{margin:'auto', width: '100%',backgroundColor: "#e5e5e5", padding:"7px", borderRadius:'5px'}}>
                             Contact: 
                             <p style = {{margin:"0px", fontSize:"11px"}}>
-                                {this.props.player.contact}
+                                {this.props.player.contact ? this.props.player.contact : "[Contact Info]"}
                             </p>
                         </h3>
                     )                    
