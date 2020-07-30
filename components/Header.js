@@ -64,7 +64,7 @@ export class header extends Component {
                                 </svg>
                                 </p>
                             </a>    
-                            <a href = {`/profile?user=${this.props.userObj.user.sub}`} className = "login-button">
+                            {/*<a href = {`/profile?user=${this.props.userObj.user.sub}`} className = "login-button">
                                 <p className = "login-button-text">Profile 
                                 <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" class = "arrow-svg">
                                     <g id="arrowMain">
@@ -73,7 +73,7 @@ export class header extends Component {
                                     </g>
                                 </svg>
                                 </p>
-                            </a> 
+                            </a> */}
                         </>
                         ):(
                             <>
