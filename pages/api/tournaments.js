@@ -15,9 +15,12 @@ handler.get(async (req, res) =>{
     let sortedDoc = doc.filter((tourney) => {
                         const today = new Date()
                         //breaks on dates < 10?
-                        const todayDate = `${today.getFullYear()}-${today.getMonth()+1 >= 10 ? today.getMonth()+1 : "0" + (today.getMonth() + 1)}-${today.getDate()}`
-                        return tourney.date > todayDate
-                    }).sort((a,b) => {
+                        const todayDate = `${today.getFullYear()}-${today.getMonth()+1 >= 10 ? today.getMonth()+1 : "0" + (today.getMonth() + 1)}-${today.getDate() >= 10 ? today.getDate() : "0" + today.getDate()}`
+                        console.log(todayDate);
+                        console.log(tourney.date)
+                        return tourney.date >= todayDate
+                    })
+                    .sort((a,b) => {
                         return a.name > b.name ? 1:-1
                     }).sort((a,b) => {
                         return a.date > b.date ? 1:-1
