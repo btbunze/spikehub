@@ -196,9 +196,6 @@ a:hover #arrowLine{
     padding:0px 10px;
 }
 
-.sm-screen{
-    display:none;
-}
 
 .title{
     display:block;
@@ -1329,12 +1326,6 @@ label{
         grid-column:span 2;
     }
 
-    .sm-screen{
-        display:block;
-    }
-    .lg-screen{
-        display:none;
-    }
 }
 
 
@@ -1361,7 +1352,11 @@ label{
 
 @media (max-width: 605px){
 
-
+    .login-text{
+        opacity:0;
+        width:0px;
+        height:0px;
+    }
 
     
     .tourney-container{
@@ -1434,14 +1429,30 @@ label{
         height: 116px;
     }
 
-    .login-text{
-        opacity:0;
-        width:0px;
-        height:0px;
-    }
+
 }
 
 @media (max-width: 435px){
+
+    .header-title{
+        font-size:25px;
+    }
+
+    .login-button{
+
+        width:64px;
+        height:30px;
+        padding:0px 10px;
+        background-color:#ea5e3d;
+        border-radius:15px;
+        text-decoration:none;
+        font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        margin:0px 5px;
+        transition: all .15s ease-in-out;
+        outline:none;
+        font-size:15px;
+    }
+
     .title{
         font-size:55px;
     }

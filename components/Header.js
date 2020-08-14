@@ -49,8 +49,8 @@ export class header extends Component {
         return (
             <div className = "header">
                 <div className = "login-status">
-                    <div style = {{padding: "10px 0px"}}><h1 className = "header-title lg-screen">SPIKEHUB</h1><h1 className = "header-title sm-screen">SH</h1></div>
-                    {this.props.userObj.user ? 
+                    <div style = {{padding: "10px 0px"}}><h1 className = "header-title"><a href = "http://localhost:3000" style = {{textDecoration: "none", color:"white"}}>SPIKEHUB</a></h1></div>
+                    {this.props.userObj.user ?
                         (
                         <>
                             <span className = "login-text">Logged in as <br></br><strong>{this.props.userObj.user.nickname}</strong></span>                
@@ -73,7 +73,7 @@ export class header extends Component {
                                     </g>
                                 </svg>
                                 </p>
-                            </a> */}
+                            </a>*/}
                         </>
                         ):(
                             <>

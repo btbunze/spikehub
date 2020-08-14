@@ -171,3 +171,32 @@ td{
     background-color:#333;
     border-radius:5px;
 }
+
+@media (max-width: 1075px){
+    .card-container{
+        display:none;
+    }
+
+    .profile-header{
+        grid-column:1/span 2;
+    }
+    .profile-edit-button{
+        grid-column:3/span 1;
+    }
+    .profile-info{
+        grid-column: 1/span 3;
+    }
+    .prof-pic-tile{
+        width:200px;
+        justify-self:center;
+    }
+
+
+
+}
+
+@media (max-width: 750px){
+    #tourneyTable, #teamTable{
+        display:none;
+    }
+}

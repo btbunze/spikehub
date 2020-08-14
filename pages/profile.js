@@ -233,7 +233,7 @@ export default class Profile extends Component {
                         </div>
     
                     </div>
-                    <h1 className = "profile-header">{this.state.player.name ? this.state.player.name : "Your Name"} - Profile</h1>
+                    <h1 className = "profile-header">{this.state.player.name ? this.state.player.name : "Player Name"} - Profile</h1>
                     
                     {this.state.isCurrUser ?
                         (<>{this.state.isEditing ? 
@@ -256,7 +256,7 @@ export default class Profile extends Component {
                                 {this.state.isEditing ? 
                                     <input className = "form-input" 
                                            value = {this.state.player.name}
-                                           placeholder = "Your Name"
+                                           placeholder = "Player Name"
                                            onChange = {(event) => this.handleChange(event, "name")}>
                                     </input> : 
                                     <p className = "tile-content">{this.state.player.name ? this.state.player.name : "[No Name]"}</p>
@@ -311,7 +311,7 @@ export default class Profile extends Component {
                     <div className = "profile-info">
                         <h2 className = "profile-section-header">Past Tournaments</h2>
                         <table id = "tourneyTable">
-                            <tr>
+                            <tr className = "table-head">
                                 <th>Tournament</th>
                                 <th>Partner</th>
                                 <th>Division</th>
@@ -338,7 +338,7 @@ export default class Profile extends Component {
                     <div className = "profile-info">
                         <h2 className = "profile-section-header">Previous Teams</h2>
                         <table id = "teamTable">
-                            <tr>
+                            <tr className = "table-head">
                                <th>Team Name</th>
                                 <th>Partner</th>
                                 <th>Duration</th>
