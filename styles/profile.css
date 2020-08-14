@@ -173,9 +173,6 @@ td{
 }
 
 @media (max-width: 1075px){
-    .card-container{
-        display:none;
-    }
 
     .profile-header{
         grid-column:1/span 2;

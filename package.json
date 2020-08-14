@@ -12,14 +12,14 @@
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "isomorphic-unfetch": "^3.0.0",
-    "mongodb": "^3.5.9",
+    "mongodb": "^3.6.0",
     "next": "9.4.4",
-    "next-connect": "^0.7.1",
+    "next-connect": "^0.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.7"
   },
   "devDependencies": {
-    "@types/react": "^16.9.41"
+    "@types/react": "^16.9.46"
   }
 }
