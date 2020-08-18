@@ -3,6 +3,7 @@ import fetch from 'isomorphic-unfetch'
 import {fetchUser} from "../utils/user"
 
 import PlayerCard from "../components/PlayerCard"
+import Overlay from "../components/Overlay"
 import { render } from 'react-dom'
 import { EndOfLineState } from 'typescript'
 
@@ -128,30 +129,48 @@ export default class Profile extends Component {
     }
 
     addPastTourney = () => {
-        const newRow = [
-            <input className = "form-input"></input>,
-            <input className = "form-input"></input>,
-            <input className = "form-input"></input>,
-            <input className = "form-input"></input>
-        ]
-
-        this.setState({tourneyTableRows: [...this.state.tourneyTableRows, newRow]})
         this.setState({isAddingTourney: true})
+        //check if mobile/low-width
+
+        if(window.innerWidth > 750){
+            const newRow = [
+                <input className = "form-input"></input>,
+                <input className = "form-input"></input>,
+                <input className = "form-input"></input>,
+                <input className = "form-input"></input>
+            ]
+    
+            this.setState({tourneyTableRows: [...this.state.tourneyTableRows, newRow]})
+        }
+
     }
 
     cancelPastTourney = () => {
-        this.setState({tourneyTableRows: this.state.tourneyTableRows.slice(0,-1)})
+        if(window.innerWidth > 750){
+            this.setState({tourneyTableRows: this.state.tourneyTableRows.slice(0,-1)})
+        }
         this.setState({isAddingTourney: false})
     }
 
     confirmPastTourney = async () => {
+        let newTourneyRows = this.state.tourneyTableRows
+        let newTourneyValues;
 
-        const tableRows = document.querySelector("#tourneyTable").children;
-        const lastRow = tableRows[tableRows.length-1];
-        const newTourneyValues = [... lastRow.children].map((elt) => elt.children[0].value)
-
-        let newTourneyRows = this.state.tourneyTableRows;
-        newTourneyRows[newTourneyRows.length-1] = newTourneyValues
+        if(window.innerWidth > 750){
+            const tableRows = document.querySelector("#tourneyTable").children;
+            const lastRow = tableRows[tableRows.length-1];
+            newTourneyValues = [... lastRow.children]
+            newTourneyValues.pop()
+            newTourneyValues = newTourneyValues.map((elt) => elt.children[0].value)
+    
+            newTourneyRows[newTourneyRows.length-1] = newTourneyValues
+        }
+        else{
+            //refactor this class name
+            const inputFields = document.getElementsByClassName("add-player-input");
+            newTourneyValues = Array.from(inputFields).map(elt => elt.value)
+            newTourneyRows.push(newTourneyValues)
+        }
 
         const user = await fetchUser()
 
@@ -174,31 +193,77 @@ export default class Profile extends Component {
         console.log(this.state.tourneyTableRows)
     }
 
+    deletePastTourney = async (event) => {
+        if(this.state.isAddingTourney){
+            return;
+        }
+
+        let currTourneys = this.state.tourneyTableRows
+        let delTourneyIndex = event.currentTarget.parentElement.parentElement.getAttribute("index")
+
+        let newTourneysArray = currTourneys.filter((element,index) => index !== parseInt(delTourneyIndex));
+        //create new array without deleted element
+        const user = await fetchUser()
+
+        //if user is null, redirect to 404
+        if(user == null){
+            return;
+        }
+
+        const response = await fetch('/api/user-metadata', {
+            method: "PATCH",
+            body: JSON.stringify({userId: user.sub, player: {pastTourneys: newTourneysArray}})
+        })
+
+        this.setState({tourneyTableRows: newTourneysArray})
+    }
+
     addPastTeam = () => {
-        const newRow = [
-            <input className = "form-input"></input>,
-            <input className = "form-input"></input>,
-            <input className = "form-input"></input>,
-            <input className = "form-input"></input>
-        ]
-        this.setState({teamTableRows: [...this.state.teamTableRows, newRow]})
+        if(window.innerWidth > 750){
+            const newRow = [
+                <input className = "form-input"></input>,
+                <input className = "form-input"></input>,
+                <input className = "form-input"></input>,
+                <input className = "form-input"></input>
+            ]
+            this.setState({teamTableRows: [...this.state.teamTableRows, newRow]})
+
+        }
+        else{
+
+        }
         this.setState({isAddingTeam: true})
     }
 
     cancelPastTeam = () => {
-        this.setState({teamTableRows: this.state.teamTableRows.slice(0,-1)})
+        if(window.innerWidth > 750){
+            this.setState({teamTableRows: this.state.teamTableRows.slice(0,-1)})
+        }
         this.setState({isAddingTeam: false})
     }
 
     confirmPastTeam = async () => {
-
-        const teamRows = document.querySelector("#teamTable").children;
-        const lastRow = teamRows[teamRows.length-1];
-
-        const newTeamValues = [... lastRow.children].map((elt) => elt.children[0].value)
-
+        let newTeamValues;
         let newTeamRows = this.state.teamTableRows;
-        newTeamRows[newTeamRows.length-1] = newTeamValues
+        if(window.innerWidth > 750){
+            const teamRows = document.querySelector("#teamTable").children;
+            const lastRow = teamRows[teamRows.length-1];
+    
+            newTeamValues = [... lastRow.children]
+            newTeamValues.pop()
+            newTeamValues = newTeamValues.map((elt) => elt.children[0].value)
+            newTeamRows[newTeamRows.length-1] = newTeamValues
+
+        }
+        else{
+            //refactor this class name
+            const inputFields = document.getElementsByClassName("add-player-input");
+            newTeamValues = Array.from(inputFields).map(elt => elt.value)
+            newTeamRows.push(newTeamValues)
+        }
+
+
+
 
         const user = await fetchUser()
 
@@ -216,6 +281,31 @@ export default class Profile extends Component {
         this.setState({isAddingTeam: false})
     }
 
+    deletePastTeam = async (event) => {
+        if(this.state.isAddingTeam){
+            return;
+        }
+
+        let currTeams = this.state.teamTableRows
+        let delTeamIndex = event.currentTarget.parentElement.parentElement.getAttribute("index")
+
+        let newTeamsArray = currTeams.filter((element,index) => index !== parseInt(delTeamIndex));
+        //create new array without deleted element
+        const user = await fetchUser()
+
+        //if user is null, redirect to 404
+        if(user == null){
+            return;
+        }
+
+        const response = await fetch('/api/user-metadata', {
+            method: "PATCH",
+            body: JSON.stringify({userId: user.sub, player: {pastTeams: newTeamsArray}})
+        })
+
+        this.setState({teamTableRows: newTeamsArray})
+    }
+
     //TODO: Componentize tiles
     //      Change input types to make more sense
     render (){
@@ -226,7 +316,7 @@ export default class Profile extends Component {
         return (
             <>
                 <div className = "profile-content">
-                    <div className = "card-container">
+                    <div className = "card-container hide-on-small">
                         <PlayerCard player = {this.state.player} deletePlayer = {null}/>
                         <div className = "ydp-container">
                             <h3 className ="ydp-text">Your Default Player</h3>
@@ -238,14 +328,14 @@ export default class Profile extends Component {
                     {this.state.isCurrUser ?
                         (<>{this.state.isEditing ? 
                         <div className = "profile-edit-button-container">
-                            <button className = "profile-edit-button" onClick = {this.updateUser}>Confirm</button>
+                            <button className = "profile-edit-button margin-right" onClick = {this.updateUser}>Confirm</button>
                             <button className = "profile-edit-button" onClick = {this.cancelUpdate}>Cancel</button>
                         </div>
                         :<button className = "profile-edit-button" onClick = {this.toggleEdit}>Edit</button>}</>)
                     : null}
                     
                     <div className = "profile-info">
-                        <h2 className = "profile-section-header">General Info</h2>
+                        {/*<h2 className = "profile-section-header">General Info</h2>*/}
                         <div className = "gen-info-grid">
                             <div className = "prof-pic-tile">
                                 {this.state.isEditing ? <button className = "choose-pic-button" onClick = {this.openWidget}>Change Picture</button>
@@ -295,7 +385,7 @@ export default class Profile extends Component {
                                     <p className = "tile-content">{this.state.player.hand ? this.state.player.hand : "[No Dominant Hand]"}</p>
                                 }
                             </div>
-                            <div className = "gen-info-tile" style = {{gridColumn: "span 3"}}>
+                            <div className = "gen-info-tile full-width" style = {{gridColumn: "1/-1"}}>
                                 <h3 className = "tile-title">Bio</h3>
                                 {this.state.isEditing ? 
                                     <input className = "form-input" 
@@ -316,12 +406,29 @@ export default class Profile extends Component {
                                 <th>Partner</th>
                                 <th>Division</th>
                                 <th>Result</th>
+                                <th>🗑</th>
                             </tr>
 
-                            {this.state.tourneyTableRows.map((row)=>{
+                            {this.state.tourneyTableRows.map((row,index)=>{
                                 console.log(row)
-                                return (<tr>
+                                return (<tr index = {index}>
                                     {row.map((cell) => <td>{cell}</td>)}
+                                    <td><button onClick = {this.deletePastTourney}>x</button></td>
+                                </tr>)
+                            })}
+                        </table>
+                        <table id = "tourneyTableMobile">
+                            <tr>
+                                <th>Tournament</th>
+                                <th>Result</th>
+                                <th>🗑</th>
+                            </tr>
+                            {this.state.tourneyTableRows.map((row, index)=>{
+                                console.log(row)
+                                return (<tr index = {index}>
+                                    <td>{row[0]}</td>
+                                    <td>{row[3]} in {row[2]} division</td>
+                                    <td> <button onClick = {this.deletePastTourney}>x</button> </td>
                                 </tr>)
                             })}
                         </table>
@@ -342,11 +449,28 @@ export default class Profile extends Component {
                                <th>Team Name</th>
                                 <th>Partner</th>
                                 <th>Duration</th>
-                                <th>Notes</th>   
+                                <th>Notes</th>
+                                <th>🗑</th>
                             </tr>
-                            {this.state.teamTableRows.map((row)=>{
-                                return (<tr>
+                            {this.state.teamTableRows.map((row,index)=>{
+                                return (<tr index = {index}>
                                     {row.map((cell) => <td>{cell}</td>)}
+                                    <td> <button onClick = {this.deletePastTeam}>x</button> </td>
+                                </tr>)
+                            })}
+                        </table>
+                        <table id = "teamTableMobile">
+                            <tr>
+                                <th>Team Name</th>
+                                <th>Partner</th>
+                                <th>🗑</th>
+                            </tr>
+                            {this.state.teamTableRows.map((row,index)=>{
+                                console.log(row)
+                                return (<tr index = {index}>
+                                    <td>{row[0]}</td>
+                                    <td>{row[1]} </td>
+                                    <td><button onClick = {this.deletePastTeam}> x </button></td>
                                 </tr>)
                             })}
                         </table>
@@ -361,8 +485,22 @@ export default class Profile extends Component {
                         :null}
                     </div>
                 </div>
-    
-    
+                {this.state.isAddingTourney ? 
+                                        (window.innerWidth <= 750 ?
+                                            (<Overlay 
+                                            type = "addPastTournament"
+                                            onClick = {this.cancelPastTourney}
+                                            submit = {this.confirmPastTourney}
+                                            />) : null )
+                                        :null}
+                {this.state.isAddingTeam ? 
+                                    (window.innerWidth <= 750 ?
+                                        (<Overlay 
+                                        type = "addPastTeam"
+                                        onClick = {this.cancelPastTeam}
+                                        submit = {this.confirmPastTeam}
+                                        />) : null )
+                                    :null}
     
             </>
     

@@ -10,6 +10,7 @@ import TourneyInfo from "../components/TourneyInfo"
 import Overlay from "../components/Overlay"
 import SearchBar from "../components/SearchBar"
 import InfoSection from "../components/InfoSection"
+import { isBlock } from 'typescript'
 
 export class Home extends Component {
 
@@ -182,7 +183,9 @@ export class Home extends Component {
   toggleAddPlayerForm = () => {
 
     if(this.props.userObj.user){
+      this.setState({defaultPlayerPrompt: !this.state.playerFormOpen})
       this.setState({playerFormOpen: !this.state.playerFormOpen})
+      
     }
     else{
       this.toggleLoginOverlay("add players.")
@@ -233,6 +236,63 @@ export class Home extends Component {
       inputFields[2].classList.add("invalid-input")
     }else{
       inputFields[2].classList.remove("invalid-input")
+    }
+
+    if(invalidInputs){
+      return;
+    }
+
+    await fetch('/api/free-agents', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newPlayer),
+    })
+
+    this.setState((prevState) => ({players: [...prevState.players, newPlayer]}))
+    this.toggleAddPlayerForm()
+  }
+
+  submitDefaultPlayer = async () => {
+    const inputFields = document.getElementsByClassName("add-player-input");
+    const user = await fetchUser();
+    //get user metadata
+    const response = await fetch('/api/user-metadata',{
+      method: "PUT",
+      body: JSON.stringify({
+          userId: user.sub
+      })
+    })
+
+    const meta = await response.json()
+    console.log(meta)
+
+    const newPlayer = {
+      name: meta.name,
+      division: inputFields[0].value,
+      contact: meta.contact, 
+      selfDesc: meta.selfDesc,
+      tournamentId: this.state.selectedTournament._id,
+      creatorId: user.sub,
+      img: meta.img
+    }
+
+    let invalidInputs = false;
+
+    if(newPlayer.name == undefined || newPlayer.name == "" || newPlayer.contact == undefined || newPlayer.contact == ""){
+      invalidInputs = true
+      console.log(document.querySelectorAll(".profile-error-message"))
+      document.querySelectorAll(".profile-error-message")[0].classList.remove("hidden")
+    }else{
+      document.querySelectorAll(".profile-error-message")[0].classList.add("hidden")
+    }
+
+    if(newPlayer.division == ""){
+      invalidInputs = true
+      inputFields[0].classList.add("invalid-input")
+    }else{
+      inputFields[0].classList.remove("invalid-input")
     }
 
     if(invalidInputs){
@@ -416,12 +476,21 @@ export class Home extends Component {
                                         onClick = {() => this.setState({tourneyFormOpen: false})} 
                                         submit = {this.submitTourney}
                                       />) : null}
-        {this.state.playerFormOpen ? (<Overlay
+        {this.state.playerFormOpen ? 
+          (this.state.defaultPlayerPrompt ?
+                                      (<Overlay
+                                        type = "defaultPlayer"
+                                        onClick = {() => this.setState({defaultPlayerPrompt: false})}
+                                        submit = {this.submitDefaultPlayer}
+                                        divisions = {this.state.selectedTournament.divisions}
+                                      />)
+                                      :(<Overlay
                                         type = "addPlayer" 
-                                        onClick = {() => this.setState({playerFormOpen: false})} 
+                                        onClick = {/*() => this.setState({playerFormOpen: false})*/this.toggleAddPlayerForm} 
                                         submit = {this.submitPlayer}
                                         divisions = {this.state.selectedTournament.divisions}
-                                      />) : null}
+                                      />))
+                                    : null}
       </>
     )
   

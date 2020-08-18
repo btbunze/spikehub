@@ -5,10 +5,28 @@ export class header extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            user: {}
+        }
     }
 
-    componentDidMount() {
-        console.log(this.props.userObj.user)
+    async componentDidMount() {
+        const currUser = await fetchUser();
+        this.setState({user: currUser})
+
+        if(currUser == null){
+            return;
+        }
+
+        const response = await fetch('/api/user-metadata',{
+            method: "PUT",
+            body: JSON.stringify({
+                userId: currUser.sub
+            })
+        })
+
+        const meta = await response.json()
+        this.setState({user: meta})
         //animation (doesn't work on iphone ???)
 
         /*const [topLine, botLine] = Array.from(document.querySelectorAll(".border-line"));
@@ -53,7 +71,7 @@ export class header extends Component {
                     {this.props.userObj.user ?
                         (
                         <>
-                            <span className = "login-text">Logged in as <br></br><strong>{this.props.userObj.user.nickname}</strong></span>                
+                            <span className = "login-text">{this.state.user.name ? <>Logged in as <br></br><strong>{this.state.user.name}</strong></> : "Logged in"}</span>            
                             <a href = "/api/logout" className = "login-button">
                                 <p className = "login-button-text">Logout 
                                 <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" class = "arrow-svg">
@@ -64,7 +82,7 @@ export class header extends Component {
                                 </svg>
                                 </p>
                             </a>    
-                            {/*<a href = {`/profile?user=${this.props.userObj.user.sub}`} className = "login-button">
+                            <a href = {`/profile?user=${this.props.userObj.user.sub}`} className = "login-button">
                                 <p className = "login-button-text">Profile 
                                 <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" class = "arrow-svg">
                                     <g id="arrowMain">
@@ -73,11 +91,11 @@ export class header extends Component {
                                     </g>
                                 </svg>
                                 </p>
-                            </a>*/}
+                            </a>
                         </>
                         ):(
                             <>
-                                <span className = "login-text" style = {{display:"inline-block", width:"165px"}}>Please login or sign up</span>
+                                <span className = "login-text">Please login or sign up</span>
                                 <a href = "/api/login" className = "login-button">
                                     <p className = "login-button-text">Login 
                                     <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" className = "arrow-svg">

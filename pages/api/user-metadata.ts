@@ -64,5 +64,15 @@ export default async function updateUser(req, res) {
         }
     }
 
+    // if(req.method == "DELETE"){
+    //     try{
+    //         const url = `https://dev-eu9734vc.us.auth0.com/api/v2/users/${userId}`
+    //     }
+    //     catch(error){
+    //         console.error(error);
+    //         res.status(error.status || 500).end(error.message)
+    //     }
+
+    // }
 
 }

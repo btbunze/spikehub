@@ -116,7 +116,6 @@
     height:100%;
     border-radius:10px;
     grid-row: span 1;
-    grid-column:span 1;
     background-color:#ffffff;
     box-shadow: 0px 2px 5px rgba(0,0,0,.3);
     text-align:center;
@@ -140,6 +139,11 @@ table{
     border-spacing:1px;
     font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
+
+#tourneyTableMobile,#teamTableMobile{
+    display:none;
+}
+
 tr{
     height:40px;
 }
@@ -160,6 +164,7 @@ th{
 td{
     padding:10px;
     text-align:center;
+    width:minmax(fit-content, 100%);
 }
 
 .add-entry{
@@ -172,28 +177,103 @@ td{
     border-radius:5px;
 }
 
+/* utility*/
+.margin-right{
+    margin-right:10px;
+}
+
+
 @media (max-width: 1075px){
 
     .profile-header{
         grid-column:1/span 2;
     }
     .profile-edit-button{
-        grid-column:3/span 1;
+        grid-column:span 1;
     }
     .profile-info{
-        grid-column: 1/span 3;
+        grid-column: 1/-1;
     }
     .prof-pic-tile{
         width:200px;
         justify-self:center;
     }
 
-
+    .hide-on-small{
+        display:none;
+    }
 
 }
 
 @media (max-width: 750px){
     #tourneyTable, #teamTable{
         display:none;
+    }
+    #tourneyTableMobile, #teamTableMobile{
+        display:table;
+    }
+}
+
+@media (max-width: 650px){
+    .gen-info-grid{
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 90px 90px;
+    }
+}
+
+@media (max-width: 500px){
+    .profile-content{
+        grid-template-columns: 3fr 2fr;
+    }
+    
+    .profile-header{
+        font-size:20px;
+        grid-column:span 1;
+    }
+    
+    .profile-edit-button{
+        height:25px;
+        width:65px;
+        font-size:14px;
+    }
+    .margin-right{
+        margin-right:2px;
+    }
+    
+    th{
+        font-size:14px;
+    }
+    td{
+        font-size:11px;
+    }
+
+    .gen-info-grid{
+        grid-gap:10px;
+    }
+
+    .prof-pic-tile{
+        grid-column: 1/span 2;
+        width: 190px;
+    }
+}
+
+@media (max-width: 435px){
+    .profile-content{
+        top: -75px;
+    }
+}
+
+@media (max-width: 420px){
+    .gen-info-grid{
+        padding:5px 0px;
+    }
+    .gen-info-tile h3{
+        font-size:16px;
+    }
+    .gen-info-tile p{
+        font-size:12px;
+    }
+    .profile-info{
+        padding:12px;
     }
 }

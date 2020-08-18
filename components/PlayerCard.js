@@ -77,8 +77,8 @@ export class PlayerCard extends Component {
                     <h3 className = "pc-division">{this.props.player.division ? this.props.player.division : "Division"}</h3>
                     {this.props.player.selfDesc ? 
                         <p className = "pc-desc">
-                            {this.props.player.selfDesc.length >=75 ? (<> {this.props.player.selfDesc.substring(0,61)}...{this.props.player.creatorId ? <button style = {{position:"relative", zIndex: "2"}} onClick = {this.toggleMore}>See More</button> : null}</>) : (this.props.player.selfDesc.substring(0,75))} 
-                            {/*this.props.player.creatorId ? <button style = {{position:"relative", zIndex: "2"}} onClick = {this.toggleMore}>See More</button> : null*/}
+                            {this.props.player.selfDesc.length >=75 ? (<> {this.props.player.selfDesc.substring(0,61)}...</>) : (this.props.player.selfDesc.substring(0,75))} 
+                            {this.props.player.creatorId ? <button style = {{position:"relative", zIndex: "2"}} onClick = {this.toProfile}>See More</button> : null}
                         </p>:
                         "bio"
                     }
