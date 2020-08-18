@@ -67,7 +67,7 @@ export class header extends Component {
         return (
             <div className = "header">
                 <div className = "login-status">
-                    <div style = {{padding: "10px 0px"}}><h1 className = "header-title"><a href = "http://localhost:3000" style = {{textDecoration: "none", color:"white"}}>SPIKEHUB</a></h1></div>
+                    <div style = {{padding: "10px 0px"}}><h1 className = "header-title"><a href = {process.env.baseUrl} style = {{textDecoration: "none", color:"white"}}>SPIKEHUB</a></h1></div>
                     {this.props.userObj.user ?
                         (
                         <>
