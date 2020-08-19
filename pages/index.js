@@ -275,7 +275,8 @@ export class Home extends Component {
       selfDesc: meta.selfDesc,
       tournamentId: this.state.selectedTournament._id,
       creatorId: user.sub,
-      img: meta.img
+      img: meta.img,
+      linkToProfile: true
     }
 
     let invalidInputs = false;
@@ -481,7 +482,7 @@ export class Home extends Component {
                                       (<Overlay
                                         type = "defaultPlayer"
                                         onClick = {() => this.setState({defaultPlayerPrompt: false})}
-                                        submit = {this.submitDefaultPlayer}
+                                        submit = {(event) => {console.log("clicked"); this.submitDefaultPlayer(event)}}
                                         divisions = {this.state.selectedTournament.divisions}
                                       />)
                                       :(<Overlay
