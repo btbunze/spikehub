@@ -51,6 +51,13 @@ export class Home extends Component {
 
   componentDidMount(){
     window.addEventListener("resize", this.maintainPageOnResize)
+
+    const params = new URLSearchParams(window.location.search)
+    if(params.has("t")){
+      let tournamentID = params.get("t")
+      this.selectTourney(null, tournamentID)
+    }
+
   }
 
   shiftTourneys = (direction) => {
@@ -78,17 +85,31 @@ export class Home extends Component {
 
   }
 
-  selectTourney = (e, id) =>{
-    const target = e.currentTarget;
+  selectTourney = (e = null, id) =>{
+    //CHANGE TO HAVE CLICKING A TOURNAMENT PUSH TO THE URL AND ONLY USE THE ID TO SELECT IT
+    let target;
+    if(e){
+      target = e.currentTarget;
+    }
+
     const tCards = document.getElementsByClassName('tourney-card')
 
     document.getElementsByClassName("page-changes")[0].classList.add("hidden")
 
     for (let card of tCards) {
-      if(card != target){
-        card.classList.add("hidden");
-      }else{
-        card.classList.add("selected-tourney-card")
+      if(target){
+        if(card != target){
+          card.classList.add("hidden");
+        }else{
+          card.classList.add("selected-tourney-card")
+        }
+      }
+      else{
+        if(card.id != id){
+          card.classList.add("hidden")  
+        }else{
+          card.classList.add("selected-tourney-card")
+        }
       }
     }
 

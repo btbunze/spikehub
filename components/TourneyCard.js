@@ -54,7 +54,7 @@ export class TourneyCard extends Component {
     render() {
 
         return (
-            <div className = "tourney-card" onClick = {(e) => this.props.handleClick(e, this.props.tournament._id)}>
+            <div className = "tourney-card" onClick = {(e) => this.props.handleClick(e, this.props.tournament._id)} id={this.props.tournament._id}>
                 {this.state.canDelete ? (
                 <button 
                     className = "delete-button" 
