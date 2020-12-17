@@ -85,8 +85,8 @@ export class Overlay extends Component {
                         <button className = "form-img-button" onClick = {this.openWidget}>Choose Image</button>
                         <span className = "selected-img-text">{this.state.selectedImg ? this.state.selectedImg.name : "No image selected"}</span>
                         <br/>
-                        <button className = "add-player-button " onClick = {this.props.onClick}>Cancel</button>
-                        <button className = "add-player-button " onClick = {() => {this.state.selectedImg ? this.props.submit(this.state.selectedImg.loc): this.props.submit(null)}}>Submit</button>
+                        <button className = "add-player-button" onClick = {this.props.onClick}>Cancel</button>
+                        <button className = "add-player-button" onClick = {() => {this.state.selectedImg ? this.props.submit(this.state.selectedImg.loc): this.props.submit(null)}}>Submit</button>
                     </>
                 )
                 break;

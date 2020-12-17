@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import BannerMessage from "../components/BannerMessage"
 import {fetchUser, useUser} from '../utils/user'
 
 export class header extends Component {
@@ -27,6 +28,11 @@ export class header extends Component {
 
         const meta = await response.json()
         this.setState({user: meta})
+
+        console.log("hi")
+        if(meta == {}||meta == null ){
+            console.log("hey")
+        }
         //animation (doesn't work on iphone ???)
 
         /*const [topLine, botLine] = Array.from(document.querySelectorAll(".border-line"));
@@ -111,7 +117,7 @@ export class header extends Component {
                     }
 
                 </div>
-
+                <BannerMessage message = "hey this is a message"></BannerMessage>
 
                 <div className = "color-overlay">
                 </div>

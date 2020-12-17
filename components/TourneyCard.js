@@ -3,6 +3,7 @@ import {fetchUser} from "../utils/user"
 import { isForOfStatement } from 'typescript';
 
 
+
 export class TourneyCard extends Component {
 
 
@@ -54,16 +55,16 @@ export class TourneyCard extends Component {
     render() {
 
         return (
-            <div className = "tourney-card" onClick = {(e) => this.props.handleClick(e, this.props.tournament._id)} id={this.props.tournament._id}>
+            <div className = "tourney-card" onClick = {(e) => this.props.handleClick(e, this.props.tournament._id)} id = {this.props.tournament._id}>
                 {this.state.canDelete ? (
-                <button 
-                    className = "delete-button" 
-                    onClick = {(e) => this.props.deleteTourney(e, this.props.tournament)} 
-                    onMouseEnter = {() => this.setState({deleteHover: true})}
-                    onMouseLeave = {() => this.setState({deleteHover: false})}
-                    >
-                        {this.state.deleteHover ? "DELETE" : "X"}
-                </button>
+                    <button 
+                        className = "delete-button" 
+                        onClick = {(e) => this.props.deleteTourney(e, this.props.tournament)} 
+                        onMouseEnter = {() => this.setState({deleteHover: true})}
+                        onMouseLeave = {() => this.setState({deleteHover: false})}
+                        >
+                            {this.state.deleteHover ? "DELETE" : "X"}
+                    </button>
                 ): null
                 }
                 <div className = "date-bubble">

@@ -11,11 +11,6 @@ import { EndOfLineState } from 'typescript'
 
 export default class Profile extends Component {
 
-    //static async getInitialProps() {
-
-    //}
-
-
     constructor(props){
         super(props)
         this.state = {
