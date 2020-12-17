@@ -117,7 +117,7 @@ export class header extends Component {
                     }
 
                 </div>
-                <BannerMessage message = "hey this is a message"></BannerMessage>
+                {/*<BannerMessage message = "hey this is a message"></BannerMessage>*/}
 
                 <div className = "color-overlay">
                 </div>
